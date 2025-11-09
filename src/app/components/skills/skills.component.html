@@ -1,29 +1,131 @@
-<section class="skills">
-    <div class="skills__myskills">
-        <h2  #sectionElement>Minhas Skills</h2>
-        <section class="skills__myskills__desc">
-            <div class="skills__myskills__desc__left" 
-                appIntersectionObserver
-                (isIntersecting)="onIntersection($event)"
-                [margemRaiz]="'10px'"
-                [limite]="[0.5]">
-                <h3>LINGUAGEM E FRAMEWORK</h3>
-                @for(ligs of linguagemSkills; track ligs.id){
-                    <div class="skills__myskills__desc__left__icons">
-                        <img class="skills__myskills__desc__left__icons__imgLeft" src="{{ligs.img}}" alt="{{ligs.description}}">
-                        <p>{{ligs.description}}</p>
+<section class="modern-skills" id="skills">
+  <div class="skills-header">
+    <h2 class="section-title">
+      <i class="fas fa-code"></i>
+      Minhas Habilidades
+    </h2>
+    <p class="section-subtitle">
+      Tecnologias e ferramentas que domino para criar soluções inovadoras
+    </p>
+  </div>
+
+  <!-- Category Filter -->
+  <div class="skills-filter">
+    <button 
+      class="filter-btn"
+      [class.active]="selectedCategory() === 'all'"
+      (click)="selectCategory('all')">
+      <i class="fas fa-layer-group"></i>
+      Todas
+    </button>
+    @for (category of skillCategories(); track category.tipo) {
+      <button 
+        class="filter-btn"
+        [class.active]="selectedCategory() === category.tipo"
+        (click)="selectCategory(category.tipo)">
+        <i [class]="category.icon"></i>
+        {{ category.titulo }}
+      </button>
+    }
+  </div>
+
+  <!-- Skills Grid -->
+  <div 
+    class="skills-container"
+    appIntersectionObserver
+    (isIntersecting)="onIntersection($event)"
+    [margemRaiz]="'50px'"
+    [limite]="[0.2]">
+    
+    @for (category of skillCategories(); track category.tipo) {
+      @if (selectedCategory() === 'all' || selectedCategory() === category.tipo) {
+        <div class="skills-category" [class.visible]="isVisible()">
+          <h3 class="category-title">
+            <i [class]="category.icon"></i>
+            {{ category.titulo }}
+          </h3>
+          <div class="skills-grid">
+            @for (skill of category.itens; track skill.id) {
+              <div class="skill-card" [attr.data-category]="category.tipo">
+                <div class="skill-icon">
+                  <i [class]="skill.icon" [style.color]="skill.color"></i>
+                  <div class="skill-glow" [style.background]="skill.color + '20'"></div>
+                </div>
+                <div class="skill-info">
+                  <h4 class="skill-name">{{ skill.description }}</h4>
+                  <div class="skill-level">
+                    <div class="level-bar">
+                      <div 
+                        class="level-fill" 
+                        [style.width.%]="getSkillLevelPercentage(skill.level)"
+                        [style.background]="skill.color">
+                      </div>
                     </div>
-                }
-            </div>
-            <div class="skills__myskills__desc__right">
-                <h3>SOFTWARE</h3>
-                @for(soft of softwareSkills; track soft.id){
-                    <div class="skills__myskills__desc__right__icons">
-                        <img class="skills__myskills__desc__right__icons__imgLeft" src="{{soft.img}}" alt="{{soft.description}}">
-                        <p>{{soft.description}}</p>
-                    </div>
-                }
-            </div>
-        </section>
+                    <span class="level-text">{{ getSkillLevelText(skill.level) }}</span>
+                  </div>
+                  @if (skill.details) {
+                    <p class="skill-details">{{ skill.details }}</p>
+                  }
+                </div>
+                <div class="skill-hover">
+                  <i [class]="skill.icon"></i>
+                  <span>{{ skill.level }}%</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Stats Section -->
+  <div class="skills-stats" [class.visible]="isVisible()">
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fas fa-code"></i>
+      </div>
+      <div class="stat-content">
+        <span class="stat-number">{{ languageSkills().length }}+</span>
+        <span class="stat-label">Linguagens</span>
+      </div>
     </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fas fa-layer-group"></i>
+      </div>
+      <div class="stat-content">
+        <span class="stat-number">{{ frameworkSkills().length }}+</span>
+        <span class="stat-label">Frameworks</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fas fa-cogs"></i>
+      </div>
+      <div class="stat-content">
+        <span class="stat-number">{{ specializationSkills().length }}+</span>
+        <span class="stat-label">Especializações</span>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="stat-content">
+        <span class="stat-number">{{ allSkills().length }}+</span>
+        <span class="stat-label">Total</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Elements -->
+  <div class="skills-background">
+    <div class="floating-code">
+      <span>&lt;/&gt;</span>
+      <span>{{ '{' }} {{ '}' }}</span>
+      <span>( )</span>
+      <span>[ ]</span>
+    </div>
+  </div>
 </section>

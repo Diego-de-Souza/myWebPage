@@ -1,20 +1,113 @@
-<div>
-    @if(menuAberto == 'true'){
-        <div class="horizontal-date" [ngStyle]="menuFloat === 'true'? getStyle(): null">
-            {{spanData}}
+<div class="weather-widget" [class.compact]="compact" [ngStyle]="getWidgetStyles()">
+  <!-- Weather Widget for Menu Open -->
+  @if (menuAberto === 'true') {
+    <div class="horizontal-layout">
+      <!-- Date Section -->
+      @if (showTime) {
+        <div class="date-time-section">
+          <div class="date-display">
+            <i class="fas fa-calendar-alt"></i>
+            <span>{{ formattedDate() }}</span>
+          </div>
+          <div class="time-display">
+            <i class="fas fa-clock"></i>
+            <span>{{ formattedTime() }}</span>
+          </div>
         </div>
-        <div>
-            
-        </div>
+      }
 
-    }
-    @else {<div class="vertical-date">
-        <span>{{ spanData.slice(0, 2) }}</span>
-        <span class="delimiter"></span>
-        <span>{{ spanData.slice(3, 5) }}</span>
-        <span class="delimiter"></span>
-        <span>{{ spanData.slice(6, 10) }}</span>
-    </div>}
-    
-    
+      <!-- Weather Section -->
+      @if (showWeather) {
+        <div class="weather-section">
+          @if (isLoading()) {
+            <div class="weather-loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>Carregando...</span>
+            </div>
+          } @else if (error()) {
+            <div class="weather-error">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>{{ error() }}</span>
+              <button class="retry-btn" (click)="refreshWeather()">
+                <i class="fas fa-redo"></i>
+              </button>
+            </div>
+          } @else if (weatherData()) {
+            <div class="weather-info">
+              <div class="weather-main">
+                <div class="weather-icon">
+                  <i [class]="weatherIcon()"></i>
+                </div>
+                <div class="weather-temp">
+                  <span class="temp-value">{{ weatherData()!.temperature }}°</span>
+                  <span class="temp-unit">C</span>
+                </div>
+              </div>
+              <div class="weather-details">
+                <div class="weather-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ weatherData()!.location }}</span>
+                </div>
+                <div class="weather-condition">{{ weatherData()!.condition }}</div>
+                <div class="weather-stats">
+                  <div class="stat-item">
+                    <i class="fas fa-tint"></i>
+                    <span>{{ weatherData()!.humidity }}%</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-wind"></i>
+                    <span>{{ weatherData()!.windSpeed }} km/h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <!-- Vertical Layout for Menu Closed -->
+    <div class="vertical-layout">
+      @if (showTime) {
+        <div class="vertical-date-time">
+          <!-- Date in vertical format -->
+          <div class="vertical-date">
+            <span class="date-part">{{ formattedDate().slice(0, 2) }}</span>
+            <div class="date-separator"></div>
+            <span class="date-part">{{ formattedDate().slice(3, 5) }}</span>
+            <div class="date-separator"></div>
+            <span class="date-part">{{ formattedDate().slice(6, 10) }}</span>
+          </div>
+          
+          <!-- Time display -->
+          <div class="vertical-time">
+            <span class="time-part">{{ formattedTime().slice(0, 2) }}</span>
+            <div class="time-separator">:</div>
+            <span class="time-part">{{ formattedTime().slice(3, 5) }}</span>
+          </div>
+        </div>
+      }
+
+      @if (showWeather && weatherData() && !compact) {
+        <div class="vertical-weather">
+          <div class="weather-icon-mini">
+            <i [class]="weatherIcon()"></i>
+          </div>
+          <div class="weather-temp-mini">
+            {{ weatherData()!.temperature }}°
+          </div>
+          <div class="weather-condition-mini">
+            {{ weatherData()!.condition.slice(0, 10) }}
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Refresh Button -->
+  @if (showWeather && !isLoading()) {
+    <button class="refresh-weather" (click)="refreshWeather()" title="Atualizar clima">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+  }
 </div>

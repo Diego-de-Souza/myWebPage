@@ -1,63 +1,96 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { FilletComponent } from '../fillet/fillet.component';
-import {skills} from '../../data/skills_dados';
-import {IntersectionObserverDirective} from '../../directive/intersection-observer.directive';
+import { Component, OnInit, signal, computed, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
+import { skills } from '../../data/skills_dados';
+
+interface SkillItem {
+  id: number;
+  icon: string;
+  description: string;
+  level: number;
+  color: string;
+  details?: string;
+}
+
+interface SkillCategory {
+  tipo: string;
+  titulo: string;
+  icon: string;
+  itens: SkillItem[];
+}
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [FilletComponent,
-    IntersectionObserverDirective
-  ],
+  imports: [CommonModule, IntersectionObserverDirective],
   templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss', './skills-responsive.component.scss']
+  styleUrls: ['./skills.component.scss']
 })
-export class SkillsComponent{
- linguagemSkills:any = [];
- softwareSkills:any =[];
+export class SkillsComponent implements OnInit {
+  // Signals para gerenciamento reativo
+  screenWidth = signal(window.innerWidth);
+  isVisible = signal(false);
+  selectedCategory = signal<string>('all');
+  
+  // Dados das skills
+  skillCategories = signal<SkillCategory[]>([]);
+  
+  // Computed properties
+  isMobile = computed(() => this.screenWidth() <= 768);
+  
+  languageSkills = computed(() => 
+    this.skillCategories().find(cat => cat.tipo === 'languages')?.itens || []
+  );
+  
+  frameworkSkills = computed(() => 
+    this.skillCategories().find(cat => cat.tipo === 'frameworks')?.itens || []
+  );
 
- @ViewChild('sectionElement') sectionElement!: ElementRef;
+  specializationSkills = computed(() => 
+    this.skillCategories().find(cat => cat.tipo === 'specializations')?.itens || []
+  );
+  
+  allSkills = computed(() => [
+    ...this.languageSkills(),
+    ...this.frameworkSkills(),
+    ...this.specializationSkills()
+  ]);
+  
+  filteredSkills = computed(() => {
+    const category = this.selectedCategory();
+    if (category === 'all') return this.allSkills();
+    if (category === 'languages') return this.languageSkills();
+    if (category === 'frameworks') return this.frameworkSkills();
+    if (category === 'specializations') return this.specializationSkills();
+    return this.allSkills();
+  });
 
- larguraTela: number = window.innerWidth;
+  ngOnInit(): void {
+    this.skillCategories.set(skills);
+  }
 
- ngOnInit(){
-    this.linguagemSkills = skills.find(item => item.tipo === 'language')?.itens || [];
-    this.softwareSkills = skills.find(item => item.tipo === 'software')?.itens || [];
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.screenWidth.set(window.innerWidth);
+  }
 
- }
+  onIntersection(isIntersecting: boolean): void {
+    this.isVisible.set(isIntersecting);
+  }
 
- onIntersection(isIntersecting: boolean) {
-    if(this.larguraTela >= 480){
-      if (isIntersecting) {
-        this.sectionElement.nativeElement.classList.add('abraKadabra');
-        document.querySelectorAll('.skills__myskills__desc .skills__myskills__desc__left__icons ').forEach(filho => {
-          filho.classList.add('entradaAEsquerda');
-        });
-        document.querySelectorAll('.skills__myskills__desc .skills__myskills__desc__right__icons ').forEach(filho => {
-          filho.classList.add('entradaADireita');
-        });
-      } else {
-        this.sectionElement.nativeElement.classList.remove('abraKadabra');
-        document.querySelectorAll('.skills__myskills__desc .skills__myskills__desc__left__icons').forEach(filho => {
-          filho.classList.remove('entradaAEsquerda');
-        });
-        document.querySelectorAll('.skills__myskills__desc .skills__myskills__desc__right__icons ').forEach(filho => {
-          filho.classList.remove('entradaADireita');
-        });
-      }
-    }else{
-      
-      this.sectionElement.nativeElement.classList.add('abraKadabra');
-      const elements = document.querySelectorAll('.skills__myskills__desc__left__icons, .skills__myskills__desc__right__icons');
-      elements.forEach(element => {
-          if (isIntersecting) {
-              element.classList.add('entradaAAparecer');
-          } else {
-              element.classList.remove('entradaAAparecer');
-          }
-      });
-    }
-    
- }
+  selectCategory(category: string): void {
+    this.selectedCategory.set(category);
+  }
 
+  getSkillLevelPercentage(level: number): number {
+    return Math.min(Math.max(level, 0), 100);
+  }
+
+  getSkillLevelText(level: number): string {
+    if (level >= 90) return 'Expert';
+    if (level >= 75) return 'Avançado';
+    if (level >= 50) return 'Intermediário';
+    if (level >= 25) return 'Básico';
+    return 'Iniciante';
+  }
 }

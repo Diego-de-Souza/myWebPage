@@ -1,26 +1,104 @@
-<section class="menu-float">
-    <menu class="menu-float__menu">
-        <ul class="menu-float__menu__ul">
-            <li class="menu-float__menu__ul__li" (click)="scrollToSection('about')">
-                <p>Minha Jornada</p>
-                <i class="fa-regular fa-address-card"></i>
-            </li>
-            <li class="menu-float__menu__ul__li" (click)="scrollToSection('skill')">
-                <p>Skills</p>
-                <i class="fa-regular fa-lightbulb"></i>
-            </li>
-            <li class="menu-float__menu__ul__li" (click)="scrollToSection('education')">
-                <p>Education</p>
-                <i class="fas fa-university"></i>
-            </li>
-            <li class="menu-float__menu__ul__li" (click)="scrollToSection('portfolio')">
-                <p>Portfolio</p>
-                <i class="fa-regular fa-newspaper"></i>
-            </li>
-            <li class="menu-float__menu__ul__li" (click)="scrollToSection('certificate')">
-                <p>Certificados</p>
-                <i class="fa-regular fa-folder"></i>
-            </li>
-        </ul>
+<nav class="floating-menu" [class.expanded]="isExpanded()" [class.visible]="isVisible()">
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress">
+    <div class="progress-circle">
+      <svg class="progress-ring" width="50" height="50">
+        <circle 
+          class="progress-ring-circle"
+          stroke="var(--accent-color)"
+          stroke-width="3"
+          fill="transparent"
+          r="20"
+          cx="25"
+          cy="25"
+          [style.stroke-dasharray]="2 * Math.PI * 20"
+          [style.stroke-dashoffset]="2 * Math.PI * 20 * (1 - scrollProgress() / 100)">
+        </circle>
+      </svg>
+      <div class="progress-percentage">
+        {{ Math.round(scrollProgress()) }}%
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Toggle Button -->
+  <button class="menu-toggle" (click)="toggleExpanded()" [class.active]="isExpanded()">
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <!-- Navigation Menu -->
+  <div class="menu-container">
+    <div class="menu-backdrop" (click)="isExpanded.set(false)"></div>
+    
+    <menu class="navigation-menu">
+      <div class="menu-header">
+        <h3>Navegação</h3>
+        <button class="close-menu" (click)="isExpanded.set(false)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <ul class="menu-list">
+        @for (item of menuItems; track item.id) {
+          <li 
+            [class]="getMenuItemClass(item)"
+            (click)="scrollToSection(item.sectionId)"
+            [style.--item-color]="item.color">
+            
+            <div class="menu-item-content">
+              <div class="menu-icon">
+                <i [class]="item.icon"></i>
+              </div>
+              
+              <div class="menu-text">
+                <span class="menu-label">{{ item.label }}</span>
+                <span class="menu-description">{{ item.description }}</span>
+              </div>
+              
+              <div class="menu-indicator">
+                <div class="indicator-dot"></div>
+              </div>
+            </div>
+
+            <div class="menu-item-background"></div>
+          </li>
+        }
+      </ul>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button class="action-btn scroll-top" (click)="scrollToTop()" title="Voltar ao topo">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <button class="action-btn theme-toggle" (click)="themeService.toggleTheme()" title="Alternar tema">
+          @if (currentTheme() === 'light') {
+            <i class="fas fa-moon"></i>
+          } @else {
+            <i class="fas fa-sun"></i>
+          }
+        </button>
+      </div>
     </menu>
-</section>
+  </div>
+
+  <!-- Mini Menu Indicators (when collapsed) -->
+  <div class="mini-indicators" [class.hidden]="isExpanded()">
+    @for (item of menuItems; track item.id) {
+      <div 
+        class="mini-indicator"
+        [class.active]="activeSection() === item.sectionId"
+        [style.--indicator-color]="item.color"
+        (click)="scrollToSection(item.sectionId)"
+        [title]="item.label">
+        <i [class]="item.icon"></i>
+      </div>
+    }
+  </div>
+
+
+</nav>

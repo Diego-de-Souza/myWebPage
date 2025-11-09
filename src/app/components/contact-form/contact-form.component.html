@@ -1,66 +1,321 @@
-<form [formGroup]="contatoForm" (ngSubmit)="onSubmit()" class="contactForm">
-  <div [ngClass]="{'valid': contatoForm.controls['nome'].valid && contatoForm.controls['nome'].touched, 'invalid': contatoForm.controls['nome'].invalid && contatoForm.controls['nome'].touched}" class="contactForm__content">
-    <label for="nome">Nome Completo* </label>
-    <div class="contactForm__content__input">
-      <i class="far fa-user contactForm__content__input__icon col-sm-1"></i>
-      <input id="nome" formControlName="nome" type="text" required placeholder="Nome completo" class="col-sm-11">
+<section class="contact-section" id="contact">
+  <div class="contact-container">
+    
+    <!-- Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-envelope"></i>
+        Entre em Contato
+      </h2>
+      <p class="section-subtitle">
+        Vamos conversar sobre seu próximo projeto? Estou sempre disponível para novas oportunidades!
+      </p>
     </div>
-    <div *ngIf="contatoForm.controls['nome'].invalid && contatoForm.controls['nome'].touched">
-      <small *ngIf="contatoForm.controls['nome'].errors?.['required']">Nome é obrigatório.</small>
+
+    <div class="contact-content">
+      
+      <!-- Contact Information -->
+      <div class="contact-info">
+        <div class="info-card">
+          <h3 class="info-title">
+            <i class="fas fa-comments"></i>
+            Vamos Conversar
+          </h3>
+          <p class="info-description">
+            Seja para discutir um projeto, tirar dúvidas ou apenas bater um papo sobre tecnologia, 
+            estou sempre aberto a novas conexões.
+          </p>
+          
+          <div class="contact-methods">
+            @for (info of contactInfo; track info.type) {
+              <div class="contact-method">
+                <div class="method-icon">
+                  <i [class]="info.icon"></i>
+                </div>
+                <div class="method-details">
+                  <span class="method-label">{{ info.label }}</span>
+                  @if (info.link) {
+                    <a [href]="info.link" class="method-value" target="_blank">
+                      {{ info.value }}
+                    </a>
+                  } @else {
+                    <span class="method-value">{{ info.value }}</span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="response-time">
+            <div class="response-badge">
+              <i class="fas fa-clock"></i>
+              <span>Resposta em até 24h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrapper">
+        
+          @if (submitSuccess()) {
+          <div class="success-message">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Mensagem Enviada!</h3>
+            <p>
+              @if (emailService.isConfigured()) {
+                Sua mensagem foi enviada com sucesso para meu email! 
+                Responderei em até 24 horas.
+              } @else {
+                Seu cliente de email foi aberto com a mensagem pré-preenchida. 
+                Para configurar envio automático, consulte o arquivo EMAILJS_SETUP.md
+              }
+            </p>
+            <button 
+              class="new-message-btn"
+              (click)="resetForm()"
+            >
+              <i class="fas fa-plus"></i>
+              Nova Mensagem
+            </button>
+          </div>
+        } @else {
+          <form 
+            [formGroup]="contatoForm" 
+            (ngSubmit)="onSubmit()" 
+            class="contact-form"
+            [class.visible]="formVisible()"
+            appIntersectionObserver
+            (isIntersecting)="onFormVisible($event)"
+            [margemRaiz]="'100px'"
+            [limite]="[0.3]"
+          >
+
+            <!-- Configuration Status -->
+            @if (!emailService.isConfigured()) {
+              <div class="config-notice">
+                <div class="notice-icon">
+                  <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="notice-content">
+                  <strong>Modo de Demonstração</strong>
+                  <p>O formulário irá abrir seu cliente de email. Para envio automático, configure o EmailJS.</p>
+                </div>
+              </div>
+            }
+
+            <!-- Form Fields Grid -->
+            <div class="form-grid">
+              
+              <!-- Nome Field -->
+              <div 
+                class="form-field"
+                [class.focused]="getFieldState('nome').focused"
+                [class.valid]="getFieldState('nome').valid && getFieldState('nome').touched"
+                [class.invalid]="!getFieldState('nome').valid && getFieldState('nome').touched"
+              >
+                <label for="nome" class="field-label">
+                  <i class="fas fa-user"></i>
+                  Nome Completo *
+                </label>
+                <div class="field-input-wrapper">
+                  <input 
+                    id="nome"
+                    formControlName="nome"
+                    type="text"
+                    placeholder="Seu nome completo"
+                    class="field-input"
+                    (focus)="onFieldFocus('nome')"
+                    (blur)="onFieldBlur('nome')"
+                  />
+                  <div class="field-line"></div>
+                </div>
+                @if (getFieldError('nome')) {
+                  <div class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ getFieldError('nome') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Email Field -->
+              <div 
+                class="form-field"
+                [class.focused]="getFieldState('email').focused"
+                [class.valid]="getFieldState('email').valid && getFieldState('email').touched"
+                [class.invalid]="!getFieldState('email').valid && getFieldState('email').touched"
+              >
+                <label for="email" class="field-label">
+                  <i class="fas fa-envelope"></i>
+                  Email *
+                </label>
+                <div class="field-input-wrapper">
+                  <input 
+                    id="email"
+                    formControlName="email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    class="field-input"
+                    (focus)="onFieldFocus('email')"
+                    (blur)="onFieldBlur('email')"
+                  />
+                  <div class="field-line"></div>
+                </div>
+                @if (getFieldError('email')) {
+                  <div class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ getFieldError('email') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Telefone Field -->
+              <div 
+                class="form-field"
+                [class.focused]="getFieldState('telefone').focused"
+                [class.valid]="getFieldState('telefone').valid && getFieldState('telefone').touched"
+                [class.invalid]="!getFieldState('telefone').valid && getFieldState('telefone').touched"
+              >
+                <label for="telefone" class="field-label">
+                  <i class="fas fa-phone"></i>
+                  Telefone *
+                </label>
+                <div class="field-input-wrapper">
+                  <input 
+                    id="telefone"
+                    formControlName="telefone"
+                    type="tel"
+                    placeholder="(11) 99999-9999"
+                    class="field-input"
+                    (focus)="onFieldFocus('telefone')"
+                    (blur)="onFieldBlur('telefone')"
+                  />
+                  <div class="field-line"></div>
+                </div>
+                @if (getFieldError('telefone')) {
+                  <div class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ getFieldError('telefone') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Tipo Field -->
+              <div 
+                class="form-field full-width"
+                [class.focused]="getFieldState('tipo').focused"
+                [class.valid]="getFieldState('tipo').valid && getFieldState('tipo').touched"
+                [class.invalid]="!getFieldState('tipo').valid && getFieldState('tipo').touched"
+              >
+                <label for="tipo" class="field-label">
+                  <i class="fas fa-tags"></i>
+                  Tipo de Contato *
+                </label>
+                <div class="contact-types-grid">
+                  @for (type of contactTypes; track type.value) {
+                    <div 
+                      class="contact-type-option"
+                      [class.selected]="contatoForm.get('tipo')?.value === type.value"
+                      (click)="contatoForm.get('tipo')?.setValue(type.value); onFieldBlur('tipo')"
+                    >
+                      <div class="type-icon">
+                        <i [class]="type.icon"></i>
+                      </div>
+                      <div class="type-content">
+                        <span class="type-label">{{ type.label }}</span>
+                        <span class="type-description">{{ type.description }}</span>
+                      </div>
+                    </div>
+                  }
+                </div>
+                @if (getFieldError('tipo')) {
+                  <div class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ getFieldError('tipo') }}
+                  </div>
+                }
+              </div>
+
+              <!-- Mensagem Field -->
+              <div 
+                class="form-field full-width"
+                [class.focused]="getFieldState('mensagem').focused"
+                [class.valid]="getFieldState('mensagem').valid && getFieldState('mensagem').touched"
+                [class.invalid]="!getFieldState('mensagem').valid && getFieldState('mensagem').touched"
+              >
+                <label for="mensagem" class="field-label">
+                  <i class="fas fa-comment-alt"></i>
+                  Sua Mensagem *
+                </label>
+                <div class="field-input-wrapper">
+                  <textarea 
+                    id="mensagem"
+                    formControlName="mensagem"
+                    placeholder="Conte-me sobre seu projeto, ideia ou como posso ajudá-lo..."
+                    class="field-textarea"
+                    rows="5"
+                    (focus)="onFieldFocus('mensagem')"
+                    (blur)="onFieldBlur('mensagem')"
+                  ></textarea>
+                  <div class="field-line"></div>
+                </div>
+                @if (getFieldError('mensagem')) {
+                  <div class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ getFieldError('mensagem') }}
+                  </div>
+                }
+              </div>
+
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+              @if (submitError()) {
+                <div class="error-message">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  {{ submitError() }}
+                </div>
+              }
+              
+              <button 
+                type="submit" 
+                class="submit-btn"
+                [disabled]="isSubmitting() || contatoForm.invalid"
+                [class.loading]="isSubmitting()"
+              >
+                @if (isSubmitting()) {
+                  <div class="loading-spinner"></div>
+                  <span>Enviando...</span>
+                } @else {
+                  <i class="fas fa-paper-plane"></i>
+                  <span>Enviar Mensagem</span>
+                }
+              </button>
+            </div>
+
+          </form>
+        }
+      </div>
+
     </div>
+
   </div>
 
-  <div [ngClass]="{'valid': contatoForm.controls['email'].valid && contatoForm.controls['email'].touched, 'invalid': contatoForm.controls['email'].invalid && contatoForm.controls['email'].touched}" class="contactForm__content">
-    <label for="email">Email* </label>
-    <div class="contactForm__content__input">
-      <i class="far fa-envelope contactForm__content__input__icon col-sm-1"></i>
-      <input id="email" formControlName="email" type="email" required placeholder="exemplo@exemplo.com.br" class="col-sm-11">
-    </div>
-    <div *ngIf="contatoForm.controls['email'].invalid && contatoForm.controls['email'].touched">
-      <small *ngIf="contatoForm.controls['email'].errors?.['required']">Email é obrigatório.</small>
-      <small *ngIf="contatoForm.controls['email'].errors?.['email']">Email inválido.</small>
-    </div>
-  </div>
-
-  <div [ngClass]="{'valid': contatoForm.controls['telefone'].valid && contatoForm.controls['telefone'].touched, 'invalid': contatoForm.controls['telefone'].invalid && contatoForm.controls['telefone'].touched}" class="contactForm__content">
-    <label for="telefone">Telefone* </label>
-    <div class="contactForm__content__input">
-      <i class="fas fa-mobile-alt contactForm__content__input__icon col-sm-1"></i>
-      <input id="telefone" formControlName="telefone" type="text" required placeholder="11+99999-9999" class="col-sm-11">
-    </div>
-    <div *ngIf="contatoForm.controls['telefone'].invalid && contatoForm.controls['telefone'].touched">
-      <small *ngIf="contatoForm.controls['telefone'].errors?.['required']">Telefone é obrigatório.</small>
+  <!-- Background Effects -->
+  <div class="section-background">
+    <div class="floating-elements">
+      <div class="floating-element element-1">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div class="floating-element element-2">
+        <i class="fas fa-paper-plane"></i>
+      </div>
+      <div class="floating-element element-3">
+        <i class="fas fa-comments"></i>
+      </div>
     </div>
   </div>
-
-  <div [ngClass]="{'valid': contatoForm.controls['tipo'].valid && contatoForm.controls['tipo'].touched, 'invalid': contatoForm.controls['tipo'].invalid && contatoForm.controls['tipo'].touched}" class="contactForm__content">
-    <label for="tipo">Tipo de Contato*</label>
-    <div class="contactForm__content__input">
-      <i class="far fa-filter contactForm__content__input__icon col-sm-1"></i>
-      <select id="tipo" formControlName="tipo" required class="col-sm-11">
-        <option value="" disabled>Escolha um tipo de contato</option>
-        <option value="elogio">Elogio</option>
-        <option value="proposta">Proposta</option>
-        <option value="orcamento">Orçamento</option>
-        <option value="curiosidade">Curiosidade</option>
-        <option value="sugestão">Sugestão</option>
-      </select>
-    </div>
-    <div *ngIf="contatoForm.controls['tipo'].invalid && contatoForm.controls['tipo'].touched">
-      <small *ngIf="contatoForm.controls['tipo'].errors?.['required']">Tipo de contato é obrigatório.</small>
-    </div>
-  </div>
-
-  <div [ngClass]="{'valid': contatoForm.controls['mensagem'].valid && contatoForm.controls['mensagem'].touched, 'invalid': contatoForm.controls['mensagem'].invalid && contatoForm.controls['mensagem'].touched}" class="contactForm__content">
-    <label for="mensagem">Mensagem*</label>
-    <div class="contactForm__content__input">
-      <i class="far fa-sticky-note contactForm__content__input__icon col-sm-1 contactForm__content__input__icon__texteArea"></i>
-      <textarea id="mensagem" formControlName="mensagem" required placeholder="Digite aqui sua mensagem" class="col-sm-11"></textarea>
-    </div>
-    <div *ngIf="contatoForm.controls['mensagem'].invalid && contatoForm.controls['mensagem'].touched">
-      <small *ngIf="contatoForm.controls['mensagem'].errors?.['required']">Mensagem é obrigatória.</small>
-    </div>
-  </div>
-
-  <button type="submit" class="contactForm__content__btn --bs-info">Enviar</button>
-</form>
+</section>

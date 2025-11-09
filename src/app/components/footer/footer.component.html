@@ -1,15 +1,114 @@
-<section class="footer">
-    <div class="footer__title">Ver um pouco mais sobre mim.</div>
-    <div class="footer__icons">
-        <a href="https://github.com/Diego-de-Souza" target="_blank"><img src="../../../assets/imgs/homePage/footer/github-icon.png" alt=""></a>
-        <a href="https://www.linkedin.com/in/diegodesouza-devweb/" target="_blank"><img src="../../../assets/imgs/homePage/footer/linkedin-icon.png" alt=""></a>
-        <a href="https://www.instagram.com/diegodesouza_dev/" target="_blank"><img src="../../../assets/imgs/homePage/footer/instagram-icon.png" alt=""></a>
-        <a href="https://www.facebook.com/diegodesouza102" target="_blank"><img src="../../../assets/imgs/homePage/footer/facobok-icon.png" alt=""></a>
+<footer class="modern-footer">
+  <div class="footer-container">
+    
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+      
+      <!-- Brand Section -->
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <span class="brand-text">
+            <span class="bracket">&lt;</span>
+            Diego - Dev
+            <span class="bracket">/&gt;</span>
+          </span>
+        </div>
+        <p class="brand-description">
+          {{ contactInfo.status }}
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>{{ contactInfo.email }}</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ contactInfo.location }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Sections -->
+      @for (section of footerSections; track section.title) {
+        <div class="footer-section">
+          <h4 class="section-title">{{ section.title }}</h4>
+          <ul class="section-links">
+            @for (link of section.links; track link.label) {
+              <li>
+                <button 
+                  class="footer-link"
+                  (click)="link.action()"
+                >
+                  {{ link.label }}
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Quick Actions -->
+      <div class="footer-section">
+        <h4 class="section-title">Ações Rápidas</h4>
+        <div class="quick-actions">
+          @for (action of quickActions; track action.label) {
+            <button 
+              class="quick-action-btn"
+              (click)="onQuickAction(action)"
+            >
+              <i [class]="action.icon"></i>
+              {{ action.label }}
+            </button>
+          }
+        </div>
+      </div>
+
     </div>
-    <div class="footer__declaration">
-        <p>Desenvolvido por Diego de Souza L.</p>
+
+    <!-- Social Links -->
+    <div class="footer-social">
+      <h4 class="social-title">Conecte-se Comigo</h4>
+      <div class="social-links">
+        @for (social of socialLinks; track social.platform) {
+          <button
+            class="social-link"
+            (click)="onSocialClick(social)"
+            [attr.aria-label]="social.label"
+            [style.--social-color]="social.color"
+          >
+            <i [class]="social.icon"></i>
+            <span class="social-name">{{ social.platform }}</span>
+          </button>
+        }
+      </div>
     </div>
-    <div class="footer__rodape">
-        &copy; CopyRight 2024
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-divider"></div>
+      
+      <div class="footer-credits">
+        <div class="copyright">
+          <p>
+            <i class="fas fa-code"></i>
+            Desenvolvido por Diego de Souza
+          </p>
+          <p>&copy; {{ currentYear() }} - Todos os direitos reservados</p>
+        </div>
+        
+        <div class="theme-indicator">
+          <span class="theme-label">Tema atual:</span>
+          <span class="theme-name">{{ currentTheme() }}</span>
+        </div>
+      </div>
     </div>
-</section>
+
+  </div>
+
+  <!-- Background Effects -->
+  <div class="footer-background">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+  </div>
+</footer>

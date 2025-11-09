@@ -1,5 +1,5 @@
 export interface CertificatesModel {
-    id:Number;
+    id: number;
     formation: string,
     carga_horaria: number,
     data_conclusao: string,

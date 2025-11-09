@@ -1,21 +1,214 @@
-<section class="certificate-home">
-    <div class="certificate-home__gradient-top"></div>
-    <h2>Certificados</h2>
-    <section class="certificate-home__content">
-        <h3>Geral</h3>
-        @for(dadoGeral of dadosCertGeral; track dadoGeral.id){
-            <div class="certificate-home__content__itens row">
-                <div class="certificate-home__content__itens__desc col-sm-8">
-                    <h4>{{dadoGeral.formation}}</h4>
-                    <p>data conclusão: {{dadoGeral.data_conclusao}}</p>
-                    <p>carga horária: {{dadoGeral.carga_horaria}}</p>
-                </div>
-                <div class="col-sm-4 certificate-home__content__itens__btn">
-                    <button mat-button (click)="openDialog(dadoGeral.formation, dadoGeral.imagem)">Abrir Imagem</button>
-                </div>
-            </div>
+<section class="certificates-section" id="certificates">
+  <div class="certificates-container">
+    
+    <!-- Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-certificate"></i>
+        Certificações & Cursos
+      </h2>
+      <p class="section-subtitle">
+        Uma coleção de certificações que demonstram meu comprometimento com o aprendizado contínuo
+      </p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-award"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ certificateStats().totalCertificates }}</div>
+          <div class="stat-label">Certificados</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ formatHours(certificateStats().totalHours) }}</div>
+          <div class="stat-label">Total de Horas</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ certificateStats().completedThisYear }}</div>
+          <div class="stat-label">Este Ano</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <div class="stat-content">
+          <div class="stat-number">{{ certificateStats().avgHoursPerCert }}h</div>
+          <div class="stat-label">Média por Cert.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <div class="controls-section">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            placeholder="Buscar certificações..."
+            (input)="onSearchChange($event)"
+            [value]="searchTerm()"
+          />
+        </div>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="filter-tabs">
+        @for (filter of filterOptions; track filter.id) {
+          <button 
+            [class]="'filter-tab ' + (selectedFilter() === filter.id ? 'active' : '')"
+            (click)="onFilterChange(filter.id)"
+          >
+            <i [class]="getCategoryIcon(filter.id === 'all' ? 'development' : filter.id)"></i>
+            <span>{{ filter.label }}</span>
+            <span class="filter-count">{{ filter.count }}</span>
+          </button>
         }
-    </section>
-    <div class="certificate-home__btn" (click)="openMore()">{{menuCertificados}}</div>
-    <div class="certificate-home__gradient-bottom"></div>
+      </div>
+    </div>
+
+    <!-- Certificates Grid -->
+    <div class="certificates-grid">
+      @for (certificate of displayedCertificates(); track certificate.id; let i = $index) {
+        <div 
+          class="certificate-card"
+          [class.visible]="isCertificateVisible(certificate.id)"
+          [class.hovered]="hoveredCertificate() === certificate.id"
+          (mouseenter)="onCertificateHover(certificate.id)"
+          (mouseleave)="onCertificateHover(null)"
+          (click)="openCertificateDialog(certificate)"
+          appIntersectionObserver
+          (isIntersecting)="onCertificateVisible($event, certificate.id)"
+          [margemRaiz]="'50px'"
+          [limite]="[0.3]"
+        >
+          
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="category-badge" [style.background-color]="getCategoryColor(getCertificateCategory(certificate))">
+              <i [class]="getCategoryIcon(getCertificateCategory(certificate))"></i>
+            </div>
+            
+            <div class="status-badge" [class]="getStatusClass(certificate.data_conclusao)">
+              <i [class]="getStatusIcon(certificate.data_conclusao)"></i>
+              <span>{{ certificate.data_conclusao === 'Cursando' ? 'Em Andamento' : 'Concluído' }}</span>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <h3 class="certificate-title">{{ certificate.formation }}</h3>
+            
+            <div class="certificate-meta">
+              <div class="meta-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ formatDate(certificate.data_conclusao) }}</span>
+              </div>
+              
+              <div class="meta-item">
+                <i class="fas fa-clock"></i>
+                <span>{{ formatHours(certificate.carga_horaria) }}</span>
+              </div>
+            </div>
+
+            <div class="certificate-category">
+              <i [class]="getCategoryIcon(getCertificateCategory(certificate))"></i>
+              <span>{{ getCertificateCategory(certificate) | titlecase }}</span>
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <button class="view-cert-btn" mat-button>
+              <i class="fas fa-eye"></i>
+              Ver Certificado
+            </button>
+          </div>
+
+          <!-- Hover Effects -->
+          <div class="card-glow"></div>
+          <div class="card-shine"></div>
+        </div>
+      }
+    </div>
+
+    <!-- Load More Button -->
+    @if (filteredCertificates().length > displayedCertificates().length) {
+      <div class="load-more-section">
+        <button 
+          class="load-more-btn"
+          (click)="toggleShowAll()"
+          mat-button
+        >
+          <i class="fas fa-plus"></i>
+          Ver Todos ({{ filteredCertificates().length - displayedCertificates().length }} restantes)
+        </button>
+      </div>
+    }
+
+    @if (showAll() && filteredCertificates().length > 6) {
+      <div class="load-more-section">
+        <button 
+          class="load-more-btn secondary"
+          (click)="toggleShowAll()"
+          mat-button
+        >
+          <i class="fas fa-minus"></i>
+          Mostrar Menos
+        </button>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (filteredCertificates().length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>Nenhum certificado encontrado</h3>
+        <p>Tente ajustar os filtros ou termo de pesquisa</p>
+        <button 
+          class="reset-filters-btn"
+          (click)="selectedFilter.set('all'); searchTerm.set('')"
+          mat-button
+        >
+          Limpar Filtros
+        </button>
+      </div>
+    }
+
+  </div>
+
+  <!-- Background Effects -->
+  <div class="section-background">
+    <div class="floating-certificates">
+      <div class="floating-cert cert-1">
+        <i class="fas fa-certificate"></i>
+      </div>
+      <div class="floating-cert cert-2">
+        <i class="fas fa-award"></i>
+      </div>
+      <div class="floating-cert cert-3">
+        <i class="fas fa-medal"></i>
+      </div>
+    </div>
+  </div>
 </section>

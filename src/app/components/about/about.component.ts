@@ -1,112 +1,78 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ArticleMiniComponent } from '../article-mini/article-mini.component';
-import { FilletComponent } from '../fillet/fillet.component';
+import { Component, HostListener, OnInit, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
 import { about } from '../../data/about-dados';
+
+interface AboutItem {
+  id: number;
+  title: string;
+  text: string;
+  urlImage: string;
+}
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [ArticleMiniComponent, FilletComponent, IntersectionObserverDirective],
+  imports: [CommonModule, IntersectionObserverDirective],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  altura1: string = '0';
-  largura1: string = '0';
-  opacidade1: string = '0';
-
-  altura2: string = '0';
-  largura2: string = '0';
-  opacidade2: string = '0';
-
-  altura3: string = '0';
-  largura3: string = '0';
-  opacidade3: string = '0';
-
-  dadosAbout1!: any;
-  dadosAbout2!: any;
-  dadosAbout3!: any;
-
-  larguraTela: number = window.innerWidth;
+  // Signals para gerenciamento reativo
+  screenWidth = signal(window.innerWidth);
+  visibleItems = signal<Set<number>>(new Set());
+  
+  // Dados do about
+  aboutItems = signal<AboutItem[]>([]);
+  
+  // Computed para dados específicos
+  aboutData1 = computed(() => this.aboutItems().find(item => item.id === 1));
+  aboutData2 = computed(() => this.aboutItems().find(item => item.id === 2));
+  aboutData3 = computed(() => this.aboutItems().find(item => item.id === 3));
+  
+  // Computed para responsividade
+  isMobile = computed(() => this.screenWidth() <= 768);
+  isTablet = computed(() => this.screenWidth() > 768 && this.screenWidth() <= 1024);
+  isDesktop = computed(() => this.screenWidth() > 1024);
 
   ngOnInit(): void {
-    this.dadosAbout1 = about.find(item => item.id === 1);
-    this.dadosAbout2 = about.find(item => item.id === 2);
-    this.dadosAbout3 = about.find(item => item.id === 3);
+    // Carregar os dados do about
+    this.aboutItems.set(about);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    this.larguraTela = window.innerWidth;
+    this.screenWidth.set(window.innerWidth);
   }
 
-  openImage1(isIntersecting: boolean): void {
+  onItemIntersecting(itemId: number, isIntersecting: boolean): void {
+    const currentVisible = this.visibleItems();
     if (isIntersecting) {
-      if(this.larguraTela <= 480){
-        this.altura1 = '10em';
-        this.largura1 = '15em';
-      } else if (this.larguraTela <= 900) {
-        this.altura1 = '15em';
-        this.largura1 = '20em';
-      } else if (this.larguraTela <= 1024) {
-        this.altura1 = '10em';
-        this.largura1 = '15em';
-      } else {
-        this.altura1 = '15em';
-        this.largura1 = '20em';
-      }
-      this.opacidade1 = '1';
+      currentVisible.add(itemId);
     } else {
-      this.altura1 = '0';
-      this.largura1 = '0';
-      this.opacidade1 = '0';
+      currentVisible.delete(itemId);
     }
+    this.visibleItems.set(new Set(currentVisible));
   }
 
-  openImage2(isIntersecting: boolean): void {
-    if (isIntersecting) {
-      if(this.larguraTela <= 480){
-        this.altura2 = '10em';
-        this.largura2 = '15em';
-      } else if (this.larguraTela <= 900) {
-        this.altura2 = '15em';
-        this.largura2 = '20em';
-      } else if (this.larguraTela <= 1024) {
-        this.altura2 = '10em';
-        this.largura2 = '15em';
-      } else {
-        this.altura2 = '15em';
-        this.largura2 = '20em';
-      }
-      this.opacidade2 = '1';
-    } else {
-      this.altura2 = '0';
-      this.largura2 = '0';
-      this.opacidade2 = '0';
-    }
+  isItemVisible(itemId: number): boolean {
+    return this.visibleItems().has(itemId);
   }
 
-  openImage3(isIntersecting: boolean): void {
-    if (isIntersecting) {
-      if(this.larguraTela <= 480){
-        this.altura3 = '10em';
-        this.largura3 = '15em';
-      } else if (this.larguraTela <= 900) {
-        this.altura3 = '15em';
-        this.largura3 = '20em';
-      } else if (this.larguraTela <= 1024) {
-        this.altura3 = '10em';
-        this.largura3 = '15em';
-      } else {
-        this.altura3 = '15em';
-        this.largura3 = '20em';
-      }
-      this.opacidade3 = '1';
-    } else {
-      this.altura3 = '0';
-      this.largura3 = '0';
-      this.opacidade3 = '0';
-    }
+  getItemClasses(itemId: number): string {
+    const baseClasses = 'about-item';
+    const visibleClass = this.isItemVisible(itemId) ? 'visible' : '';
+    const deviceClass = this.isMobile() ? 'mobile' : this.isTablet() ? 'tablet' : 'desktop';
+    
+    return `${baseClasses} ${visibleClass} ${deviceClass}`.trim();
+  }
+
+  formatItemNumber(id: number): string {
+    return String(id).padStart(2, '0');
+  }
+
+  expandCard(itemId: number): void {
+    // Implementar lógica para expandir card se necessário
+    console.log('Expandindo card:', itemId);
   }
 }

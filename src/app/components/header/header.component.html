@@ -1,58 +1,89 @@
-<section class="header-fixo" 
-    [ngStyle]="{'width': larguraMenu, 'border-right':'1px solid'+corSombra, 'box-shadow':'1px 1px 4px'+corBorda}" 
-    (mouseover)="openMenu()" 
-    (mouseout)="closeMenu()">
-    <div class="header-fixo__container-logo">
-        <img src="../../../assets/imgs/favicon/favicon-32x32.png" alt="Logo Diego - dev">
+<aside class="modern-sidebar" 
+    [class.expanded]="isMenuExpanded()"
+    (mouseenter)="expandMenu()" 
+    (mouseleave)="collapseMenu()">
+    
+    <!-- Logo e Brand -->
+    <div class="sidebar-brand">
+        <div class="brand-logo">
+            <img src="/assets/imgs/favicon/favicon-32x32.png" alt="Diego Dev Logo" class="logo-img">
+            @if (isMenuExpanded()) {
+                <span class="brand-text animate-fade-in">Diego.dev</span>
+            }
+        </div>
     </div>
-    <ul id="link-pages">
-        <li class="link-pages__li" (click)="openHome()">
-            <div class="link-pages__circle-icon-header">
-                <img src="../../../assets/imgs/homePage/header/home-icon.png" alt="" class="link-pages__li__img">
-            </div>
-            <p class="link-pages__li__description">HOME</p>
-        </li>
-        <li class="link-pages__li" (click)="openConhecimento()">
-            <div class="link-pages__circle-icon-header">
-                <img src="../../../assets/imgs/homePage/header/questions-icon.png" alt="imagem das questões de conhecimento" class="link-pages__li__img">
-            </div>
-            <p class="link-pages__li__description">CONHECIMENTO</p>
-        </li>
-        <li class="link-pages__li" (click)="openContato()" >
-            <div class="link-pages__circle-icon-header">
-                <img src="../../../assets/imgs/homePage/header/contact-us.png" alt="" class="link-pages__li__img">
-            </div>
-            <p class="link-pages__li__description">CONTATO</p>
-        </li>
-    </ul>
-    <div class="demiter"></div>
-    <ul id="link-user">
-        <li class="link-user__redes">
-            <a href="https://www.instagram.com/diegodesouza_dev/" class="link-user__redes__link" target="_blank">
-                <img src="../../../assets/imgs/homePage/header/instagram.png" alt="" class="link-user__redes__icon">
-                <p class="link-pages__li__description">Instagram</p>
-            </a>
-        </li>
-        <li class="link-user__redes">
-            <a href="https://www.linkedin.com/in/diegodesouza-devweb/" class="link-user__redes__link" target="_blank">
-                <img src="../../../assets/imgs/homePage/header/linkedin.png" alt="" class="link-user__redes__icon">
-                <p class="link-pages__li__description">Linkedin</p>
-            </a>
-        </li>
-        <li class="link-user__redes">
-            <a href="https://www.facebook.com/diegodesouza102" class="link-user__redes__link" target="_blank">
-                <img src="../../../assets/imgs/homePage/header/facebook.png" alt="" class="link-user__redes__icon">
-                <p class="link-pages__li__description">Facebook</p>
-            </a>
-        </li>
-        <li class="link-user__redes">
-            <a href="https://github.com/Diego-de-Souza" class="link-user__redes__link" target="_blank">
-                <img src="../../../assets/imgs/homePage/header/github.png" alt="" class="link-user__redes__icon">
-                <p class="link-pages__li__description">GitHub</p>
-            </a>
-        </li>
-        <li class="link-user__redes"></li>
-    </ul>
-    <div class="demiter"></div>
-    <app-weather menuAberto="{{tipoData}}" menuFloat="false" ></app-weather>
-</section>
+
+    <!-- Theme Switcher -->
+    <div class="theme-section">
+        <app-theme-switcher></app-theme-switcher>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            @for (item of navigationItems; track item.path) {
+                <li class="nav-item">
+                    <button 
+                        class="nav-link"
+                        [class.active]="isRouteActive(item.path)"
+                        (click)="navigateTo(item.path)"
+                        [attr.aria-label]="item.label">
+                        <i [class]="item.faIcon" class="nav-icon"></i>
+                        @if (isMenuExpanded()) {
+                            <span class="nav-text animate-fade-in">{{ item.label }}</span>
+                        }
+                    </button>
+                </li>
+            }
+        </ul>
+    </nav>
+
+    <!-- Divider -->
+    <div class="sidebar-divider"></div>
+
+    <!-- Social Links -->
+    <div class="sidebar-social">
+        <h3 class="social-title">
+            <i class="fas fa-share-alt"></i>
+            @if (isMenuExpanded()) {
+                <span class="animate-fade-in">Social</span>
+            }
+        </h3>
+        <ul class="social-list">
+            @for (social of socialLinks; track social.url) {
+                <li class="social-item">
+                    <button 
+                        class="social-link"
+                        (click)="openExternalLink(social.url)"
+                        [attr.aria-label]="social.label">
+                        <i [class]="social.faIcon" class="social-icon"></i>
+                        @if (isMenuExpanded()) {
+                            <span class="social-text animate-fade-in">{{ social.label }}</span>
+                        }
+                    </button>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Divider -->
+    <div class="sidebar-divider"></div>
+
+    <!-- Weather Widget -->
+    <div class="sidebar-widget">
+        <app-weather [menuAberto]="isMenuExpanded() ? 'true' : 'false'" menuFloat="false"></app-weather>
+    </div>
+
+    <!-- Current Time -->
+    <div class="sidebar-time">
+        <div class="time-display">
+            <i class="fas fa-clock"></i>
+            @if (isMenuExpanded()) {
+                <div class="time-info animate-fade-in">
+                    <span class="time">{{ currentTime() | date:'HH:mm' }}</span>
+                    <span class="date">{{ currentTime() | date:'dd/MM' }}</span>
+                </div>
+            }
+        </div>
+    </div>
+</aside>

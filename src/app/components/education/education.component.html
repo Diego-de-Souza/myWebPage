@@ -1,72 +1,136 @@
-<section class="education">
-    <div class="education__gradient-top"></div>
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-    <div class="education__main box">
-        
-        <h2>Minha Formação</h2>
-        <section class="education__main__content" 
-                appIntersectionObserver
-                (isIntersecting)="openEducation($event)"
-                [margemRaiz]="'10px'"
-                [limite]="[0.5]">
-            <div class="education__main__content__child">
-                <h3>Engenharia da Computação</h3>
-                <h4>FESA - Faculdade Engenheiro Salvador Arena</h4>
-                <h6>De Agosto de 2022 - Atual</h6>
-                <p>O curso de Engenharia da computação visa possibilitar o aluno a projetar, desenvolver e implementar equipamentos e dispositivos computacionais, Automatizar máquinas com sistemas computacionais baseados em inteligência artificial, criar sistemas de processamento e tratamento de dados e automatizar máquinas e equipamentos no setor da robótica.</p>
-            </div>
-            <div class="education__main__content__child">
-                <h3>Tecnologo em Mecatrônica industrial</h3>
-                <h4>FESA - Faculdade Engenheiro Salvador Arena</h4>
-                <h6>De Agosto de 2014 - Junho de 2017</h6>
-                <p>O curso de Tecnólogo em Mecatrônica Industrial tem como foco em gerir o desenvolvimento, implementação e manutenção de sistemas mecatrônicos de produção industrial; enfrentar os desafios da implantação de novas tecnologias, tendo em vista as mudanças nos processos de organização e gestão do trabalho; e desenvolver aplicações com máquinas, equipamentos, instrumentos e softwares em ambientes de ensino atualizados, como laboratórios de robótica, automação, Internet das Coisas, microcontroladores, máquinas elétricas, modelagem e prototipagem 3D, usinagem CNC, entre outros</p>
-            </div>
-            <div class="education__main__content__child">
-                <h3>Tecnico em Eletrômecanica Industrial</h3>
-                <h4>SENAI - Manuel Garcia Filho</h4>
-                <h6>De Janeiro de 2012 - Dezembro de 2013</h6>
-                <p>O curso habilita profissionais técnicos de nível médio em Eletromecânica, visando suprir a demanda do mercado por profissionais qualificados para atuarem em: Montagem e manutenção de sistemas, máquinas e equipamentos de base elétrica e/ou mecânica, planejamento e realização de manutenção e reparosnas instalações elétrica e mecânica dos sistemas e analise de desenhos técnicos.</p>
-            </div>
-            <div class="education__main__content__child">
-                <h3>Ensino mmédio regular</h3>
-                <h4>E.E.P.G. Prof. Francisco Cristiano de Freitas</h4>
-                <h6>Concluído - Dezembro de 2011</h6>
-                <p>Tem como currículo básico para as escolas da rede estadual nos níveis de Ensino Fundamental (Ciclo II) e Ensino Médio. Com isso, pretendeu apoiar o trabalho realizado nas escolas estaduais e contribuir para a melhoria da qualidade das aprendizagens dos alunos</p>
-            </div>
-        </section>
-        <h2>Especializações</h2>
-        <section class="education__main__content"
-                appIntersectionObserver
-                (isIntersecting)="openEducation2($event)"
-                [margemRaiz]="'10px'"
-                [limite]="[0.5]">
-            <div class="education__main__content__child2">
-                <h3>Desenvolvimento de APPS para Android - PRESENCIAL</h3>
-                <h4>SENAI SP - Anchieta</h4>
-                <h6>De Abril de 2022 - Junho de 2022</h6>
-                <p>68h - de aprendizado básico no desenvolvimento de apps para android, utilização de ferramentas de modelamento e desenvolvimento como Android Studio, e programação como Kotlin e xml.</p>
-            </div>
-            <div class="education__main__content__child2">
-                <h3>Informática - Pacote Office</h3>
-                <h4>Compuway - ensino interativo</h4>
-                <h6>De Abril de 2022 - Novembro fr 2022</h6>
-                <p>92h - de aprendizado em informática, introdução, windows ME, word2000, excel2000, power point2000, Internet.</p>
-                </div>
-            <div class="education__main__content__child2">
-                <h3>Montador e reparador de comandos elétricos</h3>
-                <h4>SENAI - Manuel Garcia Filho</h4>
-                <h6>De junho de 2006 - Dezembro de 2009</h6>
-                <p>180h - no desenvolvimento de criação e manutenção de comandos elétricos industriais.</p>
-            </div>
-            <div class="education__main__content__child2">
-                <h3>Eletricista Geral</h3>
-                <h4>SENAI - Manuel Garcia Filho</h4>
-                <h6>De Janeiro de 2009 - Abril de 2009</h6>
-                <p>120h - instalação e manutenção de redes elétricas industriais e residenciais.</p>
-            </div>
-        </section>
+<section class="education-section" id="education">
+  <div class="education-container">
+    
+    <!-- Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-graduation-cap"></i>
+        Minha Jornada Educacional
+      </h2>
+      <p class="section-subtitle">
+        Uma trajetória de aprendizado contínuo e evolução profissional
+      </p>
     </div>
+
+    <!-- Category Filters -->
+    <div class="category-filters">
+      @for (category of categories; track category.id) {
+        <button 
+          [class]="'filter-btn ' + (selectedCategory() === category.id ? 'active' : '')"
+          (click)="onCategoryChange(category.id)"
+        >
+          {{ category.label }}
+          <span class="count">{{ category.count() }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Education Timeline -->
+    <div class="education-timeline">
+      
+      @for (item of filteredEducation(); track item.id; let i = $index) {
+        <div 
+          class="timeline-item"
+          [class.visible]="isEducationVisible(item.id)"
+          [class.current]="item.status === 'current'"
+          appIntersectionObserver
+          (isIntersecting)="onEducationVisible($event, item.id)"
+          [margemRaiz]="'50px'"
+          [limite]="[0.3]"
+        >
+          
+          <!-- Timeline Marker -->
+          <div class="timeline-marker">
+            <div class="marker-icon">
+              <i [class]="getLevelIcon(item.level)"></i>
+            </div>
+            <div class="marker-line"></div>
+          </div>
+
+          <!-- Content Card -->
+          <div class="timeline-content">
+            <div class="education-card">
+              
+              <!-- Card Header -->
+              <div class="card-header">
+                <div class="header-left">
+                  <h3 class="education-title">{{ item.title }}</h3>
+                  <h4 class="institution">{{ item.institution }}</h4>
+                </div>
+                <div class="header-right">
+                  <div class="status-badge" [style.background-color]="getStatusColor(item.status)">
+                    <i [class]="getStatusIcon(item.status)"></i>
+                    <span>{{ item.status === 'current' ? 'Em Andamento' : 'Concluído' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="period">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>{{ item.period }}</span>
+                  @if (item.duration) {
+                    <span class="duration">• {{ item.duration }}</span>
+                  }
+                </div>
+                
+                <p class="description">{{ item.description }}</p>
+
+                @if (item.skills) {
+                  <div class="skills-tags">
+                    <span class="skills-label">Principais habilidades:</span>
+                    @for (skill of item.skills; track skill) {
+                      <span class="skill-tag">{{ skill }}</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <!-- Card Footer -->
+              <div class="card-footer">
+                <div class="education-type">
+                  <i [class]="item.type === 'degree' ? 'fas fa-university' : 'fas fa-certificate'"></i>
+                  <span>{{ item.type === 'degree' ? 'Formação Acadêmica' : 'Especialização' }}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      }
+
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="education-stats">
+      <div class="stat-card">
+        <div class="stat-number">{{ degrees().length }}</div>
+        <div class="stat-label">Formações</div>
+        <i class="stat-icon fas fa-graduation-cap"></i>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ specializations().length }}</div>
+        <div class="stat-label">Especializações</div>
+        <i class="stat-icon fas fa-certificate"></i>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ currentYear() - 2006 }}</div>
+        <div class="stat-label">Anos de Estudo</div>
+        <i class="stat-icon fas fa-clock"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Background Effects -->
+  <div class="section-background">
+    <div class="bg-pattern"></div>
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+  </div>
 </section>
 

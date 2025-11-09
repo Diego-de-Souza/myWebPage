@@ -1,0 +1,35 @@
+.app-container {
+  min-height: 100vh;
+  background: var(--background-primary);
+  display: flex;
+  
+  .app-main {
+    flex: 1;
+    margin-left: 70px; // Espaço para o sidebar quando retraído
+    min-height: 100vh;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+    
+    &.sidebar-expanded {
+      margin-left: 280px; // Espaço para o sidebar expandido
+    }
+    
+    .main-content {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    .app-main {
+      margin-left: 0; // Remove margem em mobile
+      
+      &.sidebar-expanded {
+        margin-left: 0;
+      }
+    }
+  }
+}

@@ -1,39 +1,75 @@
-<section>
-    <div>
-        <app-article-mini
+<section class="modern-about" id="about">
+  <div class="about-header">
+    <h2 class="section-title">
+      <i class="fas fa-user-circle"></i>
+      Sobre Mim
+    </h2>
+    <p class="section-subtitle">
+      Conheça minha jornada, experiências e paixões que me definem como desenvolvedor
+    </p>
+  </div>
+
+  <div class="about-content">
+    @for (item of aboutItems(); track item.id; let i = $index) {
+      <article 
+        class="about-card"
+        [class]="getItemClasses(item.id)"
         appIntersectionObserver
-        (isIntersecting)="openImage1($event)"
-        [margemRaiz]="'100px'"
-        [limite]="[0.5]"
-        [altura]="altura1"
-        [largura]="largura1"
-        [opacidade]="opacidade1"
-        [urlImagem]="dadosAbout1.urlImage"
-        [titleAbout]="dadosAbout1.title"
-        [texto]="dadosAbout1.text"></app-article-mini>
-        <app-article-mini
-        appIntersectionObserver
-        (isIntersecting)="openImage2($event)"
-        [margemRaiz]="'10px'"
-        [limite]="[0.5]"
-        [altura]="altura2"
-        [largura]="largura2"
-        [opacidade]="opacidade2"
-        [urlImagem]="dadosAbout2.urlImage"
-        [titleAbout]="dadosAbout2.title"
-        [texto]="dadosAbout2.text"
-        ></app-article-mini>
-        <app-article-mini
-        appIntersectionObserver
-        (isIntersecting)="openImage3($event)"
-        [margemRaiz]="'10px'"
-        [limite]="[0.5]"
-        [altura]="altura3"
-        [largura]="largura3"
-        [opacidade]="opacidade3"
-        [urlImagem]="dadosAbout3.urlImage"
-        [titleAbout]="dadosAbout3.title"
-        [texto]="dadosAbout3.text"></app-article-mini>
+        (isIntersecting)="onItemIntersecting(item.id, $event)"
+        [margemRaiz]="'50px'"
+        [limite]="[0.3]">
+        
+        <div class="card-visual">
+          <div class="image-container">
+            <img 
+              [src]="item.urlImage" 
+              [alt]="item.title"
+              class="card-image"
+              loading="lazy">
+            <div class="image-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+          
+          <div class="card-number">
+            <span>{{ formatItemNumber(item.id) }}</span>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h3 class="card-title">{{ item.title }}</h3>
+          
+          <div class="card-text" [innerHTML]="item.text"></div>
+        </div>
+
+        <div class="card-decoration">
+          <div class="decoration-line"></div>
+          <div class="decoration-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <!-- Timeline connector -->
+  <div class="timeline-connector">
+    <div class="timeline-line"></div>
+    @for (item of aboutItems(); track item.id; let i = $index) {
+      <div class="timeline-dot" [class.active]="isItemVisible(item.id)">
+        <span>{{ item.id }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Background decoration -->
+  <div class="about-background">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
     </div>
-    <div class="about__gradient-bottom"></div>
+  </div>
 </section>

@@ -41,30 +41,342 @@ $diego-dev-theme: mat.define-theme((
 
 @import "@fortawesome/fontawesome-free/css/all.css"; // Importar todos os ícones
 
-*{
-    margin: 0px;
-    padding: 0px;
+// ============================
+// SISTEMA DE TEMAS MODERNO
+// ============================
+
+:root {
+  // Cores RGB para uso com transparência
+  --primary-rgb: 59, 130, 246;
+  --accent-rgb: 16, 185, 129;
+  --success-rgb: 34, 197, 94;
+  --warning-rgb: 251, 191, 36;
+  --error-rgb: 239, 68, 68;
 }
 
-body{
-    background-color: #171b26;
+// ============================
+// TEMA CLARO
+// ============================
+[data-theme="light"] {
+  // Cores principais
+  --primary-color: rgb(59, 130, 246);
+  --primary-light: rgb(147, 197, 253);
+  --primary-dark: rgb(29, 78, 216);
+  
+  --accent-color: rgb(16, 185, 129);
+  --accent-light: rgb(110, 231, 183);
+  --accent-dark: rgb(5, 150, 105);
+  --accent-text-color: white;
+  
+  // Backgrounds
+  --bg-color: #ffffff;
+  --bg-secondary: #f8fafc;
+  --surface-color: rgba(255, 255, 255, 0.8);
+  --surface-hover: #f1f5f9;
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  
+  // Textos
+  --text-color: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  // Bordas e divisores
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  --divider-color: #e2e8f0;
+  
+  // Estados
+  --hover-color: rgba(59, 130, 246, 0.05);
+  --active-color: rgba(59, 130, 246, 0.1);
+  --focus-color: rgba(59, 130, 246, 0.2);
+  
+  // Sombras
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  // Inputs
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-focus: var(--accent-color);
+  
+  // Skeleton loading
+  --skeleton-base: #f3f4f6;
+  --skeleton-shine: #ffffff;
+}
+
+// ============================
+// TEMA ESCURO
+// ============================
+[data-theme="dark"] {
+  // Cores principais
+  --primary-color: rgb(96, 165, 250);
+  --primary-light: rgb(147, 197, 253);
+  --primary-dark: rgb(59, 130, 246);
+  
+  --accent-color: rgb(52, 211, 153);
+  --accent-light: rgb(110, 231, 183);
+  --accent-dark: rgb(16, 185, 129);
+  --accent-text-color: #1f2937;
+  
+  // Backgrounds
+  --bg-color: #0f1419;
+  --bg-secondary: #1a1f2e;
+  --surface-color: rgba(31, 41, 55, 0.8);
+  --surface-hover: #374151;
+  --glass-bg: rgba(0, 0, 0, 0.3);
+  
+  // Textos
+  --text-color: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  
+  // Bordas e divisores
+  --border-color: #374151;
+  --border-light: #4b5563;
+  --divider-color: #374151;
+  
+  // Estados
+  --hover-color: rgba(96, 165, 250, 0.1);
+  --active-color: rgba(96, 165, 250, 0.2);
+  --focus-color: rgba(96, 165, 250, 0.3);
+  
+  // Sombras
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  
+  // Inputs
+  --input-bg: #374151;
+  --input-border: #4b5563;
+  --input-focus: var(--accent-color);
+  
+  // Skeleton loading
+  --skeleton-base: #374151;
+  --skeleton-shine: #4b5563;
+}
+
+// ============================
+// TEMA NEON
+// ============================
+[data-theme="neon"] {
+  // Cores principais
+  --primary-color: rgb(255, 0, 255);
+  --primary-light: rgb(255, 102, 255);
+  --primary-dark: rgb(204, 0, 204);
+  
+  --accent-color: rgb(0, 255, 255);
+  --accent-light: rgb(102, 255, 255);
+  --accent-dark: rgb(0, 204, 204);
+  --accent-text-color: #000000;
+  
+  // Backgrounds
+  --bg-color: #0a0a0a;
+  --bg-secondary: #1a0a1a;
+  --surface-color: rgba(20, 0, 20, 0.9);
+  --surface-hover: rgba(40, 0, 40, 0.8);
+  --glass-bg: rgba(255, 0, 255, 0.1);
+  
+  // Textos
+  --text-color: #ffffff;
+  --text-secondary: #ff00ff;
+  --text-muted: #cc00cc;
+  
+  // Bordas e divisores
+  --border-color: #ff00ff;
+  --border-light: #ff66ff;
+  --divider-color: #ff00ff;
+  
+  // Estados
+  --hover-color: rgba(255, 0, 255, 0.2);
+  --active-color: rgba(255, 0, 255, 0.3);
+  --focus-color: rgba(0, 255, 255, 0.3);
+  
+  // Sombras com glow neon
+  --shadow-sm: 0 0 5px rgba(255, 0, 255, 0.5);
+  --shadow-md: 0 0 10px rgba(255, 0, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.3);
+  --shadow-lg: 0 0 20px rgba(255, 0, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
+  --shadow-xl: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5);
+  
+  // Inputs
+  --input-bg: rgba(20, 0, 20, 0.8);
+  --input-border: #ff00ff;
+  --input-focus: #00ffff;
+  
+  // Skeleton loading
+  --skeleton-base: rgba(40, 0, 40, 0.6);
+  --skeleton-shine: rgba(255, 0, 255, 0.3);
+}
+
+// ============================
+// TEMA FLORESTA
+// ============================
+[data-theme="forest"] {
+  // Cores principais
+  --primary-color: rgb(34, 197, 94);
+  --primary-light: rgb(74, 222, 128);
+  --primary-dark: rgb(21, 128, 61);
+  
+  --accent-color: rgb(168, 85, 247);
+  --accent-light: rgb(196, 181, 253);
+  --accent-dark: rgb(147, 51, 234);
+  --accent-text-color: white;
+  
+  // Backgrounds
+  --bg-color: #0f1a0f;
+  --bg-secondary: #1a2e1a;
+  --surface-color: rgba(6, 95, 70, 0.3);
+  --surface-hover: rgba(6, 95, 70, 0.5);
+  --glass-bg: rgba(34, 197, 94, 0.1);
+  
+  // Textos
+  --text-color: #ecfdf5;
+  --text-secondary: #86efac;
+  --text-muted: #4ade80;
+  
+  // Bordas e divisores
+  --border-color: #065f46;
+  --border-light: #047857;
+  --divider-color: #065f46;
+  
+  // Estados
+  --hover-color: rgba(34, 197, 94, 0.1);
+  --active-color: rgba(34, 197, 94, 0.2);
+  --focus-color: rgba(168, 85, 247, 0.2);
+  
+  // Sombras
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(34, 197, 94, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(34, 197, 94, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(34, 197, 94, 0.2);
+  
+  // Inputs
+  --input-bg: rgba(6, 95, 70, 0.4);
+  --input-border: #047857;
+  --input-focus: var(--accent-color);
+  
+  // Skeleton loading
+  --skeleton-base: rgba(6, 95, 70, 0.4);
+  --skeleton-shine: rgba(34, 197, 94, 0.3);
+}
+
+// ============================
+// TRANSIÇÕES GLOBAIS
+// ============================
+* {
+  margin: 0px;
+  padding: 0px;
+  transition: 
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ============================
+// ESTILO BASE DA APLICAÇÃO
+// ============================
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-body::-webkit-scrollbar {
-  width: 16px; 
+// ============================
+// SCROLLBAR PERSONALIZADA
+// ============================
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-body::-webkit-scrollbar-track {
-  background: #171b26;  
-  border: 1px solid #00ff00; 
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
 }
 
-body::-webkit-scrollbar-thumb {
-  background-color: #FFD700;
-  border-radius: 20px; 
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--accent-dark);
+  }
+}
+
+// Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--bg-secondary);
+}
+
+// ============================
+// UTILITÁRIOS GLOBAIS
+// ============================
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// ============================
+// KEYFRAMES
+// ============================
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @font-face {

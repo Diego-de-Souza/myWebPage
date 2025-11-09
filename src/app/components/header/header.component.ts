@@ -1,53 +1,88 @@
-import { Component } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { WeatherComponent } from '../weather/weather.component';
-import { Router } from '@angular/router';
+import { ThemeService } from '../../service/theme.service';
+import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
+
+interface NavigationItem {
+  path: string;
+  label: string;
+  icon: string;
+  faIcon: string;
+}
+
+interface SocialLink {
+  url: string;
+  label: string;
+  icon: string;
+  faIcon: string;
+}
 
 @Component({
-    selector: 'app-header',
-    standalone: true,
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.scss',
-    imports: [CommonModule, WeatherComponent]
+  selector: 'app-header',
+  standalone: true,
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.scss',
+  imports: [CommonModule, RouterModule, WeatherComponent, ThemeSwitcherComponent]
 })
 export class HeaderComponent {
-  larguraMenu:string = "4em";
-  corSombra:string = "#00ff00";
-  corBorda:string = "#00ff00";
-  dataEHora: Date = new Date();
-  tipoData: string = '';
+  private router = inject(Router);
+  private themeService = inject(ThemeService);
 
-  constructor(private router:Router){
+  // Signals para gerenciamento reativo de estado
+  isMenuExpanded = signal(false);
+  currentTime = signal(new Date());
+  activeRoute = signal('');
 
+  // Dados de navegação usando tipos modernos
+  navigationItems: NavigationItem[] = [
+    { path: '/', label: 'Home', icon: 'home-icon.png', faIcon: 'fas fa-home' },
+    { path: '/conhecimento', label: 'Conhecimento', icon: 'questions-icon.png', faIcon: 'fas fa-brain' },
+    { path: '/contato', label: 'Contato', icon: 'contact-us.png', faIcon: 'fas fa-envelope' }
+  ];
+
+  socialLinks: SocialLink[] = [
+    { url: 'https://github.com/Diego-de-Souza', label: 'GitHub', icon: 'github.png', faIcon: 'fab fa-github' },
+    { url: 'https://www.linkedin.com/in/diegodesouza-devweb/', label: 'LinkedIn', icon: 'linkedin.png', faIcon: 'fab fa-linkedin' },
+    { url: 'https://www.instagram.com/diegodesouza_dev/', label: 'Instagram', icon: 'instagram.png', faIcon: 'fab fa-instagram' },
+    { url: 'https://www.facebook.com/diegodesouza102', label: 'Facebook', icon: 'facebook.png', faIcon: 'fab fa-facebook' }
+  ];
+
+  ngOnInit(): void {
+    // Atualizar tempo a cada minuto
+    setInterval(() => {
+      this.currentTime.set(new Date());
+    }, 60000);
+
+    // Detectar rota ativa
+    this.router.events.subscribe(() => {
+      this.activeRoute.set(this.router.url);
+    });
   }
 
-  ngOnInit(){
+  toggleMenu(): void {
+    this.isMenuExpanded.update(expanded => !expanded);
   }
 
-  openMenu(){
-    this.larguraMenu = "15em";
-    this.corBorda="#8911BA";
-    this.corSombra= "#FD008B" 
-    this.tipoData = "true"
+  expandMenu(): void {
+    this.isMenuExpanded.set(true);
   }
 
-  closeMenu(){
-    this.larguraMenu = "4em";
-    this.corBorda="#00ff00";
-    this.corSombra = "#00ff00";
-    this.tipoData = "";
+  collapseMenu(): void {
+    this.isMenuExpanded.set(false);
   }
 
-  openContato(){
-    this.router.navigate(['/contato'])
-  }
-  
-  openHome(){
-    this.router.navigate([''])
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
+    this.collapseMenu();
   }
 
-  openConhecimento(){
-    this.router.navigate(['/conhecimento'])
+  isRouteActive(path: string): boolean {
+    return this.activeRoute() === path || (path === '/' && this.activeRoute() === '');
   }
 
+  openExternalLink(url: string): void {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
 }

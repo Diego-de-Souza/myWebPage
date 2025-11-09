@@ -6,11 +6,52 @@
         <app-about id="about"></app-about>
         <app-skills id="skill"></app-skills>
         <app-education id="education"></app-education>
-        <app-portfolio id="portfolio"></app-portfolio>
+        
+        <!-- Seção modernizada do portfólio com integração GitHub -->
+        <section id="modern-portfolio" class="modern-section">
+            <app-modern-portfolio></app-modern-portfolio>
+        </section>
+        
+        <!-- Widgets interativos de APIs -->
+        <section id="api-widgets" class="modern-section">
+            <app-api-widgets></app-api-widgets>
+        </section>
+        
+        <!-- Portfólio original (pode manter para compatibilidade) -->
+        <app-portfolio id="portfolio" style="display: none;"></app-portfolio>
+        
         <app-certificates id="certificate"></app-certificates>
     </section>
     <app-menu-float></app-menu-float>
     <app-footer></app-footer>
 </section>
+
+<style>
+.modern-section {
+  background: var(--bg-color);
+  padding: 4rem 0;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(var(--primary-rgb), 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(var(--accent-rgb), 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(var(--primary-rgb), 0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .modern-section {
+    padding: 2rem 0;
+  }
+}
+</style>
 
 
