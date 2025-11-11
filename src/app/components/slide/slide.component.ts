@@ -31,11 +31,11 @@ export class SlideComponent implements OnInit {
   
   // Dados dinâmicos
   heroTexts: string[] = [
-    'Desenvolvedor Full Stack',
+    'Desenvolvedor Fullstack',
+    'Especialista em Node.js e Angular',
     'Engenheiro de Software',
-    'Especialista Angular',
-    'Arquiteto de Soluções',
-    'Criador de Experiências'
+    'Arquiteto de Sistemas e Soluções',
+    'Profissional AWS Cloud Certified'
   ];
   
   heroActions: HeroAction[] = [
