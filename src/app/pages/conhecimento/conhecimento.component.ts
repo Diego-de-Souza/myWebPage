@@ -12,8 +12,12 @@ import { Router } from '@angular/router';
 export class ConhecimentoComponent {
 
   constructor(private router: Router){}
-  
+
   voltar(){
     this.router.navigate([''])
+  }
+
+  navigateTo(destino: string) {
+    this.router.navigate([`/conhecimento/${destino}`]);
   }
 }

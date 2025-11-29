@@ -1,6 +1,16 @@
-<section>
-    <img src="../../../assets/imgs/conhecimento/em-construcao.png" alt="">
-    <div class="example-button-row" (click)="voltar()">
-        <button mat-raised-button>Voltar para Home</button>
+<section class="conhecimento-cards-section">
+    <h2 class="main-title">Conhecimento</h2>
+    <div class="cards-wrapper">
+        <button class="card" (click)="navigateTo('artigos')">
+            <span class="card-icon"><i class="fas fa-file-alt"></i></span>
+            <span class="card-title">Artigos</span>
+            <span class="card-desc">Conteúdos técnicos, dicas e tutoriais.</span>
+        </button>
+        <button class="card" (click)="navigateTo('curiosidades')">
+            <span class="card-icon"><i class="fas fa-lightbulb"></i></span>
+            <span class="card-title">Curiosidades</span>
+            <span class="card-desc">Fatos interessantes e novidades do mundo web.</span>
+        </button>
+        <!-- Adicione outros cards aqui conforme necessário -->
     </div>
 </section>

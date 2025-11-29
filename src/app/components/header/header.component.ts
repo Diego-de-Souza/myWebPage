@@ -39,6 +39,7 @@ export class HeaderComponent {
   navigationItems: NavigationItem[] = [
     { path: '/', label: 'Home', icon: 'home-icon.png', faIcon: 'fas fa-home' },
     { path: '/conhecimento', label: 'Conhecimento', icon: 'questions-icon.png', faIcon: 'fas fa-brain' },
+    { path: '/servicos', label: 'Serviços', icon: 'services-icon.png', faIcon: 'fas fa-briefcase' },
     { path: '/contato', label: 'Contato', icon: 'contact-us.png', faIcon: 'fas fa-envelope' }
   ];
 

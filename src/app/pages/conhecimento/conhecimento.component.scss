@@ -1,3 +1,102 @@
+// Estilo para área de cards de navegação
+
+.conhecimento-cards-section {
+    padding: 2.5rem 1.5rem;
+    max-width: 900px;
+    margin: 2.5rem auto;
+    border-radius: 16px;
+    background: var(--conhecimento-bg, #f9f9f9);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .main-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--conhecimento-title, #222);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.02em;
+    }
+
+    .cards-wrapper {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        background: var(--conhecimento-card-bg, #fff);
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        padding: 2rem 1.5rem;
+        min-width: 220px;
+        max-width: 260px;
+        flex: 1 1 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        transition: background 0.3s, box-shadow 0.2s, border-color 0.2s;
+        cursor: pointer;
+        border: 2px solid transparent;
+        outline: none;
+        &:hover, &:focus {
+            background: var(--conhecimento-card-hover-bg, #e3f2fd);
+            box-shadow: 0 4px 16px rgba(25,118,210,0.12);
+            border-color: var(--conhecimento-card-hover-border, #1976d2);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--conhecimento-card-icon, #1976d2);
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--conhecimento-card-title, #1976d2);
+            margin-bottom: 0.2rem;
+            transition: color 0.2s;
+        }
+        .card-desc {
+            color: var(--conhecimento-card-desc, #444);
+            font-size: 1.05rem;
+            text-align: center;
+            transition: color 0.2s;
+        }
+    }
+}
+
+// Tema escuro
+@media (prefers-color-scheme: dark) {
+    .conhecimento-cards-section {
+        --conhecimento-bg: #181a1b;
+        --conhecimento-title: #fff;
+        --conhecimento-card-bg: #23272b;
+        --conhecimento-card-hover-bg: #222326;
+        --conhecimento-card-hover-border: #90caf9;
+        --conhecimento-card-icon: #90caf9;
+        --conhecimento-card-title: #90caf9;
+        --conhecimento-card-desc: #cfd8dc;
+    }
+}
+
+@media (max-width: 700px) {
+    .conhecimento-cards-section {
+        padding: 1rem 0.2rem;
+        .cards-wrapper {
+            gap: 1rem;
+        }
+        .card {
+            min-width: 160px;
+            padding: 1rem 0.5rem;
+        }
+    }
+}
 section{
     display: -webkit-box;
     display: -ms-flexbox;

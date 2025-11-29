@@ -1,0 +1,32 @@
+
+<section class="artigos-page">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Artigos</h3>
+      <input type="text" class="search-input" placeholder="Buscar artigo...">
+    </div>
+    <ul class="artigos-list">
+      @for (artigo of artigos; track artigo.titulo) {
+        <li class="artigo-list-item" (click)="selectedArtigo = artigo" [class.selected]="selectedArtigo?.titulo === artigo.titulo">
+          <span class="artigo-title">{{ artigo.titulo }}</span>
+          <span class="artigo-date">{{ artigo.data }}</span>
+        </li>
+      }
+    </ul>
+  </aside>
+  <main class="artigo-main">
+    @if (selectedArtigo) {
+      <article class="artigo-detalhe">
+        <h2 class="artigo-detalhe-title">{{ selectedArtigo.titulo }}</h2>
+        <span class="artigo-detalhe-date">{{ selectedArtigo.data }}</span>
+        <div class="artigo-detalhe-content">
+          <div [innerHTML]="selectedArtigo.conteudo"></div>
+        </div>
+      </article>
+    } @else {
+      <div class="artigo-placeholder">
+        <p>Selecione um artigo na barra lateral para visualizar o conteúdo.</p>
+      </div>
+    }
+  </main>
+</section>
