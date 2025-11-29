@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../service/theme.service';
 import { Subject } from 'rxjs';
+import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
 
 interface MenuItemConfig {
   id: string;
@@ -17,7 +18,7 @@ interface MenuItemConfig {
 @Component({
   selector: 'app-menu-float',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, ContactWhatsappComponent],
   templateUrl: './menu-float.component.html',
   styleUrl: './menu-float.component.scss'
 })

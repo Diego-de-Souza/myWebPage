@@ -265,7 +265,7 @@
 
         .menu-indicator .indicator-dot {
           opacity: 1;
-          background: var(--item-color, var(--accent-color));
+          background: var(--item-color, var,--accent-color);
           transform: scale(1);
         }
       }
@@ -588,6 +588,58 @@
 
     .hamburger span {
       width: 16px;
+    }
+  }
+}
+
+// WhatsApp Button
+.header-whatsapp-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5em 0 0.5em 0;
+
+  .whatsapp-btn-social {
+    background: #25D366;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(37,211,102,0.18);
+    transition: background 0.2s, box-shadow 0.2s;
+    padding: 0;
+
+    &:hover {
+      background: #1ebe57;
+      box-shadow: 0 0 12px #25D366;
+    }
+  }
+
+  .whatsapp-icon-circle {
+    background: none;
+    box-shadow: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .whatsapp-label {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-whatsapp-btn {
+    margin: 1em 0;
+
+    .whatsapp-btn-social {
+      width: 40px;
+      height: 40px;
     }
   }
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../service/theme.service';
 import { DownloadService } from '../../service/download.service';
+import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
 
 interface SocialLink {
   platform: string;
@@ -20,7 +21,7 @@ interface FooterSection {
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ContactWhatsappComponent],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
@@ -81,16 +82,18 @@ export class FooterComponent {
     {
       title: 'Páginas',
       links: [
+        { label: 'Home', action: () => this.router.navigate(['/']) },
         { label: 'Conhecimento', action: () => this.router.navigate(['/conhecimento']) },
-        { label: 'Contato', action: () => this.router.navigate(['/contato']) },
-        { label: 'Home', action: () => this.router.navigate(['/']) }
+        { label: 'serviços', action: () => this.router.navigate(['/servicos']) },
+        { label: 'Contato', action: () => this.router.navigate(['/contato']) }
+        
       ]
     }
   ];
 
   // Contact Info
   contactInfo = {
-    email: 'diego@example.com',
+    email: 'diegodesouza.souza@gmail.com',
     location: 'São Paulo, Brasil',
     status: 'Disponível para novos projetos'
   };

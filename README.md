@@ -231,7 +231,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 **Diego de Souza**
 - GitHub: [@Diego-de-Souza](https://github.com/Diego-de-Souza)
 - LinkedIn: [Diego de Souza](https://linkedin.com/in/diego-de-souza)
-- Email: diego@example.com
+- Email: diegodesouza.souza@gmail.com 
 
 ## 🙏 Agradecimentos
 

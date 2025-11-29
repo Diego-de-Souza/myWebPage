@@ -1,11 +1,12 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeatherComponent } from '../weather/weather.component';
+import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
 
 @Component({
   selector: 'app-header-responsive',
   standalone: true,
-  imports: [WeatherComponent],
+  imports: [WeatherComponent, ContactWhatsappComponent],
   templateUrl: './header-responsive.component.html',
   styleUrl: './header-responsive.component.scss'
 })
