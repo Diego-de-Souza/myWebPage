@@ -1,9 +1,9 @@
-<section class="headerResponsive" >
+<section class="headerResponsive" [class.open]="isMenuOpen">
     <div class="headerResponsive_principal">
         <div class="headerResponsive__container-logo">
             <img src="../../../assets/imgs/favicon/favicon-32x32.png" alt="Logo Diego - dev">
         </div>
-        <div id="nav-icon2" (click)="openMenu()" #navIcon>
+        <div id="nav-icon2" (click)="toggleMenu()" #navIcon>
             <span></span>
             <span></span>
             <span></span>
@@ -12,59 +12,62 @@
             <span></span>
         </div>
     </div>
-    <div class="headerResponsive_secundario">
-        <ul id="link-pages-responsive">
-            <li class="link-pages__li" (click)="openHome()">
-                <div class="link-pages__circle-icon-header">
-                    <img src="../../../assets/imgs/homePage/header/home-icon.png" alt="" class="link-pages__li__img">
-                    <p class="link-pages__li__description">HOME</p>
-                </div>
-            </li>
-            <li class="link-pages__li" (click)="openConhecimento()">
-                <div class="link-pages__circle-icon-header">
-                    <img src="../../../assets/imgs/homePage/header/questions-icon.png" alt="imagem das questões de conhecimento" class="link-pages__li__img">
-                    <p class="link-pages__li__description">CONHECIMENTO</p>
-                </div>
-            </li>
-            <li class="link-pages__li" (click)="openContato()" >
-                <div class="link-pages__circle-icon-header">
-                    <img src="../../../assets/imgs/homePage/header/contact-us.png" alt="" class="link-pages__li__img">
-                    <p class="link-pages__li__description">CONTATO</p>
-                </div>
-            </li>
-        </ul>
-        <div class="demiter"></div>
-        <ul id="link-user-responsive">
-            <li class="link-user__redes">
-                <a href="https://www.instagram.com/diegodesouza_dev/" class="link-user__redes__link" target="_blank">
-                    <img src="../../../assets/imgs/homePage/header/instagram.png" alt="" class="link-user__redes__icon">
-                    <p class="link-pages__li__description">Instagram</p>
-                </a>
-            </li>
-            <li class="link-user__redes">
-                <a href="https://www.linkedin.com/in/diegodesouza-devweb/" class="link-user__redes__link" target="_blank">
-                    <img src="../../../assets/imgs/homePage/header/linkedin.png" alt="" class="link-user__redes__icon">
-                    <p class="link-pages__li__description">Linkedin</p>
-                </a>
-            </li>
-            <li class="link-user__redes">
-                <a href="https://www.facebook.com/diegodesouza102" class="link-user__redes__link" target="_blank">
-                    <img src="../../../assets/imgs/homePage/header/facebook.png" alt="" class="link-user__redes__icon">
-                    <p class="link-pages__li__description">Facebook</p>
-                </a>
-            </li>
-            <li class="link-user__redes">
-                <a href="https://github.com/Diego-de-Souza" class="link-user__redes__link" target="_blank">
-                    <img src="../../../assets/imgs/homePage/header/github.png" alt="" class="link-user__redes__icon">
-                    <p class="link-pages__li__description">GitHub</p>
-                </a>
-            </li>
-            <li class="link-user__redes">
-                <app-contact-whatsapp>teste</app-contact-whatsapp>
-            </li>
-        </ul>
-        <div class="demiter"></div>
-        
-        <app-weather menuAberto="{{tipoData}}" class="link-user-date" menuFloat="true"></app-weather>
-    </div>
+    @if(isMenuOpen) {
+        <div class="headerResponsive_secundario">
+            <ul id="link-pages-responsive">
+                <li class="link-pages__li" (click)="openHome()">
+                    <div class="link-pages__circle-icon-header">
+                        <img src="../../../assets/imgs/homePage/header/home-icon.png" alt="" class="link-pages__li__img">
+                        <p class="link-pages__li__description">HOME</p>
+                    </div>
+                </li>
+                <li class="link-pages__li" (click)="openConhecimento()">
+                    <div class="link-pages__circle-icon-header">
+                        <img src="../../../assets/imgs/homePage/header/questions-icon.png" alt="imagem das questões de conhecimento" class="link-pages__li__img">
+                        <p class="link-pages__li__description">CONHECIMENTO</p>
+                    </div>
+                </li>
+                <li class="link-pages__li" (click)="openContato()" >
+                    <div class="link-pages__circle-icon-header">
+                        <img src="../../../assets/imgs/homePage/header/contact-us.png" alt="" class="link-pages__li__img">
+                        <p class="link-pages__li__description">CONTATO</p>
+                    </div>
+                </li>
+            </ul>
+            <div class="demiter"></div>
+            <ul id="link-user-responsive">
+                <li class="link-user__redes">
+                    <a href="https://www.instagram.com/diegodesouza_dev/" class="link-user__redes__link" target="_blank">
+                        <img src="../../../assets/imgs/homePage/header/instagram.png" alt="" class="link-user__redes__icon">
+                        <p class="link-pages__li__description">Instagram</p>
+                    </a>
+                </li>
+                <li class="link-user__redes">
+                    <a href="https://www.linkedin.com/in/diegodesouza-devweb/" class="link-user__redes__link" target="_blank">
+                        <img src="../../../assets/imgs/homePage/header/linkedin.png" alt="" class="link-user__redes__icon">
+                        <p class="link-pages__li__description">Linkedin</p>
+                    </a>
+                </li>
+                <li class="link-user__redes">
+                    <a href="https://www.facebook.com/diegodesouza102" class="link-user__redes__link" target="_blank">
+                        <img src="../../../assets/imgs/homePage/header/facebook.png" alt="" class="link-user__redes__icon">
+                        <p class="link-pages__li__description">Facebook</p>
+                    </a>
+                </li>
+                <li class="link-user__redes">
+                    <a href="https://github.com/Diego-de-Souza" class="link-user__redes__link" target="_blank">
+                        <img src="../../../assets/imgs/homePage/header/github.png" alt="" class="link-user__redes__icon">
+                        <p class="link-pages__li__description">GitHub</p>
+                    </a>
+                </li>
+                <li class="link-user__redes">
+                    <app-contact-whatsapp>teste</app-contact-whatsapp>
+                </li>
+            </ul>
+            <div class="demiter"></div>
+            
+            <app-weather menuAberto="{{tipoData}}" class="link-user-date" menuFloat="true"></app-weather>
+        </div>
+    }
+    
 </section>
