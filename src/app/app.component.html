@@ -1,9 +1,26 @@
-
 <div class="app-container">
+  @if (isLoading()) {
+    <div class="app-loader" [class.app-loader--fade]="loadingFadeOut()">
+      <div class="app-loader__ring"></div>
+      <p class="app-loader__text">Inicializando portfólio...</p>
+    </div>
+  }
+
+  <div class="scroll-progress" [style.width.%]="progress()" aria-hidden="true"></div>
+
+  @if (!reducedMotion()) {
+    <div
+      class="cursor-follower"
+      [class.cursor-follower--expanded]="cursorExpanded()"
+      [style.transform]="'translate3d(' + (cursorX() - 12) + 'px,' + (cursorY() - 12) + 'px,0)'"
+      aria-hidden="true"></div>
+  }
+
   <app-header></app-header>
+  <app-header-responsive class="global-header-mobile"></app-header-responsive>
   
   <main class="app-main" [class.sidebar-expanded]="sidebarExpanded()">
-    <div class="main-content">
+    <div class="main-content" (pointermove)="onPointerMove($event)">
       <router-outlet />
     </div>
   </main>

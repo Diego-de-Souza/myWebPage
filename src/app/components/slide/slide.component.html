@@ -1,19 +1,16 @@
 <section id="slide-abertura" class="hero-section">
   <div class="hero-container">
-    <!-- Content Area -->
     <div class="hero-content">
-      <!-- Main Introduction -->
       <div class="hero-intro">
         <div class="greeting-text">
-          <span class="hello">Olá, eu sou</span>
+          <span class="hello">Ola, eu sou</span>
           <h1 class="name">
             <span class="bracket">&lt;</span>
-            Diego - Dev
+            <span class="scramble">{{ displayName() }}</span>
             <span class="bracket">/&gt;</span>
           </h1>
         </div>
-        
-        <!-- Dynamic Text Display -->
+
         <div class="hero-title">
           <h2 class="dynamic-text">
             {{ displayText() }}
@@ -21,7 +18,6 @@
           </h2>
         </div>
 
-        <!-- Personal Info -->
         <div class="hero-info">
           <div class="info-item">
             <i class="fas fa-map-marker-alt"></i>
@@ -33,25 +29,21 @@
           </div>
         </div>
 
-        <!-- Description -->
         <p class="hero-description">
           {{ personalInfo.description }}
         </p>
 
-        <!-- Skills Tags -->
         <div class="skills-preview">
           @for (skill of personalInfo.skills; track skill) {
             <span class="skill-tag">{{ skill }}</span>
           }
         </div>
 
-        <!-- Action Buttons -->
         <div class="hero-actions">
           @for (action of heroActions; track action.label) {
-            <button 
-              [class]="'action-btn ' + (action.primary ? 'primary' : 'secondary')"
-              (click)="onActionClick(action)"
-            >
+            <button
+              [class]="'action-btn magnetic-btn ' + (action.primary ? 'primary' : 'secondary')"
+              (click)="onActionClick(action)">
               <i [class]="action.icon"></i>
               {{ action.label }}
             </button>
@@ -59,35 +51,32 @@
         </div>
       </div>
 
-      <!-- Inspirational Quote -->
-      <div class="hero-quote">
+      <div class="hero-quote glass-effect tilt-card">
         <blockquote>
-          <p>"A única maneira de fazer algo excelente é amar o que você faz."</p>
+          <p>"A unica maneira de fazer algo excelente e amar o que voce faz."</p>
           <cite>Steve Jobs</cite>
         </blockquote>
       </div>
     </div>
 
-    <!-- Visual Area -->
     <div class="hero-visual">
-      <div class="image-container">
-        <img 
-          src="../../../assets/imgs/homePage/banner/foto.png"
+      <div class="image-container tilt-card">
+        <img
+          src="../../../assets/imgs/homePage/banner/idego_1_backdark.jpeg"
           alt="Diego - Desenvolvedor Full Stack"
           class="hero-image"
-        />
+          loading="lazy"
+          decoding="async" />
         <div class="image-decoration"></div>
       </div>
-      
-      <!-- Rotating Logo -->
+
       <div class="rotating-logo-container">
         <app-rotating-logo></app-rotating-logo>
       </div>
     </div>
   </div>
 
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
+  <div class="scroll-indicator" aria-hidden="true">
     <div class="scroll-arrow">
       <i class="fas fa-chevron-down"></i>
     </div>

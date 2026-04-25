@@ -1,12 +1,16 @@
 .modern-about {
   position: relative;
   padding: 4rem 0;
-  background: linear-gradient(135deg, 
-    var(--surface-primary) 0%, 
-    var(--surface-secondary) 50%, 
-    var(--surface-primary) 100%);
   overflow: hidden;
+  min-height: 100vh;
   
+  // Parallax simples e estável (sem distorcer o resto da página)
+  background-image: url('/assets/imgs/homePage/banner/diego_window.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
   &::before {
     content: '';
     position: absolute;
@@ -14,8 +18,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--glass-background);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.35) 45%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
     z-index: 1;
   }
 }
@@ -405,6 +413,8 @@
 @media (max-width: 480px) {
   .modern-about {
     padding: 2rem 0;
+
+    background-attachment: scroll;
   }
   
   .about-header {

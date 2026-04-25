@@ -1,32 +1,33 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService, GitHubRepo } from '../../service/api.service';
+import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
 
 @Component({
   selector: 'app-modern-portfolio',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="modern-portfolio">
-      <div class="portfolio-header">
+    <section class="modern-portfolio">
+      <header class="portfolio-header">
         <h2>
           <i class="fab fa-github"></i>
-          Projetos & Repositórios
+          GitHub Portfolio
         </h2>
-        <p class="subtitle">Conectado diretamente com GitHub para sempre manter atualizado</p>
-        
+        <p class="subtitle">Atualizado em tempo real com os repositorios publicos mais recentes</p>
+
         <div class="github-config">
           <div class="input-group">
-            <input 
-              type="text" 
-              [(ngModel)]="githubUsername" 
-              placeholder="Usuário do GitHub"
+            <input
+              type="text"
+              [(ngModel)]="githubUsername"
+              placeholder="Usuario do GitHub"
               (keyup.enter)="loadGitHubRepos()"
-              class="github-input">
-            <button 
-              (click)="loadGitHubRepos()" 
-              class="load-btn"
+              class="github-input"
+              aria-label="Usuario do GitHub" />
+            <button
+              (click)="loadGitHubRepos()"
+              class="load-btn magnetic-btn"
               [disabled]="loading()">
               @if (loading()) {
                 <i class="fas fa-spinner fa-spin"></i>
@@ -37,49 +38,60 @@ import { ApiService, GitHubRepo } from '../../service/api.service';
             </button>
           </div>
         </div>
-      </div>
-      
+      </header>
+
+      @if (user(); as profile) {
+        <section class="github-profile glass-effect tilt-card">
+          <img [src]="profile.avatar_url" [alt]="'Avatar de ' + profile.login" loading="lazy" />
+          <div class="profile-info">
+            <h3>{{ profile.name || profile.login }}</h3>
+            <p>{{ profile.bio || 'Sem bio publicada.' }}</p>
+            <div class="profile-meta">
+              <span>{{ profile.public_repos }} repos</span>
+              <span>{{ profile.followers }} seguidores</span>
+              <span>{{ profile.following }} seguindo</span>
+            </div>
+          </div>
+          <a class="profile-link magnetic-btn" [href]="profile.html_url" target="_blank" rel="noopener noreferrer">
+            Ver perfil
+          </a>
+        </section>
+      }
+
       @if (loading()) {
-        <div class="loading-grid">
+        <div class="loading-grid" aria-live="polite">
           @for (i of [1,2,3,4,5,6]; track i) {
-            <div class="repo-card skeleton">
+            <article class="repo-card skeleton">
               <div class="skeleton-header"></div>
               <div class="skeleton-content">
                 <div class="skeleton-line"></div>
                 <div class="skeleton-line short"></div>
               </div>
               <div class="skeleton-footer"></div>
-            </div>
+            </article>
           }
         </div>
       } @else if (repos().length > 0) {
-        <div class="repos-grid">
+        <section class="repos-grid">
           @for (repo of repos(); track repo.id) {
-            <div class="repo-card" [attr.data-language]="repo.language ? repo.language.toLowerCase() : ''">
-              <div class="repo-header">
+            <article class="repo-card glass-effect tilt-card">
+              <div class="repo-card__glow"></div>
+              <header class="repo-header">
                 <h3>
                   <i class="fas fa-folder-open"></i>
                   {{ repo.name }}
                 </h3>
                 <div class="repo-stats">
-                  <span class="stars">
-                    <i class="fas fa-star"></i>
-                    {{ repo.stargazers_count }}
-                  </span>
-                  <span class="forks">
-                    <i class="fas fa-code-branch"></i>
-                    {{ repo.forks_count }}
-                  </span>
+                  <span class="stars"><i class="fas fa-star"></i>{{ repo.stargazers_count }}</span>
+                  <span class="forks"><i class="fas fa-code-branch"></i>{{ repo.forks_count }}</span>
                 </div>
-              </div>
-              
-              @if (repo.description) {
-                <p class="repo-description">{{ repo.description }}</p>
-              }
-              
+              </header>
+
+              <p class="repo-description">{{ repo.description || 'Sem descricao cadastrada.' }}</p>
+
               <div class="repo-tech">
                 @if (repo.language) {
-                  <span class="language-tag" [attr.data-language]="repo.language.toLowerCase()">
+                  <span class="language-tag" [style.background]="getLanguageColor(repo.language)">
                     {{ repo.language }}
                   </span>
                 }
@@ -87,136 +99,133 @@ import { ApiService, GitHubRepo } from '../../service/api.service';
                   <span class="topic-tag">{{ topic }}</span>
                 }
               </div>
-              
+
               <div class="repo-dates">
-                <span class="created">
-                  <i class="fas fa-calendar-plus"></i>
-                  Criado: {{ formatDate(repo.created_at) }}
-                </span>
-                <span class="updated">
-                  <i class="fas fa-clock"></i>
-                  Atualizado: {{ formatDate(repo.updated_at) }}
-                </span>
+                <span><i class="fas fa-clock"></i> Atualizado: {{ formatDate(repo.updated_at) }}</span>
               </div>
-              
+
               <div class="repo-actions">
-                <a [href]="repo.html_url" target="_blank" class="view-repo">
+                <a [href]="repo.html_url" target="_blank" rel="noopener noreferrer" class="view-repo magnetic-btn">
                   <i class="fab fa-github"></i>
-                  Ver no GitHub
+                  Repositorio
                 </a>
                 @if (repo.homepage) {
-                  <a [href]="repo.homepage" target="_blank" class="view-demo">
+                  <a [href]="repo.homepage" target="_blank" rel="noopener noreferrer" class="view-demo magnetic-btn">
                     <i class="fas fa-external-link-alt"></i>
                     Demo
                   </a>
                 }
-                <button (click)="copyCloneUrl(repo.clone_url)" class="clone-btn">
-                  <i class="fas fa-copy"></i>
-                  Clone
-                </button>
               </div>
-            </div>
+            </article>
           }
-        </div>
-        
-        <div class="portfolio-stats">
-          <div class="stat-card">
+        </section>
+
+        <section class="portfolio-stats">
+          <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-code"></i>
             <span class="stat-number">{{ repos().length }}</span>
-            <span class="stat-label">Repositórios</span>
-          </div>
-          <div class="stat-card">
+            <span class="stat-label">Repositorios</span>
+          </article>
+          <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-star"></i>
             <span class="stat-number">{{ totalStars() }}</span>
-            <span class="stat-label">Stars Total</span>
-          </div>
-          <div class="stat-card">
+            <span class="stat-label">Stars totais</span>
+          </article>
+          <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-code-branch"></i>
             <span class="stat-number">{{ totalForks() }}</span>
-            <span class="stat-label">Forks Total</span>
-          </div>
-          <div class="stat-card">
+            <span class="stat-label">Forks totais</span>
+          </article>
+          <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-laptop-code"></i>
             <span class="stat-number">{{ uniqueLanguages().length }}</span>
             <span class="stat-label">Linguagens</span>
-          </div>
-        </div>
-      }
-      
-      @if (githubUsername && !loading() && repos().length === 0) {
-        <div class="no-repos">
+          </article>
+        </section>
+      } @else {
+        <div class="welcome-state glass-effect">
           <i class="fab fa-github-alt"></i>
-          <h3>Nenhum repositório encontrado</h3>
-          <p>Verifique se o usuário existe e possui repositórios públicos.</p>
+          <h3>{{ errorMessage() || 'Nenhum repositorio encontrado' }}</h3>
+          <p>Verifique o usuario informado ou limite de requisicoes da API.</p>
         </div>
       }
-      
-      @if (!githubUsername && !loading()) {
-        <div class="welcome-state">
-          <i class="fab fa-github"></i>
-          <h3>Conecte ao GitHub</h3>
-          <p>Digite seu usuário do GitHub para exibir seus repositórios automaticamente.</p>
-        </div>
-      }
-    </div>
+    </section>
   `,
   styleUrls: ['./modern-portfolio.component.scss']
 })
 export class ModernPortfolioComponent implements OnInit {
   private apiService = inject(ApiService);
-  
-  // Signals
   repos = signal<GitHubRepo[]>([]);
+  user = signal<GitHubUser | null>(null);
   loading = signal(false);
-  githubUsername = 'Diego-de-Souza'; // Usuário padrão
-  
-  // Computed signals
+  errorMessage = signal<string | null>(null);
+  githubUsername = 'Diego-de-Souza';
   totalStars = signal(0);
   totalForks = signal(0);
   uniqueLanguages = signal<string[]>([]);
-  
+
+  private languageColors: Record<string, string> = {
+    TypeScript: '#3178c6',
+    JavaScript: '#f1e05a',
+    HTML: '#e34c26',
+    CSS: '#563d7c',
+    SCSS: '#c6538c',
+    Python: '#3572A5',
+    Java: '#b07219',
+    Kotlin: '#a97bff',
+    'C#': '#178600',
+    Shell: '#89e051',
+    Vue: '#41b883',
+    Go: '#00add8'
+  };
+
   ngOnInit(): void {
     this.loadGitHubRepos();
   }
-  
+
   loadGitHubRepos(): void {
-    if (!this.githubUsername.trim()) return;
-    
+    if (!this.githubUsername.trim()) {
+      return;
+    }
     this.loading.set(true);
-    
-    this.apiService.getGitHubRepos(this.githubUsername).subscribe({
-      next: (repos) => {
+    this.errorMessage.set(null);
+    // Most portfolios have forks; keep them by default to avoid empty states.
+    this.apiService.getGitHubPortfolio(this.githubUsername, true).subscribe({
+      next: ({ repos, user }) => {
         this.repos.set(repos);
+        this.user.set(user);
         this.calculateStats(repos);
+        if (repos.length === 0) {
+          this.errorMessage.set('Nenhum repositório encontrado para este usuário.');
+        }
         this.loading.set(false);
       },
       error: () => {
         this.repos.set([]);
+        this.user.set(null);
+        this.errorMessage.set('Não foi possível carregar o portfólio agora. Tente novamente em instantes.');
         this.loading.set(false);
       }
     });
   }
-  
+
   private calculateStats(repos: GitHubRepo[]): void {
-    const stars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-    const forks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
-    const languages = [...new Set(repos.map(repo => repo.language).filter(Boolean))];
-    
-    this.totalStars.set(stars);
-    this.totalForks.set(forks);
-    this.uniqueLanguages.set(languages);
+    this.totalStars.set(repos.reduce((sum, repo) => sum + repo.stargazers_count, 0));
+    this.totalForks.set(repos.reduce((sum, repo) => sum + repo.forks_count, 0));
+    this.uniqueLanguages.set([
+      ...new Set(repos.map((repo) => repo.language).filter((language): language is string => !!language))
+    ]);
   }
-  
+
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('pt-BR');
+    return new Date(dateString).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
   }
-  
-  async copyCloneUrl(url: string): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(url);
-      // Você pode adicionar um toast notification aqui
-    } catch (err) {
-      console.error('Erro ao copiar URL:', err);
-    }
+
+  getLanguageColor(language: string): string {
+    return this.languageColors[language] || '#6b7280';
   }
 }

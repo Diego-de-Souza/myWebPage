@@ -5,8 +5,8 @@
     position: absolute;
     -webkit-animation: deslocar 4s linear 1;
             animation: deslocar 4s linear 1;
-    right: 60%;    
-    top: 55%;
+    right: 40%;    
+    top: 35%;
 }
 
 .rotatingLogo__img{
@@ -20,17 +20,17 @@
 @-webkit-keyframes deslocar{
     0%{right: 0%; }
     25%{right: 15%;}
-    50%{right: 30%;}
-    75%{right: 45%;}
-    100%{right: 60%;}
+    50%{right: 20%;}
+    75%{right: 40%;}
+    100%{right: 45%;}
 }
 
 @keyframes deslocar{
     0%{right: 0%; }
     25%{right: 15%;}
-    50%{right: 30%;}
-    75%{right: 45%;}
-    100%{right: 60%;}
+    50%{right: 20%;}
+    75%{right: 40%;}
+    100%{right: 45%;}
 }
 
 @-webkit-keyframes girar{

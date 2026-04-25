@@ -122,6 +122,11 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // When rendered inside fixed menus, keep it compact by default.
+    if (this.menuFloat === 'true') {
+      this.compact = true;
+    }
+
     // Update time every second
     interval(1000)
       .pipe(takeUntil(this.destroy$))

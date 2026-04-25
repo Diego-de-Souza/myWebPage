@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RotatingLogoComponent } from '../rotating-logo/rotating-logo.component';
@@ -19,25 +19,25 @@ interface HeroAction {
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.scss']
 })
-export class SlideComponent implements OnInit {
+export class SlideComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private themeService = inject(ThemeService);
   private downloadService = inject(DownloadService);
-
-  // Signals
+  private destroyed = false;
+  private readonly chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/=+_';
   currentTextIndex = signal(0);
   isTyping = signal(false);
   displayText = signal('');
-  
-  // Dados dinâmicos
+  displayName = signal('Diego - Dev');
+
   heroTexts: string[] = [
     'Desenvolvedor Fullstack',
     'Especialista em Node.js e Angular',
-    'Engenheiro de Software',
-    'Arquiteto de Sistemas e Soluções',
+    'Engenheiro da Computação',
+    'Arquiteto de Sistemas e Solucoes',
     'Profissional AWS Cloud Certified'
   ];
-  
+
   heroActions: HeroAction[] = [
     {
       label: 'Ver Projetos',
@@ -59,21 +59,24 @@ export class SlideComponent implements OnInit {
     }
   ];
 
-  // Computed properties
   currentTheme = computed(() => this.themeService.currentTheme());
-  
-  // Dados pessoais
+
   personalInfo = {
     name: 'Diego de Souza',
     title: 'Desenvolvedor Full Stack',
-    location: 'São Paulo, Brasil',
-    experience: '3+ anos',
-    description: 'Apaixonado por tecnologia e inovação, criando soluções digitais que fazem a diferença.',
-    skills: ['Angular', 'TypeScript', 'Node.js', 'C#', '.NET', 'SQL']
+    location: 'Sao Paulo, Brasil',
+    experience: '4+ anos',
+    description: 'Apaixonado por tecnologia e inovacao, criando solucoes digitais de alto impacto.',
+    skills: ['Angular', 'TypeScript', 'Node.js', 'AWS', 'NestJS', 'Python', 'SQL']
   };
 
   ngOnInit(): void {
+    this.startNameScramble(this.displayName(), 1150);
     this.startTypewriterEffect();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed = true;
   }
 
   private startTypewriterEffect(): void {
@@ -81,44 +84,75 @@ export class SlideComponent implements OnInit {
   }
 
   private async typeText(): Promise<void> {
+    if (this.destroyed) {
+      return;
+    }
     const text = this.heroTexts[this.currentTextIndex()];
     this.isTyping.set(true);
     this.displayText.set('');
 
-    // Typing effect
     for (let i = 0; i <= text.length; i++) {
+      if (this.destroyed) {
+        return;
+      }
       this.displayText.set(text.substring(0, i));
-      await this.delay(100);
+      await this.delay(75);
     }
 
-    await this.delay(2000); // Pause at end
+    await this.delay(1800);
 
-    // Erasing effect
     for (let i = text.length; i >= 0; i--) {
+      if (this.destroyed) {
+        return;
+      }
       this.displayText.set(text.substring(0, i));
-      await this.delay(50);
+      await this.delay(40);
     }
 
-    // Move to next text
-    this.currentTextIndex.update(index => 
-      (index + 1) % this.heroTexts.length
-    );
-
+    this.currentTextIndex.update((index) => (index + 1) % this.heroTexts.length);
     this.isTyping.set(false);
-    await this.delay(500);
-    
-    // Continue loop
+    await this.delay(350);
     this.typeText();
   }
 
+  private startNameScramble(finalText: string, duration = 1000): void {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.displayName.set(finalText);
+      return;
+    }
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const revealCount = Math.floor(finalText.length * progress);
+      const value = finalText
+        .split('')
+        .map((char, index) => {
+          if (char === ' ') {
+            return ' ';
+          }
+          return index < revealCount
+            ? finalText[index]
+            : this.chars[Math.floor(Math.random() * this.chars.length)];
+        })
+        .join('');
+      this.displayName.set(value);
+      if (progress < 1 && !this.destroyed) {
+        requestAnimationFrame(tick);
+      } else {
+        this.displayName.set(finalText);
+      }
+    };
+    requestAnimationFrame(tick);
+  }
+
   private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   private scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 

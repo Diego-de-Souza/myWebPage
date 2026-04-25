@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild, HostListener, signal } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeatherComponent } from '../weather/weather.component';
 import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';

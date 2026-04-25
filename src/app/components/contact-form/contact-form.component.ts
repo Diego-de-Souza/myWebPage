@@ -97,15 +97,15 @@ export class ContactFormComponent implements OnInit {
       type: 'email',
       icon: 'fas fa-envelope',
       label: 'Email',
-      value: 'diego.dev.contato@gmail.com',
-      link: 'mailto:diego.dev.contato@gmail.com'
+      value: 'diegodesouza.souza@gmail.com',
+      link: 'mailto:diegodesouza.souza@gmail.com'
     },
     {
       type: 'phone',
       icon: 'fas fa-phone',
       label: 'Telefone',
-      value: '+55 (11) 99999-9999',
-      link: 'tel:+5511999999999'
+      value: '+55 (11) 961969969',
+      link: 'tel:+5511961969969'
     },
     {
       type: 'location',

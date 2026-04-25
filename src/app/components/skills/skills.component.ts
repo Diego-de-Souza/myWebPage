@@ -39,15 +39,15 @@ export class SkillsComponent implements OnInit {
   isMobile = computed(() => this.screenWidth() <= 768);
   
   languageSkills = computed(() => 
-    this.skillCategories().find(cat => cat.tipo === 'languages')?.itens || []
+    this.skillCategories().find(cat => cat.tipo === 'language')?.itens || []
   );
   
   frameworkSkills = computed(() => 
-    this.skillCategories().find(cat => cat.tipo === 'frameworks')?.itens || []
+    this.skillCategories().find(cat => cat.tipo === 'software')?.itens || []
   );
 
   specializationSkills = computed(() => 
-    this.skillCategories().find(cat => cat.tipo === 'specializations')?.itens || []
+    this.skillCategories().find(cat => cat.tipo === 'specialization')?.itens || []
   );
   
   allSkills = computed(() => [

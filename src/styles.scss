@@ -1,18 +1,9 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the theme object.
 $diego-dev-theme: mat.define-theme((
   color: (
-    theme-type: light,
+    theme-type: dark,
     primary: mat.$azure-palette,
     tertiary: mat.$blue-palette,
   ),
@@ -21,279 +12,188 @@ $diego-dev-theme: mat.define-theme((
   )
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 :root {
   @include mat.all-component-themes($diego-dev-theme);
 }
 
-// Comment out the line below if you want to use the pre-defined typography utility classes.
-// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
-// @include mat.typography-hierarchy($diego-dev-theme);
-
-// Comment out the line below if you want to use the deprecated `color` inputs.
-// @include mat.color-variants-backwards-compatibility($diego-dev-theme);
-/* You can add global styles to this file, and also import other style files */
-
-/* Importing Bootstrap SCSS file. */
 @import '../node_modules/bootstrap/scss/bootstrap';
+@import '@fortawesome/fontawesome-free/css/all.css';
 
-@import "@fortawesome/fontawesome-free/css/all.css"; // Importar todos os ícones
-
-// ============================
-// SISTEMA DE TEMAS MODERNO
-// ============================
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@500;700;800&display=swap');
 
 :root {
-  // Cores RGB para uso com transparência
-  --primary-rgb: 59, 130, 246;
-  --accent-rgb: 16, 185, 129;
-  --success-rgb: 34, 197, 94;
-  --warning-rgb: 251, 191, 36;
-  --error-rgb: 239, 68, 68;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --parallax-x: 0px;
+  --parallax-y: 0px;
+  --primary-rgb: 124, 58, 237;
+  --accent-rgb: 0, 245, 212;
 }
 
-// ============================
-// TEMA CLARO
-// ============================
-[data-theme="light"] {
-  // Cores principais
-  --primary-color: rgb(59, 130, 246);
-  --primary-light: rgb(147, 197, 253);
-  --primary-dark: rgb(29, 78, 216);
-  
-  --accent-color: rgb(16, 185, 129);
-  --accent-light: rgb(110, 231, 183);
-  --accent-dark: rgb(5, 150, 105);
-  --accent-text-color: white;
-  
-  // Backgrounds
-  --bg-color: #ffffff;
-  --bg-secondary: #f8fafc;
-  --surface-color: rgba(255, 255, 255, 0.8);
-  --surface-hover: #f1f5f9;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  
-  // Textos
-  --text-color: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  
-  // Bordas e divisores
-  --border-color: #e2e8f0;
-  --border-light: #f1f5f9;
-  --divider-color: #e2e8f0;
-  
-  // Estados
-  --hover-color: rgba(59, 130, 246, 0.05);
-  --active-color: rgba(59, 130, 246, 0.1);
-  --focus-color: rgba(59, 130, 246, 0.2);
-  
-  // Sombras
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
-  // Inputs
-  --input-bg: #ffffff;
-  --input-border: #d1d5db;
-  --input-focus: var(--accent-color);
-  
-  // Skeleton loading
-  --skeleton-base: #f3f4f6;
-  --skeleton-shine: #ffffff;
+[data-theme='dark'] {
+  --bg-color: #0a0a0f;
+  --bg-secondary: #12131d;
+  --surface-color: rgba(20, 24, 36, 0.68);
+  --surface-hover: rgba(28, 34, 50, 0.82);
+  --glass-bg: linear-gradient(135deg, rgba(18, 22, 36, 0.7), rgba(11, 14, 25, 0.58));
+  --text-color: #f3f6ff;
+  --text-secondary: #a8b0c9;
+  --text-muted: #76809f;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #00f5d4;
+  --primary-color: #7c3aed;
+  --accent-text-color: #021616;
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.42);
+  --shadow-xl: 0 24px 56px rgba(0, 0, 0, 0.55);
 }
 
-// ============================
-// TEMA ESCURO
-// ============================
-[data-theme="dark"] {
-  // Cores principais
-  --primary-color: rgb(96, 165, 250);
-  --primary-light: rgb(147, 197, 253);
-  --primary-dark: rgb(59, 130, 246);
-  
-  --accent-color: rgb(52, 211, 153);
-  --accent-light: rgb(110, 231, 183);
-  --accent-dark: rgb(16, 185, 129);
-  --accent-text-color: #1f2937;
-  
-  // Backgrounds
-  --bg-color: #0f1419;
-  --bg-secondary: #1a1f2e;
-  --surface-color: rgba(31, 41, 55, 0.8);
-  --surface-hover: #374151;
-  --glass-bg: rgba(0, 0, 0, 0.3);
-  
-  // Textos
-  --text-color: #f9fafb;
-  --text-secondary: #d1d5db;
-  --text-muted: #9ca3af;
-  
-  // Bordas e divisores
-  --border-color: #374151;
-  --border-light: #4b5563;
-  --divider-color: #374151;
-  
-  // Estados
-  --hover-color: rgba(96, 165, 250, 0.1);
-  --active-color: rgba(96, 165, 250, 0.2);
-  --focus-color: rgba(96, 165, 250, 0.3);
-  
-  // Sombras
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-  
-  // Inputs
-  --input-bg: #374151;
-  --input-border: #4b5563;
-  --input-focus: var(--accent-color);
-  
-  // Skeleton loading
-  --skeleton-base: #374151;
-  --skeleton-shine: #4b5563;
+[data-theme='light'] {
+  --bg-color: #f7f9ff;
+  --bg-secondary: #edf1ff;
+  --surface-color: rgba(255, 255, 255, 0.74);
+  --surface-hover: #ffffff;
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(246, 250, 255, 0.72));
+  --text-color: #121623;
+  --text-secondary: #435074;
+  --text-muted: #667399;
+  --border-color: rgba(18, 22, 35, 0.1);
+  --accent-color: #0c8f83;
+  --primary-color: #5b3fd3;
+  --accent-text-color: #f4fffd;
+  --shadow-md: 0 10px 26px rgba(46, 59, 104, 0.15);
+  --shadow-xl: 0 18px 48px rgba(46, 59, 104, 0.2);
 }
 
-// ============================
-// TEMA NEON
-// ============================
-[data-theme="neon"] {
-  // Cores principais
-  --primary-color: rgb(255, 0, 255);
-  --primary-light: rgb(255, 102, 255);
-  --primary-dark: rgb(204, 0, 204);
-  
-  --accent-color: rgb(0, 255, 255);
-  --accent-light: rgb(102, 255, 255);
-  --accent-dark: rgb(0, 204, 204);
-  --accent-text-color: #000000;
-  
-  // Backgrounds
-  --bg-color: #0a0a0a;
-  --bg-secondary: #1a0a1a;
-  --surface-color: rgba(20, 0, 20, 0.9);
-  --surface-hover: rgba(40, 0, 40, 0.8);
-  --glass-bg: rgba(255, 0, 255, 0.1);
-  
-  // Textos
-  --text-color: #ffffff;
-  --text-secondary: #ff00ff;
-  --text-muted: #cc00cc;
-  
-  // Bordas e divisores
-  --border-color: #ff00ff;
-  --border-light: #ff66ff;
-  --divider-color: #ff00ff;
-  
-  // Estados
-  --hover-color: rgba(255, 0, 255, 0.2);
-  --active-color: rgba(255, 0, 255, 0.3);
-  --focus-color: rgba(0, 255, 255, 0.3);
-  
-  // Sombras com glow neon
-  --shadow-sm: 0 0 5px rgba(255, 0, 255, 0.5);
-  --shadow-md: 0 0 10px rgba(255, 0, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.3);
-  --shadow-lg: 0 0 20px rgba(255, 0, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.4);
-  --shadow-xl: 0 0 30px rgba(255, 0, 255, 0.8), 0 0 60px rgba(0, 255, 255, 0.5);
-  
-  // Inputs
-  --input-bg: rgba(20, 0, 20, 0.8);
-  --input-border: #ff00ff;
-  --input-focus: #00ffff;
-  
-  // Skeleton loading
-  --skeleton-base: rgba(40, 0, 40, 0.6);
-  --skeleton-shine: rgba(255, 0, 255, 0.3);
+[data-theme='neon'] {
+  --bg-color: #090a11;
+  --bg-secondary: #111326;
+  --surface-color: rgba(15, 17, 34, 0.73);
+  --surface-hover: rgba(23, 28, 54, 0.9);
+  --glass-bg: linear-gradient(135deg, rgba(22, 12, 44, 0.67), rgba(5, 26, 38, 0.58));
+  --text-color: #f5f7ff;
+  --text-secondary: #b4b9ff;
+  --text-muted: #8b92da;
+  --border-color: rgba(124, 58, 237, 0.45);
+  --accent-color: #00f5d4;
+  --primary-color: #a855f7;
+  --accent-text-color: #051412;
+  --shadow-md: 0 16px 40px rgba(78, 15, 133, 0.32);
+  --shadow-xl: 0 24px 60px rgba(0, 255, 214, 0.21);
 }
 
-// ============================
-// TEMA FLORESTA
-// ============================
-[data-theme="forest"] {
-  // Cores principais
-  --primary-color: rgb(34, 197, 94);
-  --primary-light: rgb(74, 222, 128);
-  --primary-dark: rgb(21, 128, 61);
-  
-  --accent-color: rgb(168, 85, 247);
-  --accent-light: rgb(196, 181, 253);
-  --accent-dark: rgb(147, 51, 234);
-  --accent-text-color: white;
-  
-  // Backgrounds
-  --bg-color: #0f1a0f;
-  --bg-secondary: #1a2e1a;
-  --surface-color: rgba(6, 95, 70, 0.3);
-  --surface-hover: rgba(6, 95, 70, 0.5);
-  --glass-bg: rgba(34, 197, 94, 0.1);
-  
-  // Textos
-  --text-color: #ecfdf5;
-  --text-secondary: #86efac;
-  --text-muted: #4ade80;
-  
-  // Bordas e divisores
-  --border-color: #065f46;
-  --border-light: #047857;
-  --divider-color: #065f46;
-  
-  // Estados
-  --hover-color: rgba(34, 197, 94, 0.1);
-  --active-color: rgba(34, 197, 94, 0.2);
-  --focus-color: rgba(168, 85, 247, 0.2);
-  
-  // Sombras
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(34, 197, 94, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(34, 197, 94, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(34, 197, 94, 0.2);
-  
-  // Inputs
-  --input-bg: rgba(6, 95, 70, 0.4);
-  --input-border: #047857;
-  --input-focus: var(--accent-color);
-  
-  // Skeleton loading
-  --skeleton-base: rgba(6, 95, 70, 0.4);
-  --skeleton-shine: rgba(34, 197, 94, 0.3);
+[data-theme='forest'] {
+  --bg-color: #0b1613;
+  --bg-secondary: #102721;
+  --surface-color: rgba(16, 42, 34, 0.75);
+  --surface-hover: rgba(20, 52, 42, 0.95);
+  --glass-bg: linear-gradient(135deg, rgba(13, 44, 35, 0.72), rgba(8, 26, 20, 0.56));
+  --text-color: #e7fff6;
+  --text-secondary: #a2d8c8;
+  --text-muted: #78b89f;
+  --border-color: rgba(113, 209, 167, 0.22);
+  --accent-color: #36e2b2;
+  --primary-color: #7c3aed;
+  --accent-text-color: #052019;
+  --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 22px 50px rgba(0, 0, 0, 0.5);
 }
 
-// ============================
-// TRANSIÇÕES GLOBAIS
-// ============================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 * {
-  margin: 0px;
-  padding: 0px;
-  transition: 
-    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  padding: 0;
 }
 
-// ============================
-// ESTILO BASE DA APLICAÇÃO
-// ============================
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
+  font-family: var(--font-body);
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  position: relative;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  background-image: radial-gradient(circle at 1px 1px, #fff 1px, transparent 0);
+  background-size: 3px 3px;
+}
 
-// ============================
-// SCROLLBAR PERSONALIZADA
-// ============================
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.glass-effect {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-md);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+}
+
+[data-reveal].is-visible {
+  animation: reveal-up 0.7s cubic-bezier(0.2, 0.64, 0.24, 1) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+}
+
+.magnetic-btn {
+  transition: transform 0.2s ease;
+  will-change: transform;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -301,129 +201,44 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
-  border-radius: 4px;
-  
-  &:hover {
-    background: var(--accent-dark);
-  }
+  background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+  border-radius: 10px;
 }
 
-// Firefox
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--accent-color) var(--bg-secondary);
 }
 
-// ============================
-// UTILITÁRIOS GLOBAIS
-// ============================
-.glass-effect {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
+/* Compatibility aliases for legacy components */
+:root,
+[data-theme] {
+  --background-primary: var(--bg-color);
+  --background-secondary: var(--bg-secondary);
+  --surface-primary: var(--surface-color);
+  --surface-secondary: var(--surface-hover);
+  --text-primary: var(--text-color);
+  --glass-background: var(--glass-bg);
+  --secondary-color: var(--primary-color);
+  --hover-color: rgba(var(--accent-rgb), 0.1);
 }
 
-.glow-effect {
-  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3);
-}
-
-.gradient-text {
-  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.6s ease-out;
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-// ============================
-// KEYFRAMES
-// ============================
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
-}
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  .cursor-follower,
+  [data-reveal] {
+    display: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@font-face {
-  font-family: 'Abril Fatface';
-  src: url('/assets/fonts/abrilFatFace/AbrilFatface-Regular.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'exo regular';
-  src: url('/assets/fonts/exo/Exo-Regular.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'exo black';
-  src: url('/assets/fonts/exo/Exo-Black.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'exo black italic';
-  src: url('/assets/fonts/exo/Exo-BlackItalic.otf') format('opentype');
-  font-weight: 900;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'exo italic';
-  src: url('/assets/fonts/exo/Exo-Italic.otf') format('opentype');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'exo bold italic';
-  src: url('/assets/fonts/exo/Exo-BoldItalic.otf') format('opentype');
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'exo bold';
-  src: url('/assets/fonts/exo/Exo-Bold.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
 }

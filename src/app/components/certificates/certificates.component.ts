@@ -17,8 +17,9 @@ interface CertificateFilter {
 interface CertificateStats {
   totalCertificates: number;
   totalHours: number;
-  avgHoursPerCert: number;
-  completedThisYear: number;
+  referenceYear: number;
+  completedInReferenceYear: number;
+  completedCertificates: number;
 }
 
 @Component({
@@ -85,16 +86,22 @@ export class CertificatesComponent implements OnInit {
   certificateStats = computed((): CertificateStats => {
     const certs = this.allCertificates();
     const currentYear = new Date().getFullYear();
-    
+
+    const completed = certs.filter((cert) => cert.data_conclusao !== 'Cursando');
+    const completedYears = completed
+      .map((cert) => this.getConclusionYear(cert.data_conclusao))
+      .filter((year): year is number => typeof year === 'number' && Number.isFinite(year));
+
+    const completedThisYear = completedYears.filter((year) => year === currentYear).length;
+    const mostRecentYear = completedYears.length ? Math.max(...completedYears) : currentYear;
+    const referenceYear = completedThisYear > 0 ? currentYear : mostRecentYear;
+
     return {
       totalCertificates: certs.length,
-      totalHours: certs.reduce((sum, cert) => sum + (cert.carga_horaria || 0), 0),
-      avgHoursPerCert: Math.round(certs.reduce((sum, cert) => sum + (cert.carga_horaria || 0), 0) / certs.length),
-      completedThisYear: certs.filter(cert => {
-        if (cert.data_conclusao === 'Cursando') return false;
-        const year = new Date(cert.data_conclusao.split('/').reverse().join('-')).getFullYear();
-        return year === currentYear;
-      }).length
+      totalHours: completed.reduce((sum, cert) => sum + (cert.carga_horaria || 0), 0),
+      referenceYear,
+      completedInReferenceYear: completedYears.filter((year) => year === referenceYear).length,
+      completedCertificates: completed.length
     };
   });
 
@@ -210,10 +217,16 @@ export class CertificatesComponent implements OnInit {
   }
 
   formatHours(hours: number): string {
-    if (hours >= 1000) {
-      return `${(hours / 1000).toFixed(1)}k horas`;
-    }
-    return `${hours}h`;
+    const safe = Number.isFinite(hours) ? hours : 0;
+    const formatted = new Intl.NumberFormat('pt-BR').format(safe);
+    return `${formatted}h`;
+  }
+
+  private getConclusionYear(dateString: string): number | null {
+    if (!dateString || dateString === 'Cursando') return null;
+    const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(dateString.trim());
+    if (!match) return null;
+    return Number(match[3]);
   }
 
   openCertificateDialog(certificate: CertificatesModel): void {

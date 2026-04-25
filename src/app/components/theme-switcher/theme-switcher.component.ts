@@ -15,11 +15,11 @@ import { ThemeService, Theme } from '../../service/theme.service';
           <i class="fas fa-chevron-down" [class.rotated]="dropdownOpen"></i>
         </div>
       </div>
-      
+
       @if (dropdownOpen) {
-        <div class="theme-dropdown" [@slideDown]>
+        <div class="theme-dropdown">
           @for (theme of themeService.getAvailableThemes(); track theme) {
-            <div 
+            <div
               class="theme-option"
               [class.active]="themeService.currentTheme() === theme"
               (click)="selectTheme(theme)">
@@ -35,23 +35,21 @@ import { ThemeService, Theme } from '../../service/theme.service';
     </div>
   `,
   styleUrls: ['./theme-switcher.component.scss'],
-  animations: [
-    // Você pode adicionar animações aqui se necessário
-  ]
+  animations: []
 })
 export class ThemeSwitcherComponent {
   themeService = inject(ThemeService);
   dropdownOpen = false;
-  
+
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
-  
+
   selectTheme(theme: Theme): void {
     this.themeService.setTheme(theme);
     this.dropdownOpen = false;
   }
-  
+
   getThemeLabel(theme: Theme): string {
     const labels: Record<Theme, string> = {
       light: 'Claro',
