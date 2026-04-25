@@ -1,9 +1,36 @@
-@media screen and (max-width: 480px){
-    .rotatingLogo__img{
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        width: 92px;
-        height: 92px;
-    }
+@media screen and (max-width: 768px) {
+  .rotatingLogo {
+    /* Anchor inside the hero visual column */
+    position: absolute;
+    left: 10%;
+    right: auto;
+    top: auto;
+
+    /* Raise it a bit more vs the bottom edge (short viewports were clipping it) */
+    bottom: 26%;
+    transform: translateY(-10px);
+    z-index: 4;
+
+    /* The old "deslocar" animation pushes the logo toward the center and overlaps hero CTAs */
+    animation: none;
+  }
+
+  .rotatingLogo__img {
+    width: 78px;
+    height: 78px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .rotatingLogo {
+    left: 8%;
+    bottom: 30%;
+    transform: translateY(-12px);
+  }
+
+  .rotatingLogo__img {
+    display: flex;
+    width: 72px;
+    height: 72px;
+  }
 }

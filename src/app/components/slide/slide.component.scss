@@ -200,7 +200,6 @@
   overflow: hidden;
   border: 1px solid var(--border-color);
   background: var(--surface-color);
-
 }
 
 .hero-image {
@@ -292,11 +291,32 @@
 @media (max-width: 768px) {
   .hero-section {
     min-height: calc(100vh - 3rem);
+    /* Allow the rotating logo to extend slightly below the hero without clipping */
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .hero-visual {
+    position: relative;
+  }
+
+  .rotating-logo-container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    justify-items: center;
+  }
+
+  .image-container {
+    /* Keeps stacking predictable for the floating logo on mobile */
+    isolation: isolate;
   }
 
   .hero-actions {
     width: 100%;
     display: grid;
+    position: relative;
+    z-index: 3;
   }
 
   .action-btn {

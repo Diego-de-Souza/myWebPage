@@ -48,6 +48,12 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
 
   private setupStaggerReveal(): void {
     const revealTargets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    // On mobile, browser chrome + taller sections make a negative bottom rootMargin too aggressive,
+    // which can prevent sections (ex: Skills) from ever crossing the intersection threshold.
+    const rootMargin = isMobile ? '0px 0px 0px 0px' : '0px 0px -10% 0px';
+    const threshold = isMobile ? 0.12 : 0.2;
+
     this.revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -55,7 +61,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
           this.revealObserver?.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold, rootMargin });
 
     revealTargets.forEach((element, index) => {
       element.style.setProperty('--reveal-delay', `${index * 150}ms`);

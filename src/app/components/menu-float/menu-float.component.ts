@@ -70,7 +70,7 @@ export class MenuFloatComponent implements OnInit, OnDestroy {
       label: 'Projetos',
       icon: 'fas fa-laptop-code',
       description: 'Trabalhos realizados',
-      sectionId: 'portfolio',
+      sectionId: 'modern-portfolio',
       color: '#f59e0b'
     },
     {
