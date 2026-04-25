@@ -5,14 +5,37 @@
       <!-- Date Section -->
       @if (showTime) {
         <div class="date-time-section">
-          <div class="date-display">
-            <i class="fas fa-calendar-alt"></i>
-            <span>{{ formattedDate() }}</span>
+          <div class="date-temp-row">
+            <div class="date-time">
+              <div class="date-display">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ formattedDate() }}</span>
+              </div>
+              <div class="time-display">
+                <i class="fas fa-clock"></i>
+                <span>{{ formattedTime() }}</span>
+              </div>
+            </div>
+
+            @if (showWeather && weatherData()) {
+              <div class="temp-inline" aria-label="Temperatura atual">
+                <div class="weather-icon">
+                  <i [class]="weatherIcon()"></i>
+                </div>
+                <div class="temp-reading" aria-hidden="true">
+                  <span class="temp-value">{{ weatherData()!.temperature }}°</span>
+                  <span class="temp-unit">C</span>
+                </div>
+              </div>
+            }
           </div>
-          <div class="time-display">
-            <i class="fas fa-clock"></i>
-            <span>{{ formattedTime() }}</span>
-          </div>
+
+          @if (showWeather && weatherData()) {
+            <div class="location-inline" aria-label="Localização">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ weatherData()!.location }}</span>
+            </div>
+          }
         </div>
       }
 
@@ -34,20 +57,7 @@
             </div>
           } @else if (weatherData()) {
             <div class="weather-info">
-              <div class="weather-main">
-                <div class="weather-icon">
-                  <i [class]="weatherIcon()"></i>
-                </div>
-                <div class="weather-temp">
-                  <span class="temp-value">{{ weatherData()!.temperature }}°</span>
-                  <span class="temp-unit">C</span>
-                </div>
-              </div>
               <div class="weather-details">
-                <div class="weather-location">
-                  <i class="fas fa-map-marker-alt"></i>
-                  <span>{{ weatherData()!.location }}</span>
-                </div>
                 <div class="weather-condition">{{ weatherData()!.condition }}</div>
                 <div class="weather-stats">
                   <div class="stat-item">
@@ -76,7 +86,7 @@
             <div class="date-separator"></div>
             <span class="date-part">{{ formattedDate().slice(3, 5) }}</span>
             <div class="date-separator"></div>
-            <span class="date-part">{{ formattedDate().slice(6, 10) }}</span>
+            <span class="date-part-year">{{ formattedDate().slice(6, 10) }}</span>
           </div>
           
           <!-- Time display -->
