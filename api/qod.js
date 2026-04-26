@@ -1,6 +1,6 @@
 // Vercel Serverless Function (same-origin) to avoid browser CORS.
 // Route: /api/qod
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     const upstream = await fetch('https://quotes.rest/qod', {
       headers: {

@@ -16,10 +16,62 @@ $diego-dev-theme: mat.define-theme((
   @include mat.all-component-themes($diego-dev-theme);
 }
 
-@import '../node_modules/bootstrap/scss/bootstrap';
-@import '@fortawesome/fontawesome-free/css/all.css';
+// Global vendor styles are loaded via angular.json "styles" to avoid duplicates.
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@500;700;800&display=swap');
+
+/* Bootstrap .form-floating fallback (Angular CSS optimizer skips some combined selectors). */
+.form-floating {
+  position: relative;
+}
+
+.form-floating > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  border: var(--bs-border-width, 1px) solid transparent;
+  transform-origin: 0 0;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.form-floating > .form-control,
+.form-floating > .form-control-plaintext,
+.form-floating > .form-select {
+  height: calc(3.5rem + calc(var(--bs-border-width, 1px) * 2));
+  min-height: calc(3.5rem + calc(var(--bs-border-width, 1px) * 2));
+  line-height: 1.25;
+}
+
+.form-floating > .form-control,
+.form-floating > .form-control-plaintext {
+  padding: 1rem 0.75rem;
+}
+
+.form-floating > .form-control:focus,
+.form-floating > .form-control:not(:placeholder-shown),
+.form-floating > .form-control-plaintext:focus,
+.form-floating > .form-control-plaintext:not(:placeholder-shown),
+.form-floating > .form-select:focus {
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-control-plaintext:focus ~ label,
+.form-floating > .form-control-plaintext:not(:placeholder-shown) ~ label,
+.form-floating > .form-select:focus ~ label {
+  opacity: 0.65;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
 
 :root {
   --font-display: 'Syne', sans-serif;
