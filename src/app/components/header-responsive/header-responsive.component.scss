@@ -1,7 +1,7 @@
 .headerResponsive {
   position: fixed;
   inset: 0 0 auto;
-  z-index: 12000;
+  z-index: 15500;
   background: rgba(10, 10, 15, 0.88);
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(12px);
@@ -18,6 +18,8 @@
 }
 
 .headerResponsive_principal {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,12 +44,17 @@
 }
 
 #nav-icon2 {
+  display: flex;
   width: 40px;
   height: 32px;
   border: none;
   background: transparent;
   cursor: pointer;
   position: relative;
+  z-index: 99999999;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 
   span {
     position: absolute;

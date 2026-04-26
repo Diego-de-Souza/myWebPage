@@ -28,3 +28,9 @@
       linear-gradient(140deg, rgba(255, 255, 255, 0.02), transparent 45%);
   }
 }
+
+@media (max-width: 1024px) {
+  .body_home {
+    margin-left: 0;
+  }
+}

@@ -1,11 +1,14 @@
 <header class="headerResponsive" [class.open]="isMenuOpen">
   <div class="headerResponsive_principal">
-    <button class="brand" type="button" (click)="openHome()" [attr.aria-label]="'nav.home' | translate">
+    <button class="brand" type="button" (click)="openHome(); $event.stopPropagation()" [attr.aria-label]="'nav.home' | translate">
       <img src="../../../assets/imgs/favicon/favicon-32x32.png" alt="Logo Diego Dev">
       <span>Diego.dev</span>
     </button>
 
-    <button id="nav-icon2" (click)="toggleMenu()" #navIcon type="button" [attr.aria-expanded]="isMenuOpen" [attr.aria-label]="'menuFloat.title' | translate">
+    <button id="nav-icon2" (click)="toggleMenu(); $event.stopPropagation()" #navIcon type="button" [attr.aria-expanded]="isMenuOpen" [attr.aria-label]="'menuFloat.title' | translate">
+      <span></span>
+      <span></span>
+      <span></span>
       <span></span>
       <span></span>
       <span></span>

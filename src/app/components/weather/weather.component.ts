@@ -1,5 +1,4 @@
 import { Component, Input, signal, computed, inject, OnInit, OnDestroy } from '@angular/core';
-import { formatDate } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subject, EMPTY } from 'rxjs';
@@ -65,12 +64,12 @@ export class WeatherComponent implements OnInit, OnDestroy {
   // Computed properties
   formattedDate = computed(() => {
     const date = this.currentDate();
-    return formatDate(date, 'dd/MM/yyyy', this.i18n.currentLang());
+    return this.formatDateFixed(date);
   });
 
   formattedTime = computed(() => {
     const date = this.currentDate();
-    return formatDate(date, 'HH:mm:ss', this.i18n.currentLang());
+    return this.formatTimeFixed(date);
   });
 
   currentTheme = computed(() => this.themeService.currentTheme());
@@ -123,6 +122,29 @@ export class WeatherComponent implements OnInit, OnDestroy {
     };
 
     return weatherCodes[code] || { icon: 'cloudy', description: 'weather.codes.unknown' };
+  }
+
+  private pad2(value: number): string {
+    return value.toString().padStart(2, '0');
+  }
+
+  /**
+   * Keep a stable dd/MM/yyyy output. Using Angular `formatDate` here would require
+   * registering locale data for every supported language (otherwise it throws).
+   */
+  private formatDateFixed(date: Date): string {
+    const dd = this.pad2(date.getDate());
+    const mm = this.pad2(date.getMonth() + 1);
+    const yyyy = date.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+  }
+
+  /** Keep a stable HH:mm:ss output. */
+  private formatTimeFixed(date: Date): string {
+    const hh = this.pad2(date.getHours());
+    const min = this.pad2(date.getMinutes());
+    const ss = this.pad2(date.getSeconds());
+    return `${hh}:${min}:${ss}`;
   }
 
   ngOnInit() {
