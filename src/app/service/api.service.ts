@@ -131,16 +131,24 @@ export class ApiService {
   }
 
   getRandomQuote(): Observable<QuoteResponse | null> {
-    return this.http.get<{ contents: { quotes: QuoteResponse[] } }>('https://quotes.rest/qod').pipe(
+    const fallbackQuotes: QuoteResponse[] = [
+      { text: 'A unica forma de fazer um excelente trabalho e amar o que voce faz.', author: 'Steve Jobs' },
+      { text: 'O futuro pertence aqueles que acreditam na beleza de seus sonhos.', author: 'Eleanor Roosevelt' },
+      { text: 'A melhor vinganca e o sucesso massivo.', author: 'Frank Sinatra' }
+    ];
+
+    // Em produção (Vercel), a rota /api/qod é same-origin e evita CORS.
+    // Em desenvolvimento (ng serve), evitamos um 404 chamando o fallback direto.
+    if (typeof window !== 'undefined') {
+      const host = window.location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1') {
+        return of(fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)]);
+      }
+    }
+
+    return this.http.get<{ contents?: { quotes?: QuoteResponse[] } }>('/api/qod').pipe(
       map((response) => response.contents?.quotes?.[0] || null),
-      catchError(() => {
-        const quotes: QuoteResponse[] = [
-          { text: 'A unica forma de fazer um excelente trabalho e amar o que voce faz.', author: 'Steve Jobs' },
-          { text: 'O futuro pertence aqueles que acreditam na beleza de seus sonhos.', author: 'Eleanor Roosevelt' },
-          { text: 'A melhor vinganca e o sucesso massivo.', author: 'Frank Sinatra' }
-        ];
-        return of(quotes[Math.floor(Math.random() * quotes.length)]);
-      })
+      catchError(() => of(fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)]))
     );
   }
 

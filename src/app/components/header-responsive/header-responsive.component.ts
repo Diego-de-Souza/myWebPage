@@ -34,6 +34,11 @@ export class HeaderResponsiveComponent {
     this.closeMenu();
   }
 
+  openServicos() {
+    this.router.navigate(['/servicos']);
+    this.closeMenu();
+  }
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     if (this.navIcon) {

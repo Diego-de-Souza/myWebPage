@@ -37,7 +37,16 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
       return;
     }
-    this.setupStaggerReveal();
+    
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const revealTargets = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+      revealTargets.forEach((element, index) => {
+        element.style.setProperty('--reveal-delay', `${index * 150}ms`);
+        element.classList.add('is-visible');
+      });
+    } else {
+      this.setupStaggerReveal();
+    }
     this.setupTiltCards();
     this.setupMagneticButtons();
   }

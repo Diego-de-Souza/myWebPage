@@ -239,6 +239,13 @@ a {
 
   .cursor-follower,
   [data-reveal] {
-    display: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Keep content visible even with reduced motion enabled */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
