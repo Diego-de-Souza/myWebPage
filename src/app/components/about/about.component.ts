@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, signal, computed } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
 import { about } from '../../data/about-dados';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface AboutItem {
   id: number;
@@ -13,7 +14,7 @@ interface AboutItem {
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, IntersectionObserverDirective],
+  imports: [CommonModule, IntersectionObserverDirective, TranslateModule],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })

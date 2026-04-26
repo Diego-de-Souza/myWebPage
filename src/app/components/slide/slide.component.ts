@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { RotatingLogoComponent } from '../rotating-logo/rotating-logo.component';
 import { ThemeService } from '../../service/theme.service';
 import { DownloadService } from '../../service/download.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface HeroAction {
-  label: string;
+  labelKey: string;
   icon: string;
   action: () => void;
   primary: boolean;
@@ -15,7 +16,7 @@ interface HeroAction {
 @Component({
   selector: 'app-slide',
   standalone: true,
-  imports: [CommonModule, RotatingLogoComponent],
+  imports: [CommonModule, RotatingLogoComponent, TranslateModule],
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.scss']
 })
@@ -23,6 +24,7 @@ export class SlideComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private themeService = inject(ThemeService);
   private downloadService = inject(DownloadService);
+  private translateService = inject(TranslateService);
   private destroyed = false;
   private readonly chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/=+_';
   currentTextIndex = signal(0);
@@ -31,28 +33,28 @@ export class SlideComponent implements OnInit, OnDestroy {
   displayName = signal('Diego - Dev');
 
   heroTexts: string[] = [
-    'Desenvolvedor Fullstack',
-    'Especialista em Node.js e Angular',
-    'Engenheiro da Computação',
-    'Arquiteto de Sistemas e Solucoes',
-    'Profissional AWS Cloud Certified'
+    'slide.profission',
+    'slide.specialist',
+    'slide.formation',
+    'slide.title',
+    'slide.description'
   ];
 
   heroActions: HeroAction[] = [
     {
-      label: 'Ver Projetos',
+      labelKey: 'slide.actions.viewProjects',
       icon: 'fas fa-rocket',
       action: () => this.scrollToSection('modern-portfolio'),
       primary: true
     },
     {
-      label: 'Contato',
+      labelKey: 'slide.actions.contact',
       icon: 'fas fa-envelope',
       action: () => this.router.navigate(['/contato']),
       primary: false
     },
     {
-      label: 'Download CV',
+      labelKey: 'slide.actions.downloadCv',
       icon: 'fas fa-download',
       action: () => this.downloadCV(),
       primary: false
@@ -63,10 +65,9 @@ export class SlideComponent implements OnInit, OnDestroy {
 
   personalInfo = {
     name: 'Diego de Souza',
-    title: 'Desenvolvedor Full Stack',
-    location: 'Sao Paulo, Brasil',
-    experience: '4+ anos',
-    description: 'Apaixonado por tecnologia e inovacao, criando solucoes digitais de alto impacto.',
+    location: 'slide.personalInfo.location',
+    experience: 'slide.personalInfo.experience',
+    description: 'slide.personalInfo.description',
     skills: ['Angular', 'TypeScript', 'Node.js', 'AWS', 'NestJS', 'Python', 'SQL']
   };
 
@@ -87,7 +88,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     if (this.destroyed) {
       return;
     }
-    const text = this.heroTexts[this.currentTextIndex()];
+    const text = this.translateService.instant(this.heroTexts[this.currentTextIndex()]);
     this.isTyping.set(true);
     this.displayText.set('');
 

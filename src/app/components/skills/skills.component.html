@@ -2,10 +2,10 @@
   <div class="skills-header">
     <h2 class="section-title">
       <i class="fas fa-code"></i>
-      Minhas Habilidades
+      {{ 'skills.title' | translate }}
     </h2>
     <p class="section-subtitle">
-      Tecnologias e ferramentas que domino para criar soluções inovadoras
+      {{ 'skills.subtitle' | translate }}
     </p>
   </div>
 
@@ -16,7 +16,7 @@
       [class.active]="selectedCategory() === 'all'"
       (click)="selectCategory('all')">
       <i class="fas fa-layer-group"></i>
-      Todas
+      {{ 'skills.filters.all' | translate }}
     </button>
     @for (category of skillCategories(); track category.tipo) {
       <button 
@@ -24,7 +24,7 @@
         [class.active]="selectedCategory() === category.tipo"
         (click)="selectCategory(category.tipo)">
         <i [class]="category.icon"></i>
-        {{ category.titulo }}
+        {{ category.titulo | translate }}
       </button>
     }
   </div>
@@ -42,7 +42,7 @@
         <div class="skills-category" [class.visible]="isVisible()">
           <h3 class="category-title">
             <i [class]="category.icon"></i>
-            {{ category.titulo }}
+            {{ category.titulo | translate }}
           </h3>
           <div class="skills-grid">
             @for (skill of category.itens; track skill.id) {
@@ -61,7 +61,7 @@
                         [style.background]="skill.color">
                       </div>
                     </div>
-                    <span class="level-text">{{ getSkillLevelText(skill.level) }}</span>
+                    <span class="level-text">{{ getSkillLevelText(skill.level) | translate }}</span>
                   </div>
                   @if (skill.details) {
                     <p class="skill-details">{{ skill.details }}</p>
@@ -87,7 +87,7 @@
       </div>
       <div class="stat-content">
         <span class="stat-number">{{ languageSkills().length }}+</span>
-        <span class="stat-label">Linguagens</span>
+        <span class="stat-label">{{ 'skills.stats.languages' | translate }}</span>
       </div>
     </div>
     <div class="stat-item">
@@ -96,7 +96,7 @@
       </div>
       <div class="stat-content">
         <span class="stat-number">{{ frameworkSkills().length }}+</span>
-        <span class="stat-label">Ferramentas</span>
+        <span class="stat-label">{{ 'skills.stats.tools' | translate }}</span>
       </div>
     </div>
     <div class="stat-item">
@@ -105,7 +105,7 @@
       </div>
       <div class="stat-content">
         <span class="stat-number">{{ specializationSkills().length }}+</span>
-        <span class="stat-label">Especializações</span>
+        <span class="stat-label">{{ 'skills.stats.specializations' | translate }}</span>
       </div>
     </div>
     <div class="stat-item">
@@ -114,7 +114,7 @@
       </div>
       <div class="stat-content">
         <span class="stat-number">{{ allSkills().length }}+</span>
-        <span class="stat-label">Total</span>
+        <span class="stat-label">{{ 'skills.stats.total' | translate }}</span>
       </div>
     </div>
   </div>

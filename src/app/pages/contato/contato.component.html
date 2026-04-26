@@ -1,26 +1,26 @@
-<section>
-    <app-header class="header-dekstop"></app-header>
-    <app-header-responsive class="header-reponsive"></app-header-responsive>
+<section class="container-contato-page">
     <section class="container-contato">
         <section class="row container-contato__texto">
             <aside class="col-sm-9 container-contato__texto__escrita">
-                <p class="txt_1">Olá caro(a) colega,</p>
-                <p class="txt_1">Caso tenha alguma sugestão com relação ao site e aos meus projetos, peço que preencha o formulário, escolha a opção “sugestão” e, na área de texto, digite a sua sugestão. Prometo que irei ler e levar em consideração sua opinião e, caso tenha coerência com a proposta do site, terei o prazer de aderir.</p>
-                <p class="txt_1">Atualmente, trabalho em uma boa empresa que fornece soluções de PACS cloud como desenvolvedor web fullstack. No entanto, também tenho a liberdade de realizar trabalhos como freelancer. Portanto, caso tenha interesse em desenvolver ou fazer a manutenção de uma aplicação web, utilize a opção “orçamento” no formulário abaixo e, na área de texto, me dê uma breve explicação do que deseja. Com os dados fornecidos, entrarei em contato para mais informações, se necessário, e poderemos conversar por e-mail, WhatsApp ou realizar uma reunião.</p>
-                <p class="txt_1">Como mencionei, já tenho um trabalho em uma boa empresa, em uma função que tenho prazer em exercer. No entanto, acredito que o mundo é um universo de oportunidades, e aquilo que nos traz um conjunto de novas experiências é uma nova chance de crescimento. Então, não custa tentar; quem sabe eu tenha uma oportunidade de encaixe mais conexo em sua empresa. Para isso, use a opção “proposta” e, na área de texto, digite sua proposta.</p>
-                <p class="txt_1">Se gostou do site e dos projetos que desenvolvi até o momento, pode usar a opção “elogio” para deixar um singelo elogio. Agradeço muito, pois, apesar de ser totalmente prazeroso, o desenvolvimento ainda dá trabalho, já que é necessário estar sempre se atualizando e desenvolvendo novas habilidades.</p>
-                <p class="txt_1">Muitas vezes visualizamos algumas aplicações e achamos interessante uma parte delas. Eu mesmo já passei por isso em vários momentos. Acredito que esta área em que estamos necessita de mais união para que possamos sempre melhorar nossas habilidades e criar aplicações melhores a cada dia, proporcionando aos usuários a melhor experiência possível. Caso seja esse o caso, utilize a opção “curiosidade” e digite sua dúvida na área de texto. Terei o prazer de ajudar ou, caso não tenha a resposta de prontidão, iremos descobri-la juntos.</p>
-                <p class="txt_1">Para todos os casos acima e qualquer outro, podem preencher o formulário ou entrar em contato comigo pelas redes sociais nos ícones no menu lateral ou rodapé do site.</p>
+                <p class="txt_1">{{ 'contactPage.intro.p1' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p2' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p3' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p4' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p5' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p6' | translate }}</p>
+                <p class="txt_1">{{ 'contactPage.intro.p7' | translate }}</p>
             </aside>
             <aside class="col-sm-3 container-contato__texto__logo">
                 <img src="../../../assets/imgs/favicon/android-chrome-192x192.png" alt="">
             </aside>
         </section>
         <div class="row container-contato__formulario">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
+                <app-contact-form></app-contact-form>
             </div>
-            <app-contact-form class="col-sm-12"></app-contact-form>
         </div>
     </section>
+
+    <app-menu-float></app-menu-float>
     <app-footer></app-footer>
 </section>

@@ -1,11 +1,11 @@
 <header class="headerResponsive" [class.open]="isMenuOpen">
   <div class="headerResponsive_principal">
-    <button class="brand" type="button" (click)="openHome()" aria-label="Voltar para home">
+    <button class="brand" type="button" (click)="openHome()" [attr.aria-label]="'nav.home' | translate">
       <img src="../../../assets/imgs/favicon/favicon-32x32.png" alt="Logo Diego Dev">
       <span>Diego.dev</span>
     </button>
 
-    <button id="nav-icon2" (click)="toggleMenu()" #navIcon type="button" [attr.aria-expanded]="isMenuOpen" aria-label="Abrir menu">
+    <button id="nav-icon2" (click)="toggleMenu()" #navIcon type="button" [attr.aria-expanded]="isMenuOpen" [attr.aria-label]="'menuFloat.title' | translate">
       <span></span>
       <span></span>
       <span></span>
@@ -16,16 +16,19 @@
     <nav class="headerResponsive_secundario" aria-label="Menu mobile principal">
       <ul id="link-pages-responsive">
         <li class="link-pages__li">
-          <button class="menu-link magnetic-btn" (click)="openHome()"><i class="fas fa-house"></i> Home</button>
+          <button class="menu-link magnetic-btn" (click)="openHome()"><i class="fas fa-house"></i> {{ 'nav.home' | translate }}</button>
         </li>
         <li class="link-pages__li">
-          <button class="menu-link magnetic-btn" (click)="openConhecimento()"><i class="fas fa-brain"></i> Conhecimento</button>
+          <button class="menu-link magnetic-btn" (click)="openConhecimento()"><i class="fas fa-brain"></i> {{ 'nav.knowledge' | translate }}</button>
         </li>
         <li class="link-pages__li">
-          <button class="menu-link magnetic-btn" (click)="openContato()"><i class="fas fa-envelope"></i> Contato</button>
+          <button class="menu-link magnetic-btn" (click)="openContato()"><i class="fas fa-envelope"></i> {{ 'nav.contact' | translate }}</button>
         </li>
       </ul>
 
+      <div class="demiter"></div>
+
+      <app-language-switcher></app-language-switcher>
       <div class="demiter"></div>
 
       <ul id="link-user-responsive">

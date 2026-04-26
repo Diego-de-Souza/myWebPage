@@ -5,10 +5,10 @@
     <div class="section-header">
       <h2 class="section-title">
         <i class="fas fa-certificate"></i>
-        Certificações & Cursos
+        {{ 'certificates.title' | translate }}
       </h2>
       <p class="section-subtitle">
-        Uma coleção de certificações que demonstram meu comprometimento com o aprendizado contínuo
+        {{ 'certificates.subtitle' | translate }}
       </p>
     </div>
 
@@ -20,7 +20,7 @@
         </div>
         <div class="stat-content">
           <div class="stat-number">{{ certificateStats().totalCertificates }}</div>
-          <div class="stat-label">Certificados</div>
+          <div class="stat-label">{{ 'certificates.stats.certificates' | translate }}</div>
         </div>
       </div>
       
@@ -30,7 +30,7 @@
         </div>
         <div class="stat-content">
           <div class="stat-number">{{ formatHours(certificateStats().totalHours) }}</div>
-          <div class="stat-label">Total de Horas</div>
+          <div class="stat-label">{{ 'certificates.stats.totalHours' | translate }}</div>
         </div>
       </div>
       
@@ -40,7 +40,7 @@
         </div>
         <div class="stat-content">
           <div class="stat-number">{{ certificateStats().completedInReferenceYear }}</div>
-          <div class="stat-label">Em {{ certificateStats().referenceYear }}</div>
+          <div class="stat-label">{{ 'certificates.stats.inYear' | translate:{ year: certificateStats().referenceYear } }}</div>
         </div>
       </div>
       
@@ -50,7 +50,7 @@
         </div>
         <div class="stat-content">
           <div class="stat-number">{{ certificateStats().completedCertificates }}</div>
-          <div class="stat-label">Concluídos</div>
+          <div class="stat-label">{{ 'certificates.stats.completed' | translate }}</div>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
           <i class="fas fa-search"></i>
           <input 
             type="text" 
-            placeholder="Buscar certificações..."
+            [placeholder]="'certificates.search.placeholder' | translate"
             (input)="onSearchChange($event)"
             [value]="searchTerm()"
           />
@@ -78,7 +78,7 @@
             (click)="onFilterChange(filter.id)"
           >
             <i [class]="getCategoryIcon(filter.id === 'all' ? 'development' : filter.id)"></i>
-            <span>{{ filter.label }}</span>
+            <span>{{ filter.label | translate }}</span>
             <span class="filter-count">{{ filter.count }}</span>
           </button>
         }
@@ -109,7 +109,7 @@
             
             <div class="status-badge" [class]="getStatusClass(certificate.data_conclusao)">
               <i [class]="getStatusIcon(certificate.data_conclusao)"></i>
-              <span>{{ certificate.data_conclusao === 'Cursando' ? 'Em Andamento' : 'Concluído' }}</span>
+              <span>{{ certificate.data_conclusao === 'Cursando' ? ('certificates.status.ongoing' | translate) : ('certificates.status.completed' | translate) }}</span>
             </div>
           </div>
 
@@ -139,7 +139,7 @@
           <div class="card-footer">
             <button class="view-cert-btn" mat-button>
               <i class="fas fa-eye"></i>
-              Ver Certificado
+              {{ 'certificates.actions.view' | translate }}
             </button>
           </div>
 
@@ -159,7 +159,7 @@
           mat-button
         >
           <i class="fas fa-plus"></i>
-          Ver Todos ({{ filteredCertificates().length - displayedCertificates().length }} restantes)
+          {{ 'certificates.actions.viewAll' | translate:{ remaining: (filteredCertificates().length - displayedCertificates().length) } }}
         </button>
       </div>
     }
@@ -172,7 +172,7 @@
           mat-button
         >
           <i class="fas fa-minus"></i>
-          Mostrar Menos
+          {{ 'certificates.actions.showLess' | translate }}
         </button>
       </div>
     }
@@ -183,14 +183,14 @@
         <div class="empty-icon">
           <i class="fas fa-search"></i>
         </div>
-        <h3>Nenhum certificado encontrado</h3>
-        <p>Tente ajustar os filtros ou termo de pesquisa</p>
+        <h3>{{ 'certificates.empty.title' | translate }}</h3>
+        <p>{{ 'certificates.empty.subtitle' | translate }}</p>
         <button 
           class="reset-filters-btn"
           (click)="selectedFilter.set('all'); searchTerm.set('')"
           mat-button
         >
-          Limpar Filtros
+          {{ 'certificates.empty.reset' | translate }}
         </button>
       </div>
     }

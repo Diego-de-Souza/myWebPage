@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ThemeService } from './service/theme.service';
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderResponsiveComponent } from './components/header-responsive/header-responsive.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, HeaderResponsiveComponent],
+  imports: [RouterOutlet, CommonModule, HeaderComponent, HeaderResponsiveComponent, TranslateModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

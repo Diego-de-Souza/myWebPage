@@ -14,7 +14,7 @@
           </span>
         </div>
         <p class="brand-description">
-          {{ contactInfo.status }}
+          {{ contactInfo.statusKey | translate }}
         </p>
         <div class="contact-info">
           <div class="contact-item">
@@ -23,23 +23,23 @@
           </div>
           <div class="contact-item">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{ contactInfo.location }}</span>
+            <span>{{ contactInfo.locationKey | translate }}</span>
           </div>
         </div>
       </div>
 
       <!-- Navigation Sections -->
-      @for (section of footerSections; track section.title) {
+      @for (section of footerSections; track section.titleKey) {
         <div class="footer-section">
-          <h4 class="section-title">{{ section.title }}</h4>
+          <h4 class="section-title">{{ section.titleKey | translate }}</h4>
           <ul class="section-links">
-            @for (link of section.links; track link.label) {
+            @for (link of section.links; track link.labelKey) {
               <li>
                 <button 
                   class="footer-link"
                   (click)="link.action()"
                 >
-                  {{ link.label }}
+                  {{ link.labelKey | translate }}
                 </button>
               </li>
             }
@@ -49,15 +49,15 @@
 
       <!-- Quick Actions -->
       <div class="footer-section">
-        <h4 class="section-title">Ações Rápidas</h4>
+        <h4 class="section-title">{{ 'footer.sections.quick' | translate }}</h4>
         <div class="quick-actions">
-          @for (action of quickActions; track action.label) {
+          @for (action of quickActions; track action.labelKey) {
             <button 
               class="quick-action-btn"
               (click)="onQuickAction(action)"
             >
               <i [class]="action.icon"></i>
-              {{ action.label }}
+              {{ action.labelKey | translate }}
             </button>
           }
         </div>
@@ -72,13 +72,13 @@
 
     <!-- Social Links -->
     <div class="footer-social">
-      <h4 class="social-title">Conecte-se Comigo</h4>
+      <h4 class="social-title">{{ 'footer.social.title' | translate }}</h4>
       <div class="social-links">
         @for (social of socialLinks; track social.platform) {
           <button
             class="social-link"
             (click)="onSocialClick(social)"
-            [attr.aria-label]="social.label"
+            [attr.aria-label]="social.label | translate"
             [style.--social-color]="social.color"
           >
             <i [class]="social.icon"></i>
@@ -96,14 +96,14 @@
         <div class="copyright">
           <p>
             <i class="fas fa-code"></i>
-            Desenvolvido por Diego de Souza
+            {{ 'footer.credits.madeBy' | translate }}
           </p>
-          <p>&copy; {{ currentYear() }} - Todos os direitos reservados</p>
+          <p>&copy; {{ currentYear() }} - {{ 'footer.credits.rights' | translate }}</p>
         </div>
         
         <div class="theme-indicator">
-          <span class="theme-label">Tema atual:</span>
-          <span class="theme-name">{{ currentTheme() }}</span>
+          <span class="theme-label">{{ 'footer.credits.currentTheme' | translate }}</span>
+          <span class="theme-name">{{ ('theme.' + currentTheme()) | translate }}</span>
         </div>
       </div>
     </div>

@@ -4,10 +4,10 @@
     <p class="services-kicker">DevSolution</p>
     <h2 id="services-title" class="section-title">
       <i class="fas fa-briefcase"></i>
-      Nossas Soluções Digitais
+      {{ 'services.title' | translate }}
     </h2>
     <p class="section-subtitle">
-      Desenvolvimento web, cloud e evolução contínua para você crescer com performance e segurança.
+      {{ 'services.subtitle' | translate }}
     </p>
   </header>
 
@@ -17,16 +17,16 @@
         <div class="service-icon" aria-hidden="true">
           <i class="fas fa-laptop-code"></i>
         </div>
-        <span class="service-badge">Mais pedido</span>
+        <span class="service-badge">{{ 'services.badge.mostRequested' | translate }}</span>
       </div>
 
-      <h3 class="service-title">Desenvolvimento Web</h3>
+      <h3 class="service-title">{{ 'services.cards.web.title' | translate }}</h3>
       <p class="service-desc">
-        Landing pages, e-commerce, sites institucionais e plataformas personalizadas.
+        {{ 'services.cards.web.desc' | translate }}
       </p>
 
-      <a class="service-cta btn-primary magnetic-btn" href="/contato" aria-label="Solicitar orçamento para Desenvolvimento Web">
-        Solicitar orçamento
+      <a class="service-cta btn-primary magnetic-btn" href="/contato" [attr.aria-label]="'services.cards.web.ctaAria' | translate">
+        {{ 'services.cards.web.cta' | translate }}
         <i class="fas fa-arrow-right" aria-hidden="true"></i>
       </a>
     </article>
@@ -38,13 +38,13 @@
         </div>
       </div>
 
-      <h3 class="service-title">Serviços em Nuvem</h3>
+      <h3 class="service-title">{{ 'services.cards.cloud.title' | translate }}</h3>
       <p class="service-desc">
-        Infraestrutura, deploy e hospedagem escalável com boas práticas e monitoramento.
+        {{ 'services.cards.cloud.desc' | translate }}
       </p>
 
-      <a class="service-cta btn-secondary magnetic-btn" href="/contato" aria-label="Saiba mais sobre Serviços em Nuvem">
-        Saiba mais
+      <a class="service-cta btn-secondary magnetic-btn" href="/contato" [attr.aria-label]="'services.cards.cloud.ctaAria' | translate">
+        {{ 'services.cards.cloud.cta' | translate }}
         <i class="fas fa-arrow-right" aria-hidden="true"></i>
       </a>
     </article>
@@ -56,13 +56,13 @@
         </div>
       </div>
 
-      <h3 class="service-title">Manutenção e Melhorias</h3>
+      <h3 class="service-title">{{ 'services.cards.maintenance.title' | translate }}</h3>
       <p class="service-desc">
-        Correções, atualizações, otimização de performance e SEO — evolução contínua sem dor de cabeça.
+        {{ 'services.cards.maintenance.desc' | translate }}
       </p>
 
-      <a class="service-cta btn-secondary magnetic-btn" href="/contato" aria-label="Saiba mais sobre Manutenção e Melhorias">
-        Saiba mais
+      <a class="service-cta btn-secondary magnetic-btn" href="/contato" [attr.aria-label]="'services.cards.maintenance.ctaAria' | translate">
+        {{ 'services.cards.maintenance.cta' | translate }}
         <i class="fas fa-arrow-right" aria-hidden="true"></i>
       </a>
     </article>
@@ -74,14 +74,14 @@
         <i class="fas fa-shield-alt"></i>
       </div>
       <div class="trust-content">
-        <p class="trust-title">Garantia de qualidade</p>
-        <p class="trust-text">Checklist de performance, responsividade e acessibilidade em cada entrega.</p>
+        <p class="trust-title">{{ 'services.trust.title' | translate }}</p>
+        <p class="trust-text">{{ 'services.trust.text' | translate }}</p>
       </div>
     </div>
 
     <blockquote class="quote-card glass-effect">
-      <p class="quote-text">“Rápido, organizado e com um cuidado absurdo no acabamento do front.”</p>
-      <cite class="quote-cite">— Cliente DevSolution</cite>
+      <p class="quote-text">{{ 'services.quote.text' | translate }}</p>
+      <cite class="quote-cite">{{ 'services.quote.cite' | translate }}</cite>
     </blockquote>
   </footer>
 </section>

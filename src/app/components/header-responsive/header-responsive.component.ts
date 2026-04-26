@@ -2,11 +2,13 @@ import { Component, ElementRef, Renderer2, ViewChild, HostListener } from '@angu
 import { Router } from '@angular/router';
 import { WeatherComponent } from '../weather/weather.component';
 import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-header-responsive',
   standalone: true,
-  imports: [WeatherComponent, ContactWhatsappComponent],
+  imports: [WeatherComponent, ContactWhatsappComponent, TranslateModule, LanguageSwitcherComponent],
   templateUrl: './header-responsive.component.html',
   styleUrl: './header-responsive.component.scss'
 })

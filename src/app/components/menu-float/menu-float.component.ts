@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../service/theme.service';
 import { Subject } from 'rxjs';
 import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface MenuItemConfig {
   id: string;
-  label: string;
+  labelKey: string;
   icon: string;
-  description: string;
+  descriptionKey: string;
   sectionId: string;
   color?: string;
 }
@@ -18,7 +19,7 @@ interface MenuItemConfig {
 @Component({
   selector: 'app-menu-float',
   standalone: true,
-  imports: [FontAwesomeModule, CommonModule, ContactWhatsappComponent],
+  imports: [FontAwesomeModule, CommonModule, ContactWhatsappComponent, TranslateModule],
   templateUrl: './menu-float.component.html',
   styleUrl: './menu-float.component.scss'
 })
@@ -43,41 +44,41 @@ export class MenuFloatComponent implements OnInit, OnDestroy {
   menuItems: MenuItemConfig[] = [
     {
       id: 'about',
-      label: 'Minha Jornada',
+      labelKey: 'menuFloat.items.about.label',
       icon: 'fas fa-user-circle',
-      description: 'Conhea minha história',
+      descriptionKey: 'menuFloat.items.about.description',
       sectionId: 'about',
       color: '#3b82f6'
     },
     {
       id: 'skills',
-      label: 'Habilidades',
+      labelKey: 'menuFloat.items.skills.label',
       icon: 'fas fa-code',
-      description: 'Tecnologias e competências',
+      descriptionKey: 'menuFloat.items.skills.description',
       sectionId: 'skill',
       color: '#10b981'
     },
     {
       id: 'education',
-      label: 'Formação',
+      labelKey: 'menuFloat.items.education.label',
       icon: 'fas fa-graduation-cap',
-      description: 'Educação e cursos',
+      descriptionKey: 'menuFloat.items.education.description',
       sectionId: 'education',
       color: '#8b5cf6'
     },
     {
       id: 'portfolio',
-      label: 'Projetos',
+      labelKey: 'menuFloat.items.portfolio.label',
       icon: 'fas fa-laptop-code',
-      description: 'Trabalhos realizados',
+      descriptionKey: 'menuFloat.items.portfolio.description',
       sectionId: 'modern-portfolio',
       color: '#f59e0b'
     },
     {
       id: 'certificates',
-      label: 'Certificados',
+      labelKey: 'menuFloat.items.certificates.label',
       icon: 'fas fa-award',
-      description: 'Certificações obtidas',
+      descriptionKey: 'menuFloat.items.certificates.description',
       sectionId: 'certificate',
       color: '#ef4444'
     }
@@ -106,6 +107,7 @@ export class MenuFloatComponent implements OnInit, OnDestroy {
   scrollToSection(sectionId: string): void {
     this.viewportScroller.scrollToAnchor(sectionId);
     this.activeSection.set(sectionId);
+    this.isExpanded.set(false);
     
     // Add smooth scroll behavior
     const element = document.getElementById(sectionId);
@@ -143,6 +145,7 @@ export class MenuFloatComponent implements OnInit, OnDestroy {
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.isExpanded.set(false);
   }
 
   getMenuItemClass(item: MenuItemConfig): string {

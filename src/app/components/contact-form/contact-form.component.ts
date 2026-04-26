@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ThemeService } from '../../service/theme.service';
 import { EmailService, EmailData } from '../../service/email.service';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 interface ContactType {
   value: string;
@@ -30,7 +31,7 @@ interface ContactInfo {
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, IntersectionObserverDirective],
+  imports: [ReactiveFormsModule, CommonModule, IntersectionObserverDirective, TranslateModule],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
@@ -39,6 +40,7 @@ export class ContactFormComponent implements OnInit {
   private http = inject(HttpClient);
   private themeService = inject(ThemeService);
   emailService = inject(EmailService);
+  private translate = inject(TranslateService);
 
   // Signals
   contatoForm!: FormGroup;
@@ -55,39 +57,39 @@ export class ContactFormComponent implements OnInit {
   contactTypes: ContactType[] = [
     {
       value: 'elogio',
-      label: 'Elogio',
+      label: 'contact.types.praise.title',
       icon: 'fas fa-heart',
-      description: 'Compartilhe seu feedback positivo'
+      description: 'contact.types.praise.desc'
     },
     {
       value: 'proposta',
-      label: 'Proposta de Trabalho',
+      label: 'contact.types.jobProposal.title',
       icon: 'fas fa-briefcase',
-      description: 'Oportunidades profissionais'
+      description: 'contact.types.jobProposal.desc'
     },
     {
       value: 'orcamento',
-      label: 'Orçamento',
+      label: 'contact.types.quote.title',
       icon: 'fas fa-calculator',
-      description: 'Solicite um orçamento personalizado'
+      description: 'contact.types.quote.desc'
     },
     {
       value: 'curiosidade',
-      label: 'Curiosidade',
+      label: 'contact.types.question.title',
       icon: 'fas fa-question-circle',
-      description: 'Tire suas dúvidas técnicas'
+      description: 'contact.types.question.desc'
     },
     {
       value: 'sugestao',
-      label: 'Sugestão',
+      label: 'contact.types.suggestion.title',
       icon: 'fas fa-lightbulb',
-      description: 'Compartilhe suas ideias'
+      description: 'contact.types.suggestion.desc'
     },
     {
       value: 'colaboracao',
-      label: 'Colaboração',
+      label: 'contact.types.collaboration.title',
       icon: 'fas fa-handshake',
-      description: 'Vamos trabalhar juntos'
+      description: 'contact.types.collaboration.desc'
     }
   ];
 
@@ -96,27 +98,27 @@ export class ContactFormComponent implements OnInit {
     {
       type: 'email',
       icon: 'fas fa-envelope',
-      label: 'Email',
+      label: 'contact.info.email',
       value: 'diegodesouza.souza@gmail.com',
       link: 'mailto:diegodesouza.souza@gmail.com'
     },
     {
       type: 'phone',
       icon: 'fas fa-phone',
-      label: 'Telefone',
+      label: 'contact.info.phone',
       value: '+55 (11) 961969969',
       link: 'tel:+5511961969969'
     },
     {
       type: 'location',
       icon: 'fas fa-map-marker-alt',
-      label: 'Localização',
-      value: 'São Paulo, Brasil'
+      label: 'contact.info.location',
+      value: 'footer.contact.location'
     },
     {
       type: 'social',
       icon: 'fab fa-linkedin',
-      label: 'LinkedIn',
+      label: 'contact.info.linkedin',
       value: '/in/diegodesouza-devweb',
       link: 'https://www.linkedin.com/in/diegodesouza-devweb/'
     }
@@ -212,21 +214,29 @@ export class ContactFormComponent implements OnInit {
     const control = this.contatoForm.get(fieldName);
     if (!control || !control.errors || !control.touched) return '';
 
-    if (control.errors['required']) return `${this.getFieldLabel(fieldName)} é obrigatório`;
-    if (control.errors['email']) return 'Email inválido';
-    if (control.errors['minlength']) return `${this.getFieldLabel(fieldName)} muito curto`;
-    if (control.errors['pattern']) return 'Formato inválido';
+    if (control.errors['required']) {
+      return this.translate.instant('contact.validation.required', {
+        field: this.translate.instant(this.getFieldLabelKey(fieldName))
+      });
+    }
+    if (control.errors['email']) return this.translate.instant('contact.validation.email');
+    if (control.errors['minlength']) {
+      return this.translate.instant('contact.validation.minLength', {
+        field: this.translate.instant(this.getFieldLabelKey(fieldName))
+      });
+    }
+    if (control.errors['pattern']) return this.translate.instant('contact.validation.pattern');
 
-    return 'Erro de validação';
+    return this.translate.instant('contact.validation.generic');
   }
 
-  private getFieldLabel(fieldName: string): string {
+  private getFieldLabelKey(fieldName: string): string {
     const labels: Record<string, string> = {
-      nome: 'Nome',
-      email: 'Email',
-      telefone: 'Telefone',
-      tipo: 'Tipo de contato',
-      mensagem: 'Mensagem'
+      nome: 'contact.form.name.label',
+      email: 'contact.form.email.label',
+      telefone: 'contact.form.phone.label',
+      tipo: 'contact.form.type.label',
+      mensagem: 'contact.form.message.label'
     };
     return labels[fieldName] || fieldName;
   }
@@ -266,7 +276,7 @@ export class ContactFormComponent implements OnInit {
             this.submitSuccess.set(false);
           }, 8000);
         } else {
-          throw new Error('Falha no envio do email');
+          throw new Error(this.translate.instant('contact.errors.sendFailed'));
         }
       } else {
         // Fallback: usar mailto
@@ -284,7 +294,7 @@ export class ContactFormComponent implements OnInit {
     } catch (error: any) {
       console.error('Erro ao enviar mensagem:', error);
       this.submitError.set(
-        error.message || 'Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente.'
+        error.message || this.translate.instant('contact.errors.generic')
       );
     } finally {
       this.isSubmitting.set(false);

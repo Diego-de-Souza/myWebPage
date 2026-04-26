@@ -1,0 +1,510 @@
+{
+  "app": {
+    "loader": {
+      "initializing": "Portfolio wird initialisiert..."
+    }
+  },
+  "nav": {
+    "home": "Start",
+    "knowledge": "Wissen",
+    "services": "Services",
+    "contact": "Kontakt"
+  },
+  "social": {
+    "title": "Social"
+  },
+  "menuFloat": {
+    "title": "Navigation",
+    "backToTop": "Nach oben",
+    "toggleTheme": "Theme wechseln",
+    "items": {
+      "about": { "label": "Mein Weg", "description": "Lerne meine Geschichte kennen" },
+      "skills": { "label": "Skills", "description": "Technologien und Stärken" },
+      "education": { "label": "Ausbildung", "description": "Studium und Kurse" },
+      "portfolio": { "label": "Projekte", "description": "Arbeiten und Projekte" },
+      "certificates": { "label": "Zertifikate", "description": "Erworbene Zertifizierungen" }
+    }
+  },
+  "theme": {
+    "light": "Hell",
+    "dark": "Dunkel",
+    "neon": "Neon",
+    "forest": "Wald"
+  },
+  "language": {
+    "label": "Sprache",
+    "pt": "Portugiesisch",
+    "en": "Englisch",
+    "es": "Spanisch",
+    "de": "Deutsch"
+  },
+  "about": {
+    "title": "Über mich",
+    "subtitle": "Lerne meinen Weg, meine Erfahrungen und Leidenschaften kennen, die mich als Entwickler ausmachen",
+    "cards": {
+      "1": {
+        "title": "Mein Weg",
+        "textHtml": "<p>Ich studiere Computer Engineering an der FESA (Faculdade Engenheiro Salvador Arena – SBC) und bin Teil eines persönlichen Lernprojekts mit Fokus auf Qualität. In naher Zukunft möchte ich nicht nur ein exzellenter Profi sein, sondern auch Wissen praxisnah und leicht verständlich weitergeben—mit Anwendungen, die das Leben von Technologie-Nutzern erleichtern. Zur Ergänzung meiner Fähigkeiten besuche ich kontinuierlich Bootcamps, Online-Kurse und nehme an Tech-Events zu Programmiersprachen, Softwareentwicklung, Web- und Mobile-Development teil.</p><p>Ich habe Erfahrung als Webentwickler, erstelle responsive Layouts für verschiedene Plattformen, entwickle Anwendungen mit objektorientierten Sprachen, arbeite mit agilen Methoden und in Teams. Kurz gesagt: leidenschaftlich für Technologie, dynamisch, engagiert, mit starken sozialen Fähigkeiten und immer bestrebt, mein Wissen zu erweitern.</p>"
+      },
+      "2": {
+        "title": "Ein bisschen mehr über meinen Weg",
+        "textHtml": "<p>Als Kind habe ich es geliebt, elektronische Geräte auseinanderzunehmen und wieder zusammenzubauen—zum Beispiel die Stereoanlage meiner Mutter (am Ende blieben immer Teile übrig und ich war oft ein Wochenende „gegrounded“), Videospiele, Computer und vieles mehr. So entstand mein Interesse an Elektronik. Von 2002 bis 2004 absolvierte ich den CAI (Industrie-Lehrgang) im Bereich Elektrik. Später, von Januar 2012 bis Dezember 2013, folgte eine neue Etappe mit einer technischen Ausbildung in Industrie-Elektromechanik. Von August 2014 bis Juni 2017 schloss ich ein Studium als Technologe in Industrie-Mechatronik ab—dort kam ich intensiver mit Programmierung in Kontakt: Liebe beim ersten Code.</p><p>Obwohl ich die Programmierung bereits liebte, entschied ich mich zunächst, im industriellen Instandhaltungsbereich weiterzuarbeiten, der ebenfalls zu meinem Weg gehörte.</p><p>Doch 2020, während der Pandemie, fand ich die Gelegenheit, wieder zur Programmierung zurückzukehren und merkte, dass es genau das ist, was mein Herz will. Durch die Distanz nahm ich Online-Kurse zu Programmierlogik, Webentwicklung, Mobile-Development und Datenbanken. Im August 2022 begann ich das Studium Computer Engineering—und jeden Tag, zusammen mit Kursen und Bootcamps, bestätigt sich meine Leidenschaft fürs Programmieren.</p>"
+      },
+      "3": {
+        "title": "Meine Hobbys",
+        "textHtml": "<p>Vielleicht klingt es unglaubwürdig, aber in meiner Freizeit treibe ich gerne Sport wie Fußball (dieses Sonntags-Kickspiel), treffe Freunde und spiele mit meinen Kindern im Park (sie haben unendlich viel Energie).</p><p>Natürlich darf auch die Programmierzeit nicht fehlen—ich lerne ständig dazu und entwickle meine Skills weiter. In diesen Momenten verfliegt die Zeit.</p><p>Meine Partnerin sagt oft, dass ich selbst dann, wenn ich es behaupte, nicht lange ohne Programmieren auskomme (und natürlich werde ich nicht sagen, dass ich es will). Es ist dieser Antrieb, der einen 30 Minuten oder sogar eine Stunde früher aufstehen lässt, um noch etwas zu coden.</p><p>Zwischen Arbeit, Familie und Studium nutze ich jede freie Minute, um auch mal zu variieren—Manga lesen und spielen (früher auf der Konsole, heute meist am Handy).</p>"
+      }
+    }
+  }
+  ,
+  "services": {
+    "title": "Digitale Lösungen",
+    "subtitle": "Webentwicklung, Cloud und kontinuierliche Weiterentwicklung – für Wachstum mit Performance und Sicherheit.",
+    "badge": { "mostRequested": "Am häufigsten gefragt" },
+    "cards": {
+      "web": {
+        "title": "Webentwicklung",
+        "desc": "Landing Pages, E-Commerce, Unternehmensseiten und maßgeschneiderte Plattformen.",
+        "cta": "Angebot anfordern",
+        "ctaAria": "Angebot für Webentwicklung anfordern"
+      },
+      "cloud": {
+        "title": "Cloud-Services",
+        "desc": "Infrastruktur, Deployments und skalierbares Hosting mit Best Practices und Monitoring.",
+        "cta": "Mehr erfahren",
+        "ctaAria": "Mehr über Cloud-Services erfahren"
+      },
+      "maintenance": {
+        "title": "Wartung & Verbesserungen",
+        "desc": "Fixes, Updates, Performance-Optimierung und SEO — kontinuierliche Weiterentwicklung ohne Stress.",
+        "cta": "Mehr erfahren",
+        "ctaAria": "Mehr über Wartung und Verbesserungen erfahren"
+      }
+    },
+    "trust": {
+      "title": "Qualitätsgarantie",
+      "text": "Checkliste für Performance, Responsiveness und Barrierefreiheit bei jeder Lieferung."
+    },
+    "quote": {
+      "text": "„Schnell, organisiert und mit einem unglaublichen Auge fürs Frontend-Finish.“",
+      "cite": "— DevSolution Kunde"
+    }
+  }
+  ,
+  "whatsapp": {
+    "title": "Kontakt über WhatsApp",
+    "fields": {
+      "name": "Name",
+      "phone": "Telefon",
+      "company": "Firma"
+    },
+    "send": "Über WhatsApp senden",
+    "message": "Hallo! Ich heiße {{name}}, meine Telefonnummer ist {{phone}} und ich bin von der Firma {{company}}. Ich würde gerne mehr über Ihre Services erfahren."
+  }
+  ,
+  "footer": {
+    "contact": {
+      "status": "Verfügbar für neue Projekte",
+      "location": "São Paulo, Brasilien"
+    },
+    "sections": {
+      "navigation": "Navigation",
+      "pages": "Seiten",
+      "quick": "Schnellaktionen"
+    },
+    "links": {
+      "start": "Start",
+      "about": "Über mich",
+      "skills": "Skills",
+      "projects": "Projekte"
+    },
+    "quick": {
+      "downloadCv": "CV herunterladen",
+      "contact": "Kontakt aufnehmen"
+    },
+    "social": {
+      "title": "Verbinde dich mit mir",
+      "githubAria": "GitHub - Projekte und Code",
+      "linkedinAria": "LinkedIn - Professionelles Profil",
+      "instagramAria": "Instagram - Dev-Inhalte",
+      "facebookAria": "Facebook - Verbinde dich mit mir"
+    },
+    "credits": {
+      "madeBy": "Erstellt von Diego de Souza",
+      "rights": "Alle Rechte vorbehalten",
+      "currentTheme": "Aktuelles Theme:"
+    }
+  }
+  ,
+  "certificates": {
+    "title": "Zertifikate & Kurse",
+    "subtitle": "Eine Sammlung von Zertifikaten, die mein Engagement für kontinuierliches Lernen zeigt",
+    "stats": {
+      "certificates": "Zertifikate",
+      "totalHours": "Gesamtstunden",
+      "inYear": "Im Jahr {{year}}",
+      "completed": "Abgeschlossen"
+    },
+    "search": {
+      "placeholder": "Zertifikate suchen..."
+    },
+    "filters": {
+      "all": "Alle",
+      "development": "Entwicklung",
+      "cloud": "Cloud & AWS",
+      "education": "Ausbildung",
+      "data": "Daten",
+      "mobile": "Mobile"
+    },
+    "status": {
+      "ongoing": "In Bearbeitung",
+      "completed": "Abgeschlossen"
+    },
+    "actions": {
+      "view": "Zertifikat ansehen",
+      "viewAll": "Alle anzeigen ({{remaining}} verbleibend)",
+      "showLess": "Weniger anzeigen"
+    },
+    "empty": {
+      "title": "Keine Zertifikate gefunden",
+      "subtitle": "Passe Filter oder Suchbegriff an",
+      "reset": "Filter zurücksetzen"
+    }
+  }
+  ,
+  "knowledge": {
+    "title": "Wissen",
+    "cards": {
+      "articles": {
+        "title": "Artikel",
+        "desc": "Technische Inhalte, Tipps und Tutorials."
+      },
+      "curiosities": {
+        "title": "Kuriositäten",
+        "desc": "Interessante Fakten und Neuigkeiten aus der Web-Welt."
+      }
+    },
+    "curiosities": {
+      "comingSoonTitle": "Demnächst",
+      "comingSoonDesc": "Inhalte befinden sich in Entwicklung. Bitte schauen Sie demnächst wieder vorbei."
+    }
+  }
+  ,
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Möchten Sie Ihr nächstes Projekt besprechen? Ich bin für neue Möglichkeiten verfügbar.",
+    "infoCard": {
+      "title": "Lassen Sie uns sprechen",
+      "desc": "Ob Sie ein Projekt besprechen, Fragen klären oder über Technologie sprechen möchten – ich stehe für neue Kontakte zur Verfügung."
+    },
+    "responseTime": "Antwort innerhalb von 48 Stunden",
+    "demoMode": {
+      "title": "Demo-Modus",
+      "desc": "Das Formular öffnet Ihr E-Mail-Programm. Für den automatischen Versand konfigurieren Sie bitte EmailJS."
+    },
+    "success": {
+      "title": "Nachricht gesendet",
+      "sentViaEmailjs": "Ihre Nachricht wurde erfolgreich an meine E-Mail-Adresse gesendet. Ich antworte innerhalb von 48 Stunden.",
+      "sentViaMailto": "Ihr E-Mail-Programm wurde mit einer vorausgefüllten Nachricht geöffnet. Um den automatischen Versand zu aktivieren, siehe EMAILJS_SETUP.md.",
+      "newMessage": "Neue Nachricht"
+    },
+    "form": {
+      "name": { "label": "Vollständiger Name", "placeholder": "Bitte geben Sie Ihren vollständigen Namen ein" },
+      "email": { "label": "E-Mail", "placeholder": "sie@beispiel.de" },
+      "phone": { "label": "Telefon", "placeholder": "+49 170 0000000" },
+      "type": { "label": "Kontaktart" },
+      "message": { "label": "Nachricht", "placeholder": "Bitte beschreiben Sie Ihr Projekt, Ihre Idee oder wie ich Ihnen helfen kann." }
+    },
+    "types": {
+      "praise": { "title": "Lob", "desc": "Teilen Sie Ihr positives Feedback" },
+      "jobProposal": { "title": "Jobangebot", "desc": "Berufliche Möglichkeiten" },
+      "quote": { "title": "Angebot", "desc": "Fordern Sie ein individuelles Angebot an" },
+      "question": { "title": "Frage", "desc": "Klärung technischer Fragen" },
+      "suggestion": { "title": "Vorschlag", "desc": "Teilen Sie Ihre Ideen" },
+      "collaboration": { "title": "Zusammenarbeit", "desc": "Lassen Sie uns zusammenarbeiten" }
+    },
+    "info": {
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "location": "Standort",
+      "linkedin": "LinkedIn"
+    },
+    "actions": {
+      "sending": "Wird gesendet…",
+      "send": "Nachricht senden"
+    },
+    "validation": {
+      "required": "{{field}} ist erforderlich",
+      "email": "Ungültige E-Mail-Adresse",
+      "minLength": "{{field}} ist zu kurz",
+      "pattern": "Ungültiges Format",
+      "generic": "Validierungsfehler"
+    },
+    "errors": {
+      "sendFailed": "E-Mail konnte nicht gesendet werden",
+      "generic": "Beim Senden der Nachricht ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt."
+    }
+  }
+  ,
+  "skills": {
+    "title": "Meine Skills",
+    "subtitle": "Technologien und Tools, die ich für robuste und effiziente Lösungen einsetze.",
+    "filters": {
+      "all": "Alle"
+    },
+    "categories": {
+      "languages": "Sprachen & Frameworks",
+      "tools": "Tools & Software",
+      "specializations": "Spezialisierungen"
+    },
+    "stats": {
+      "languages": "Sprachen",
+      "tools": "Tools",
+      "specializations": "Spezialisierungen",
+      "total": "Gesamt"
+    },
+    "level": {
+      "expert": "Experte",
+      "advanced": "Fortgeschritten",
+      "intermediate": "Mittelstufe",
+      "basic": "Grundkenntnisse",
+      "beginner": "Einsteiger"
+    }
+  }
+  ,
+  "articles": {
+    "title": "Artikel",
+    "search": { "placeholder": "Artikel suchen..." },
+    "placeholder": "Bitte wählen Sie einen Artikel in der Seitenleiste aus, um den Inhalt anzuzeigen."
+  },
+  "slide": {
+    "hello": "Hallo, ich bin",
+    "profission": "Fullstack Entwickler",
+    "specialist": "Spezialist in Node.js und Angular",
+    "formation": "Computer Engineering",
+    "title": "Computer Engineering",
+    "description": "Arbeiten und Projekte für meine Kunden.",
+    "subtitle": "Webentwicklung, Cloud und kontinuierliche Weiterentwicklung – für Wachstum mit Performance und Sicherheit.",
+    "experience": "Erfahrung",
+    "skills": "Skills",
+    "location": "Standort",
+    "personalInfo": {
+      "location": "Sao Paulo, Brasil",
+      "experience": "4+ Jahre",
+      "description": "Arbeiten und Projekte für meine Kunden."
+    },
+    "contact": "Kontakt",
+    "actions": {
+      "viewProjects": "Projekte ansehen",
+      "contact": "Kontakt",
+      "downloadCv": "CV herunterladen"
+    },
+    "quote": {
+      "text": "„Der einzige Weg, großartige Arbeit zu leisten, ist zu lieben, was Sie tun.“",
+      "author": "Steve Jobs"
+    },
+    "scrollHint": "Scrollen Sie, um zu entdecken"
+  }
+  ,
+  "education": {
+    "title": "Mein Bildungsweg",
+    "subtitle": "Ein Weg des kontinuierlichen Lernens und der beruflichen Weiterentwicklung",
+    "filters": {
+      "all": "Alle",
+      "degrees": "Abschlüsse",
+      "specializations": "Spezialisierungen"
+    },
+    "status": {
+      "ongoing": "In Bearbeitung",
+      "completed": "Abgeschlossen"
+    },
+    "skillsLabel": "Wichtige Skills:",
+    "type": {
+      "degree": "Akademischer Abschluss",
+      "specialization": "Spezialisierung"
+    },
+    "stats": {
+      "degrees": "Abschlüsse",
+      "specializations": "Spezialisierungen",
+      "years": "Studienjahre"
+    },
+    "items": {
+      "engComp": {
+        "title": "Computer Engineering",
+        "institution": "FESA - Faculdade Engenheiro Salvador Arena",
+        "period": "August 2022 - Heute",
+        "description": "Studium mit Fokus auf Entwurf, Entwicklung und Implementierung von Computergeräten; Automatisierung mit KI-basierten Systemen; Datenverarbeitungssysteme; sowie Automatisierung im Robotik-Bereich."
+      },
+      "mechatronics": {
+        "title": "Industrielle Mechatronik (Technologe)",
+        "institution": "FESA - Faculdade Engenheiro Salvador Arena",
+        "period": "August 2014 - Juni 2017",
+        "description": "Fokus auf Entwicklung, Implementierung und Wartung mechatronischer Produktionssysteme, mit Laboren für Robotik, Automatisierung, IoT, Mikrocontroller und CNC-Bearbeitung."
+      },
+      "electromechanics": {
+        "title": "Industrielle Elektromechanik (Techniker)",
+        "institution": "SENAI - Manuel Garcia Filho",
+        "period": "Januar 2012 - Dezember 2013",
+        "description": "Qualifikation für Montage und Wartung elektrischer/mechanischer Systeme, Maschinen und Anlagen; Wartungsplanung und Analyse technischer Zeichnungen."
+      },
+      "highSchool": {
+        "title": "Sekundarschule",
+        "institution": "E.E.P.G. Prof. Francisco Cristiano de Freitas",
+        "period": "Abgeschlossen - Dezember 2011",
+        "description": "Allgemeine Schulbildung nach staatlichem Curriculum."
+      },
+      "android": {
+        "title": "Android-App-Entwicklung",
+        "institution": "SENAI SP - Anchieta",
+        "period": "April 2022 - Juni 2022",
+        "description": "68 Stunden Android-Entwicklung mit Android Studio, Kotlin und XML."
+      },
+      "office": {
+        "title": "Informatik - Office-Paket",
+        "institution": "Compuway - Interaktiver Unterricht",
+        "period": "April 2022 - November 2022",
+        "description": "92 Stunden Grundlagen: Windows, Word, Excel, PowerPoint und Internet."
+      },
+      "electricalCommands": {
+        "title": "Schaltschrankbau & Reparatur",
+        "institution": "SENAI - Manuel Garcia Filho",
+        "period": "Juni 2006 - Dezember 2009",
+        "description": "180 Stunden Aufbau und Wartung industrieller elektrischer Steuerungen."
+      },
+      "electrician": {
+        "title": "Allgemeiner Elektriker",
+        "institution": "SENAI - Manuel Garcia Filho",
+        "period": "Januar 2009 - April 2009",
+        "description": "120 Stunden Installation und Wartung industrieller und privater Stromnetze."
+      }
+    }
+  }
+  ,
+  "portfolio": {
+    "title": "Mein Portfolio",
+    "filters": {
+      "front": "Front-End",
+      "back": "Back-End"
+    },
+    "projectName": "Projektname",
+    "languagesUsed": "Verwendete Technologien",
+    "actions": {
+      "githubRepo": "GitHub-Repository",
+      "viewLive": "Projekt ansehen"
+    }
+  }
+  ,
+  "modernPortfolio": {
+    "title": "GitHub-Portfolio",
+    "subtitle": "In Echtzeit aktualisiert – mit den neuesten öffentlichen Repositories",
+    "usernamePlaceholder": "GitHub-Benutzername",
+    "usernameAria": "GitHub-Benutzername",
+    "actions": {
+      "load": "Laden",
+      "viewProfile": "Profil ansehen",
+      "repository": "Repository",
+      "demo": "Demo"
+    },
+    "profile": {
+      "noBio": "Keine Bio vorhanden.",
+      "repos": "{{count}} Repos",
+      "followers": "{{count}} Follower",
+      "following": "{{count}} Folgt"
+    },
+    "repo": {
+      "noDescription": "Keine Beschreibung hinterlegt.",
+      "updated": "Aktualisiert: {{date}}"
+    },
+    "stats": {
+      "repos": "Repositories",
+      "stars": "Stars gesamt",
+      "forks": "Forks gesamt",
+      "languages": "Sprachen"
+    },
+    "empty": {
+      "title": "Keine Repositories gefunden",
+      "subtitle": "Bitte prüfen Sie den Benutzernamen oder das API-Anfragelimit."
+    }
+  }
+  ,
+  "weather": {
+    "loading": "Wird geladen…",
+    "wind": "{{speed}} km/h",
+    "actions": {
+      "refresh": "Wetter aktualisieren"
+    },
+    "aria": {
+      "currentTemp": "Aktuelle Temperatur",
+      "location": "Standort"
+    },
+    "errors": {
+      "load": "Wetterdaten konnten nicht geladen werden"
+    },
+    "location": {
+      "default": "São Paulo, SP"
+    },
+    "codes": {
+      "0": "Klarer Himmel",
+      "1": "Überwiegend klar",
+      "2": "Teilweise bewölkt",
+      "3": "Bedeckt",
+      "45": "Nebel",
+      "48": "Nebel mit Reif",
+      "51": "Leichter Nieselregen",
+      "53": "Mäßiger Nieselregen",
+      "55": "Starker Nieselregen",
+      "61": "Leichter Regen",
+      "63": "Mäßiger Regen",
+      "65": "Starker Regen",
+      "71": "Leichter Schnee",
+      "73": "Mäßiger Schnee",
+      "75": "Starker Schnee",
+      "80": "Leichte Regenschauer",
+      "81": "Mäßige Regenschauer",
+      "82": "Starke Regenschauer",
+      "95": "Gewitter",
+      "96": "Gewitter mit leichtem Hagel",
+      "99": "Gewitter mit starkem Hagel",
+      "unknown": "Unbekannte Wetterlage"
+    }
+  }
+  ,
+  "apiWidgets": {
+    "title": "Interaktive Widgets",
+    "weather": {
+      "title": "Aktuelles Wetter",
+      "noLocation": "Standort nicht verfügbar"
+    },
+    "activity": {
+      "title": "Aktivitätsvorschlag",
+      "participants": "{{count}} Person(en)"
+    },
+    "joke": {
+      "title": "Zufälliger Witz"
+    },
+    "quote": {
+      "title": "Inspirierendes Zitat"
+    },
+    "math": {
+      "title": "Mathe-Fakt",
+      "placeholder": "Zahl"
+    },
+    "dog": {
+      "title": "Süßer Hund",
+      "alt": "Bild eines Hundes"
+    }
+  }
+  ,
+  "contactPage": {
+    "intro": {
+      "p1": "Hallo, geschätzte Kollegin / geschätzter Kollege,",
+      "p2": "Falls Sie Vorschläge in Bezug auf die Website oder meine Projekte haben, bitte ich Sie, das Formular auszufüllen, die Option „Vorschlag“ zu wählen und Ihren Vorschlag im Textfeld zu schreiben. Ich verspreche, ich werde ihn lesen und Ihre Meinung berücksichtigen; und wenn er zur Zielsetzung der Website passt, werde ich ihn gern übernehmen.",
+      "p3": "Derzeit arbeite ich in einem guten Unternehmen, das Cloud‑PACS‑Lösungen anbietet, als Full‑Stack‑Webentwickler. Dennoch habe ich auch die Freiheit, als Freelancer zu arbeiten. Wenn Sie also Interesse daran haben, eine Webanwendung zu entwickeln oder zu warten, verwenden Sie bitte im Formular unten die Option „Budget“ und geben Sie im Textfeld eine kurze Beschreibung Ihres Vorhabens an. Mit den bereitgestellten Informationen melde ich mich bei Bedarf für weitere Details, und wir können per E‑Mail, WhatsApp oder in einem Meeting sprechen.",
+      "p4": "Wie erwähnt habe ich bereits eine Stelle in einem guten Unternehmen – in einer Rolle, die ich sehr gern ausübe. Trotzdem glaube ich, dass die Welt voller Möglichkeiten ist und neue Erfahrungen eine Chance für Wachstum sind. Daher lohnt es sich zu versuchen; vielleicht ergibt sich eine passendere Möglichkeit in Ihrem Unternehmen. Verwenden Sie dafür die Option „Vorschlag/Angebot“ und schreiben Sie Ihren Vorschlag in das Textfeld.",
+      "p5": "Wenn Ihnen die Website und die Projekte, die ich bisher entwickelt habe, gefallen haben, können Sie die Option „Lob“ nutzen, um ein kurzes Lob zu hinterlassen. Vielen Dank – auch wenn es viel Freude macht, ist Entwicklung dennoch Arbeit, da man sich ständig weiterbilden und neue Fähigkeiten aufbauen muss.",
+      "p6": "Oft sehen wir Anwendungen und finden einen Teil davon besonders interessant. Das habe ich selbst schon oft erlebt. Ich glaube, unser Bereich braucht mehr Zusammenhalt, damit wir unsere Fähigkeiten stetig verbessern und jeden Tag bessere Anwendungen erstellen können – für die bestmögliche Nutzererfahrung. Wenn das bei Ihnen der Fall ist, verwenden Sie die Option „Neugier/Frage“ und schreiben Sie Ihre Frage in das Textfeld. Ich helfe Ihnen gern – oder, falls ich keine sofortige Antwort habe, finden wir sie gemeinsam heraus.",
+      "p7": "Für alle oben genannten Fälle und jeden anderen Anlass können Sie das Formular ausfüllen oder mich über die Social‑Media‑Icons im Seitenmenü oder in der Fußzeile der Website kontaktieren."
+    }
+  }
+}
+

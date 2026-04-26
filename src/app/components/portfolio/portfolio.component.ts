@@ -3,11 +3,12 @@ import {portfolio} from '../../data/portfolio_dados';
 import { GitModel } from '../../model/git-model';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, TranslateModule],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.scss'
 })

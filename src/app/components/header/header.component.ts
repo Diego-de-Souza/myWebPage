@@ -4,10 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 import { WeatherComponent } from '../weather/weather.component';
 import { ThemeService } from '../../service/theme.service';
 import { ThemeSwitcherComponent } from '../theme-switcher/theme-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 interface NavigationItem {
   path: string;
-  label: string;
+  labelKey: string;
   icon: string;
   faIcon: string;
 }
@@ -24,7 +26,7 @@ interface SocialLink {
   standalone: true,
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  imports: [CommonModule, RouterModule, WeatherComponent, ThemeSwitcherComponent]
+  imports: [CommonModule, RouterModule, WeatherComponent, ThemeSwitcherComponent, LanguageSwitcherComponent, TranslateModule]
 })
 export class HeaderComponent {
   private router = inject(Router);
@@ -37,10 +39,10 @@ export class HeaderComponent {
 
   // Dados de navegação usando tipos modernos
   navigationItems: NavigationItem[] = [
-    { path: '/', label: 'Home', icon: 'home-icon.png', faIcon: 'fas fa-home' },
-    { path: '/conhecimento', label: 'Conhecimento', icon: 'questions-icon.png', faIcon: 'fas fa-brain' },
-    { path: '/servicos', label: 'Serviços', icon: 'services-icon.png', faIcon: 'fas fa-briefcase' },
-    { path: '/contato', label: 'Contato', icon: 'contact-us.png', faIcon: 'fas fa-envelope' }
+    { path: '/', labelKey: 'nav.home', icon: 'home-icon.png', faIcon: 'fas fa-home' },
+    { path: '/conhecimento', labelKey: 'nav.knowledge', icon: 'questions-icon.png', faIcon: 'fas fa-brain' },
+    { path: '/servicos', labelKey: 'nav.services', icon: 'services-icon.png', faIcon: 'fas fa-briefcase' },
+    { path: '/contato', labelKey: 'nav.contact', icon: 'contact-us.png', faIcon: 'fas fa-envelope' }
   ];
 
   socialLinks: SocialLink[] = [

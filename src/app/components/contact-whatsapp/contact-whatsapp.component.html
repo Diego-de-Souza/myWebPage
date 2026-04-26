@@ -11,15 +11,15 @@
 <div class="whatsapp-modal" *ngIf="showModal">
   <div class="modal-content">
     <button class="close-btn" (click)="closeModal()">&times;</button>
-    <h3>Contato via WhatsApp</h3>
+    <h3>{{ 'whatsapp.title' | translate }}</h3>
     <form (ngSubmit)="sendWhatsapp()">
-      <label>Nome</label>
+      <label>{{ 'whatsapp.fields.name' | translate }}</label>
       <input type="text" [(ngModel)]="nome" name="nome" required>
-      <label>Telefone</label>
+      <label>{{ 'whatsapp.fields.phone' | translate }}</label>
       <input type="text" [(ngModel)]="telefone" name="telefone" required>
-      <label>Empresa</label>
+      <label>{{ 'whatsapp.fields.company' | translate }}</label>
       <input type="text" [(ngModel)]="empresa" name="empresa" required>
-      <button type="submit" class="send-btn">Enviar pelo WhatsApp</button>
+      <button type="submit" class="send-btn">{{ 'whatsapp.send' | translate }}</button>
     </form>
   </div>
 </div>

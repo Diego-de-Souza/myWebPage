@@ -1,15 +1,15 @@
 <section class="conhecimento-cards-section">
-    <h2 class="main-title">Conhecimento</h2>
+    <h2 class="main-title">{{ 'knowledge.title' | translate }}</h2>
     <div class="cards-wrapper">
         <button class="card" (click)="navigateTo('artigos')">
             <span class="card-icon"><i class="fas fa-file-alt"></i></span>
-            <span class="card-title">Artigos</span>
-            <span class="card-desc">Conteúdos técnicos, dicas e tutoriais.</span>
+            <span class="card-title">{{ 'knowledge.cards.articles.title' | translate }}</span>
+            <span class="card-desc">{{ 'knowledge.cards.articles.desc' | translate }}</span>
         </button>
         <button class="card" (click)="navigateTo('curiosidades')">
             <span class="card-icon"><i class="fas fa-lightbulb"></i></span>
-            <span class="card-title">Curiosidades</span>
-            <span class="card-desc">Fatos interessantes e novidades do mundo web.</span>
+            <span class="card-title">{{ 'knowledge.cards.curiosities.title' | translate }}</span>
+            <span class="card-desc">{{ 'knowledge.cards.curiosities.desc' | translate }}</span>
         </button>
         <!-- Adicione outros cards aqui conforme necessário -->
     </div>

@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { interval, Subject, EMPTY } from 'rxjs';
 import { takeUntil, switchMap, catchError, startWith } from 'rxjs/operators';
 import { ThemeService } from '../../service/theme.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { I18nService } from '../../service/i18n.service';
 
 
 interface WeatherData {
@@ -35,13 +37,15 @@ interface WeatherApiResponse {
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './weather.component.html',
   styleUrl: './weather.component.scss'
 })
 export class WeatherComponent implements OnInit, OnDestroy {
   private http = inject(HttpClient);
   private themeService = inject(ThemeService);
+  private i18n = inject(I18nService);
+  private translate = inject(TranslateService);
   private destroy$ = new Subject<void>();
 
   // Inputs
@@ -61,12 +65,12 @@ export class WeatherComponent implements OnInit, OnDestroy {
   // Computed properties
   formattedDate = computed(() => {
     const date = this.currentDate();
-    return formatDate(date, 'dd/MM/yyyy', 'en-US');
+    return formatDate(date, 'dd/MM/yyyy', this.i18n.currentLang());
   });
 
   formattedTime = computed(() => {
     const date = this.currentDate();
-    return formatDate(date, 'HH:mm:ss', 'en-US');
+    return formatDate(date, 'HH:mm:ss', this.i18n.currentLang());
   });
 
   currentTheme = computed(() => this.themeService.currentTheme());
@@ -95,30 +99,30 @@ export class WeatherComponent implements OnInit, OnDestroy {
   // Weather code mapping
   private getWeatherInfo(code: number): { icon: string; description: string } {
     const weatherCodes: { [key: number]: { icon: string; description: string } } = {
-      0: { icon: 'clear-day', description: 'Céu limpo' },
-      1: { icon: 'partly-cloudy-day', description: 'Principalmente limpo' },
-      2: { icon: 'partly-cloudy-day', description: 'Parcialmente nublado' },
-      3: { icon: 'cloudy', description: 'Nublado' },
-      45: { icon: 'fog', description: 'Neblina' },
-      48: { icon: 'fog', description: 'Neblina com geada' },
-      51: { icon: 'rain', description: 'Garoa leve' },
-      53: { icon: 'rain', description: 'Garoa moderada' },
-      55: { icon: 'rain', description: 'Garoa densa' },
-      61: { icon: 'rain', description: 'Chuva leve' },
-      63: { icon: 'rain', description: 'Chuva moderada' },
-      65: { icon: 'rain', description: 'Chuva forte' },
-      71: { icon: 'snow', description: 'Neve leve' },
-      73: { icon: 'snow', description: 'Neve moderada' },
-      75: { icon: 'snow', description: 'Neve forte' },
-      80: { icon: 'rain', description: 'Pancadas de chuva leves' },
-      81: { icon: 'rain', description: 'Pancadas de chuva moderadas' },
-      82: { icon: 'rain', description: 'Pancadas de chuva fortes' },
-      95: { icon: 'rain', description: 'Tempestade' },
-      96: { icon: 'rain', description: 'Tempestade com granizo leve' },
-      99: { icon: 'rain', description: 'Tempestade com granizo forte' }
+      0: { icon: 'clear-day', description: 'weather.codes.0' },
+      1: { icon: 'partly-cloudy-day', description: 'weather.codes.1' },
+      2: { icon: 'partly-cloudy-day', description: 'weather.codes.2' },
+      3: { icon: 'cloudy', description: 'weather.codes.3' },
+      45: { icon: 'fog', description: 'weather.codes.45' },
+      48: { icon: 'fog', description: 'weather.codes.48' },
+      51: { icon: 'rain', description: 'weather.codes.51' },
+      53: { icon: 'rain', description: 'weather.codes.53' },
+      55: { icon: 'rain', description: 'weather.codes.55' },
+      61: { icon: 'rain', description: 'weather.codes.61' },
+      63: { icon: 'rain', description: 'weather.codes.63' },
+      65: { icon: 'rain', description: 'weather.codes.65' },
+      71: { icon: 'snow', description: 'weather.codes.71' },
+      73: { icon: 'snow', description: 'weather.codes.73' },
+      75: { icon: 'snow', description: 'weather.codes.75' },
+      80: { icon: 'rain', description: 'weather.codes.80' },
+      81: { icon: 'rain', description: 'weather.codes.81' },
+      82: { icon: 'rain', description: 'weather.codes.82' },
+      95: { icon: 'rain', description: 'weather.codes.95' },
+      96: { icon: 'rain', description: 'weather.codes.96' },
+      99: { icon: 'rain', description: 'weather.codes.99' }
     };
 
-    return weatherCodes[code] || { icon: 'cloudy', description: 'Tempo indefinido' };
+    return weatherCodes[code] || { icon: 'cloudy', description: 'weather.codes.unknown' };
   }
 
   ngOnInit() {
@@ -162,7 +166,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
       .pipe(
         catchError(error => {
           console.error('Weather API Error:', error);
-          this.error.set('Erro ao carregar dados do tempo');
+          this.error.set(this.translate.instant('weather.errors.load'));
           this.isLoading.set(false);
           return EMPTY;
         }),
@@ -172,13 +176,13 @@ export class WeatherComponent implements OnInit, OnDestroy {
         const weatherInfo = this.getWeatherInfo(response.current.weather_code);
         
         const weatherData: WeatherData = {
-          location: 'São Paulo, SP',
+          location: 'weather.location.default',
           temperature: Math.round(response.current.temperature_2m),
-          condition: weatherInfo.description,
+          condition: this.translate.instant(weatherInfo.description),
           humidity: response.current.relative_humidity_2m,
           windSpeed: Math.round(response.current.wind_speed_10m),
           icon: weatherInfo.icon,
-          description: weatherInfo.description,
+          description: this.translate.instant(weatherInfo.description),
           feelsLike: Math.round(response.current.temperature_2m) // Simplified
         };
 

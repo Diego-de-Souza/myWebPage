@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ThemeService } from '../../service/theme.service';
 import { DownloadService } from '../../service/download.service';
 import { ContactWhatsappComponent } from '../contact-whatsapp/contact-whatsapp.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface SocialLink {
   platform: string;
@@ -14,14 +15,14 @@ interface SocialLink {
 }
 
 interface FooterSection {
-  title: string;
-  links: { label: string; action: () => void }[];
+  titleKey: string;
+  links: { labelKey: string; action: () => void }[];
 }
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, ContactWhatsappComponent],
+  imports: [CommonModule, ContactWhatsappComponent, TranslateModule],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })
@@ -42,28 +43,28 @@ export class FooterComponent {
       platform: 'GitHub',
       url: 'https://github.com/Diego-de-Souza',
       icon: 'fab fa-github',
-      label: 'GitHub - Projetos e código',
+      label: 'footer.social.githubAria',
       color: '#333'
     },
     {
       platform: 'LinkedIn',
       url: 'https://www.linkedin.com/in/diegodesouza-devweb/',
       icon: 'fab fa-linkedin',
-      label: 'LinkedIn - Perfil profissional',
+      label: 'footer.social.linkedinAria',
       color: '#0077b5'
     },
     {
       platform: 'Instagram',
       url: 'https://www.instagram.com/diegodesouza_dev/',
       icon: 'fab fa-instagram',
-      label: 'Instagram - Conteúdo sobre desenvolvimento',
+      label: 'footer.social.instagramAria',
       color: '#e4405f'
     },
     {
       platform: 'Facebook',
       url: 'https://www.facebook.com/diegodesouza102',
       icon: 'fab fa-facebook',
-      label: 'Facebook - Conecte-se comigo',
+      label: 'footer.social.facebookAria',
       color: '#1877f2'
     }
   ];
@@ -71,21 +72,21 @@ export class FooterComponent {
   // Footer Sections
   footerSections: FooterSection[] = [
     {
-      title: 'Navegação',
+      titleKey: 'footer.sections.navigation',
       links: [
-        { label: 'Início', action: () => this.scrollToTop() },
-        { label: 'Sobre', action: () => this.scrollToSection('about') },
-        { label: 'Habilidades', action: () => this.scrollToSection('skills') },
-        { label: 'Projetos', action: () => this.scrollToSection('modern-portfolio') }
+        { labelKey: 'footer.links.start', action: () => this.scrollToTop() },
+        { labelKey: 'footer.links.about', action: () => this.scrollToSection('about') },
+        { labelKey: 'footer.links.skills', action: () => this.scrollToSection('skills') },
+        { labelKey: 'footer.links.projects', action: () => this.scrollToSection('modern-portfolio') }
       ]
     },
     {
-      title: 'Páginas',
+      titleKey: 'footer.sections.pages',
       links: [
-        { label: 'Home', action: () => this.router.navigate(['/']) },
-        { label: 'Conhecimento', action: () => this.router.navigate(['/conhecimento']) },
-        { label: 'serviços', action: () => this.router.navigate(['/servicos']) },
-        { label: 'Contato', action: () => this.router.navigate(['/contato']) }
+        { labelKey: 'nav.home', action: () => this.router.navigate(['/']) },
+        { labelKey: 'nav.knowledge', action: () => this.router.navigate(['/conhecimento']) },
+        { labelKey: 'nav.services', action: () => this.router.navigate(['/servicos']) },
+        { labelKey: 'nav.contact', action: () => this.router.navigate(['/contato']) }
         
       ]
     }
@@ -94,19 +95,19 @@ export class FooterComponent {
   // Contact Info
   contactInfo = {
     email: 'diegodesouza.souza@gmail.com',
-    location: 'São Paulo, Brasil',
-    status: 'Disponível para novos projetos'
+    locationKey: 'footer.contact.location',
+    statusKey: 'footer.contact.status'
   };
 
   // Quick Actions
   quickActions = [
     {
-      label: 'Download CV',
+      labelKey: 'footer.quick.downloadCv',
       icon: 'fas fa-download',
       action: () => this.downloadCV()
     },
     {
-      label: 'Entre em Contato',
+      labelKey: 'footer.quick.contact',
       icon: 'fas fa-envelope',
       action: () => this.router.navigate(['/contato'])
     }

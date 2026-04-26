@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-conhecimento',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, TranslateModule],
   templateUrl: './conhecimento.component.html',
   styleUrl: './conhecimento.component.scss'
 })

@@ -1,10 +1,10 @@
 <section class="portfolio">
     <section class="portfolio__container">
-        <h2>Meu Portifolio</h2>
+        <h2>{{ 'portfolio.title' | translate }}</h2>
         <nav class="portfolio__container__menu">
             <ul>
-                <li class="portfolio__container__menu__li" (click)="openPortfolio('front')">FRONT</li>
-                <li class="portfolio__container__menu__li" (click)="openPortfolio('back')">BACK</li>
+                <li class="portfolio__container__menu__li" (click)="openPortfolio('front')">{{ 'portfolio.filters.front' | translate }}</li>
+                <li class="portfolio__container__menu__li" (click)="openPortfolio('back')">{{ 'portfolio.filters.back' | translate }}</li>
             </ul>
         </nav>
         <div class="portfolio__container__dados">
@@ -15,9 +15,9 @@
                             <img class="education__container__dados__img" src="{{dadoWeb.img}}" alt="">
                         </div>
                         <div class="intermed-back">
-                            <h3>nome do projeto: {{dadoWeb.name}}</h3>
+                            <h3>{{ 'portfolio.projectName' | translate }}: {{dadoWeb.name}}</h3>
                             <div class="education__container__dados__card__conteudo">
-                                <p>Linguagens usadas:</p>
+                                <p>{{ 'portfolio.languagesUsed' | translate }}:</p>
                                 <div class="education__container__dados__card__conteudo_lang">
                                     <div class="education__container__dados__card__conteudo_lang__cont" *ngFor="let ling of dadoWeb.languages; let j = index">
                                         <p class="education__container__dados__card__conteudo_lang__cont__p">{{ling}}</p>
@@ -29,13 +29,13 @@
                         <button class="education__container__dados__card__footer__btn">
                             <a href="{{dadoWeb.url_git}}"
                                 target="_blank">
-                                Repositório no GitHub
+                                {{ 'portfolio.actions.githubRepo' | translate }}
                             </a>
                         </button>
                         <button class="education__container__dados__card__footer__btn">
                             <a href="{{dadoWeb.url_web}}" 
                                 target="_blank">
-                                Click e veja
+                                {{ 'portfolio.actions.viewLive' | translate }}
                             </a>
                         </button>
                     </div>

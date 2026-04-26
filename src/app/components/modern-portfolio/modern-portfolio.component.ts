@@ -2,29 +2,31 @@ import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { I18nService } from '../../service/i18n.service';
 
 @Component({
   selector: 'app-modern-portfolio',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   template: `
     <section class="modern-portfolio">
       <header class="portfolio-header">
         <h2>
           <i class="fab fa-github"></i>
-          GitHub Portfolio
+          {{ 'modernPortfolio.title' | translate }}
         </h2>
-        <p class="subtitle">Atualizado em tempo real com os repositorios publicos mais recentes</p>
+        <p class="subtitle">{{ 'modernPortfolio.subtitle' | translate }}</p>
 
         <div class="github-config">
           <div class="input-group">
             <input
               type="text"
               [(ngModel)]="githubUsername"
-              placeholder="Usuario do GitHub"
+              [placeholder]="'modernPortfolio.usernamePlaceholder' | translate"
               (keyup.enter)="loadGitHubRepos()"
               class="github-input"
-              aria-label="Usuario do GitHub" />
+              [attr.aria-label]="'modernPortfolio.usernameAria' | translate" />
             <button
               (click)="loadGitHubRepos()"
               class="load-btn magnetic-btn"
@@ -34,7 +36,7 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
               } @else {
                 <i class="fas fa-sync-alt"></i>
               }
-              Carregar
+              {{ 'modernPortfolio.actions.load' | translate }}
             </button>
           </div>
         </div>
@@ -45,15 +47,15 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
           <img [src]="profile.avatar_url" [alt]="'Avatar de ' + profile.login" loading="lazy" />
           <div class="profile-info">
             <h3>{{ profile.name || profile.login }}</h3>
-            <p>{{ profile.bio || 'Sem bio publicada.' }}</p>
+            <p>{{ profile.bio || ('modernPortfolio.profile.noBio' | translate) }}</p>
             <div class="profile-meta">
-              <span>{{ profile.public_repos }} repos</span>
-              <span>{{ profile.followers }} seguidores</span>
-              <span>{{ profile.following }} seguindo</span>
+              <span>{{ 'modernPortfolio.profile.repos' | translate:{ count: profile.public_repos } }}</span>
+              <span>{{ 'modernPortfolio.profile.followers' | translate:{ count: profile.followers } }}</span>
+              <span>{{ 'modernPortfolio.profile.following' | translate:{ count: profile.following } }}</span>
             </div>
           </div>
           <a class="profile-link magnetic-btn" [href]="profile.html_url" target="_blank" rel="noopener noreferrer">
-            Ver perfil
+            {{ 'modernPortfolio.actions.viewProfile' | translate }}
           </a>
         </section>
       }
@@ -87,7 +89,7 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
                 </div>
               </header>
 
-              <p class="repo-description">{{ repo.description || 'Sem descricao cadastrada.' }}</p>
+              <p class="repo-description">{{ repo.description || ('modernPortfolio.repo.noDescription' | translate) }}</p>
 
               <div class="repo-tech">
                 @if (repo.language) {
@@ -101,18 +103,18 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
               </div>
 
               <div class="repo-dates">
-                <span><i class="fas fa-clock"></i> Atualizado: {{ formatDate(repo.updated_at) }}</span>
+                <span><i class="fas fa-clock"></i> {{ 'modernPortfolio.repo.updated' | translate:{ date: formatDate(repo.updated_at) } }}</span>
               </div>
 
               <div class="repo-actions">
                 <a [href]="repo.html_url" target="_blank" rel="noopener noreferrer" class="view-repo magnetic-btn">
                   <i class="fab fa-github"></i>
-                  Repositorio
+                  {{ 'modernPortfolio.actions.repository' | translate }}
                 </a>
                 @if (repo.homepage) {
                   <a [href]="repo.homepage" target="_blank" rel="noopener noreferrer" class="view-demo magnetic-btn">
                     <i class="fas fa-external-link-alt"></i>
-                    Demo
+                    {{ 'modernPortfolio.actions.demo' | translate }}
                   </a>
                 }
               </div>
@@ -124,29 +126,29 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
           <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-code"></i>
             <span class="stat-number">{{ repos().length }}</span>
-            <span class="stat-label">Repositorios</span>
+            <span class="stat-label">{{ 'modernPortfolio.stats.repos' | translate }}</span>
           </article>
           <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-star"></i>
             <span class="stat-number">{{ totalStars() }}</span>
-            <span class="stat-label">Stars totais</span>
+            <span class="stat-label">{{ 'modernPortfolio.stats.stars' | translate }}</span>
           </article>
           <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-code-branch"></i>
             <span class="stat-number">{{ totalForks() }}</span>
-            <span class="stat-label">Forks totais</span>
+            <span class="stat-label">{{ 'modernPortfolio.stats.forks' | translate }}</span>
           </article>
           <article class="stat-card glass-effect tilt-card">
             <i class="fas fa-laptop-code"></i>
             <span class="stat-number">{{ uniqueLanguages().length }}</span>
-            <span class="stat-label">Linguagens</span>
+            <span class="stat-label">{{ 'modernPortfolio.stats.languages' | translate }}</span>
           </article>
         </section>
       } @else {
         <div class="welcome-state glass-effect">
           <i class="fab fa-github-alt"></i>
-          <h3>{{ errorMessage() || 'Nenhum repositorio encontrado' }}</h3>
-          <p>Verifique o usuario informado ou limite de requisicoes da API.</p>
+          <h3>{{ errorMessage() || ('modernPortfolio.empty.title' | translate) }}</h3>
+          <p>{{ 'modernPortfolio.empty.subtitle' | translate }}</p>
         </div>
       }
     </section>
@@ -155,6 +157,7 @@ import { ApiService, GitHubRepo, GitHubUser } from '../../service/api.service';
 })
 export class ModernPortfolioComponent implements OnInit {
   private apiService = inject(ApiService);
+  private i18n = inject(I18nService);
   repos = signal<GitHubRepo[]>([]);
   user = signal<GitHubUser | null>(null);
   loading = signal(false);
@@ -218,7 +221,7 @@ export class ModernPortfolioComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
+    return new Date(dateString).toLocaleDateString(this.i18n.currentLang(), {
       day: '2-digit',
       month: 'short',
       year: 'numeric'

@@ -2,6 +2,7 @@ import { Component, OnInit, signal, computed, HostListener } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
 import { skills } from '../../data/skills_dados';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface SkillItem {
   id: number;
@@ -22,7 +23,7 @@ interface SkillCategory {
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [CommonModule, IntersectionObserverDirective],
+  imports: [CommonModule, IntersectionObserverDirective, TranslateModule],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
@@ -87,10 +88,10 @@ export class SkillsComponent implements OnInit {
   }
 
   getSkillLevelText(level: number): string {
-    if (level >= 90) return 'Expert';
-    if (level >= 75) return 'Avançado';
-    if (level >= 50) return 'Intermediário';
-    if (level >= 25) return 'Básico';
-    return 'Iniciante';
+    if (level >= 90) return 'skills.level.expert';
+    if (level >= 75) return 'skills.level.advanced';
+    if (level >= 50) return 'skills.level.intermediate';
+    if (level >= 25) return 'skills.level.basic';
+    return 'skills.level.beginner';
   }
 }

@@ -2,23 +2,24 @@ import { Component, signal, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, DogImage } from '../../service/api.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-api-widgets',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   template: `
     <div class="api-widgets">
       <h2 class="widgets-title">
         <i class="fas fa-satellite-dish"></i>
-        Widgets Interativos
+        {{ 'apiWidgets.title' | translate }}
       </h2>
       
       <div class="widgets-grid">
         <!-- Weather Widget -->
         <div class="widget weather-widget" [class.loading]="weatherLoading()">
           <div class="widget-header">
-            <h3><i class="fas fa-cloud-sun"></i> Clima Atual</h3>
+            <h3><i class="fas fa-cloud-sun"></i> {{ 'apiWidgets.weather.title' | translate }}</h3>
             <button (click)="loadWeather()" class="refresh-btn">
               <i class="fas fa-sync-alt" [class.spinning]="weatherLoading()"></i>
             </button>
@@ -40,7 +41,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
           } @else {
             <div class="no-data">
               <i class="fas fa-exclamation-triangle"></i>
-              <span>Localização não disponível</span>
+              <span>{{ 'apiWidgets.weather.noLocation' | translate }}</span>
             </div>
           }
         </div>
@@ -48,7 +49,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
         <!-- Activity Widget -->
         <div class="widget activity-widget">
           <div class="widget-header">
-            <h3><i class="fas fa-lightbulb"></i> Sugestão de Atividade</h3>
+            <h3><i class="fas fa-lightbulb"></i> {{ 'apiWidgets.activity.title' | translate }}</h3>
             <button (click)="loadRandomActivity()" class="refresh-btn">
               <i class="fas fa-dice" [class.spinning]="activityLoading()"></i>
             </button>
@@ -59,7 +60,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
               <p class="activity-text">{{ a.activity }}</p>
               <div class="activity-meta">
                 <span class="type">{{ a.type }}</span>
-                <span class="participants">{{ a.participants }} pessoa(s)</span>
+                <span class="participants">{{ 'apiWidgets.activity.participants' | translate:{ count: a.participants } }}</span>
               </div>
             </div>
           } @else if (activityLoading()) {
@@ -73,7 +74,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
         <!-- Random Joke Widget -->
         <div class="widget joke-widget">
           <div class="widget-header">
-            <h3><i class="fas fa-laugh"></i> Piada Aleatória</h3>
+            <h3><i class="fas fa-laugh"></i> {{ 'apiWidgets.joke.title' | translate }}</h3>
             <button (click)="loadRandomJoke()" class="refresh-btn">
               <i class="fas fa-smile" [class.spinning]="jokeLoading()"></i>
             </button>
@@ -94,7 +95,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
         <!-- Quote Widget -->
         <div class="widget quote-widget">
           <div class="widget-header">
-            <h3><i class="fas fa-quote-left"></i> Citação Inspiradora</h3>
+            <h3><i class="fas fa-quote-left"></i> {{ 'apiWidgets.quote.title' | translate }}</h3>
             <button (click)="loadRandomQuote()" class="refresh-btn">
               <i class="fas fa-lightbulb" [class.spinning]="quoteLoading()"></i>
             </button>
@@ -116,12 +117,12 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
         <!-- Math Fact Widget -->
         <div class="widget math-widget">
           <div class="widget-header">
-            <h3><i class="fas fa-calculator"></i> Fato Matemático</h3>
+            <h3><i class="fas fa-calculator"></i> {{ 'apiWidgets.math.title' | translate }}</h3>
             <div class="number-input">
               <input 
                 type="number" 
                 [(ngModel)]="selectedNumber" 
-                placeholder="Número"
+                [placeholder]="'apiWidgets.math.placeholder' | translate"
                 (keyup.enter)="loadMathFact()"
                 min="0" 
                 max="9999">
@@ -145,7 +146,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
         <!-- Dog Image Widget -->
         <div class="widget dog-widget">
           <div class="widget-header">
-            <h3><i class="fas fa-dog"></i> Cachorro Fofo</h3>
+            <h3><i class="fas fa-dog"></i> {{ 'apiWidgets.dog.title' | translate }}</h3>
             <button (click)="loadDogImage()" class="refresh-btn">
               <i class="fas fa-heart" [class.spinning]="dogImageLoading()"></i>
             </button>
@@ -153,7 +154,7 @@ import { ApiService, WeatherData, RandomActivity, JokeResponse, QuoteResponse, D
           
           @if (dogImage(); as dog) {
             <div class="dog-content">
-              <img [src]="dog.message" alt="Cachorro fofo" class="dog-img">
+              <img [src]="dog.message" [alt]="'apiWidgets.dog.alt' | translate" class="dog-img">
             </div>
           } @else if (dogImageLoading()) {
             <div class="loading-skeleton">

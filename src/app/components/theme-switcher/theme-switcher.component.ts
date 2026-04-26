@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeService, Theme } from '../../service/theme.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-theme-switcher',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   template: `
     <div class="theme-switcher">
       <div class="theme-toggle" (click)="toggleDropdown()">
         <div class="current-theme">
           <div class="theme-preview" [attr.data-theme]="themeService.currentTheme()"></div>
-          <span>{{ getThemeLabel(themeService.currentTheme()) }}</span>
+          <span>{{ getThemeLabelKey(themeService.currentTheme()) | translate }}</span>
           <i class="fas fa-chevron-down" [class.rotated]="dropdownOpen"></i>
         </div>
       </div>
@@ -24,7 +25,7 @@ import { ThemeService, Theme } from '../../service/theme.service';
               [class.active]="themeService.currentTheme() === theme"
               (click)="selectTheme(theme)">
               <div class="theme-preview" [attr.data-theme]="theme"></div>
-              <span>{{ getThemeLabel(theme) }}</span>
+              <span>{{ getThemeLabelKey(theme) | translate }}</span>
               @if (themeService.currentTheme() === theme) {
                 <i class="fas fa-check"></i>
               }
@@ -50,13 +51,13 @@ export class ThemeSwitcherComponent {
     this.dropdownOpen = false;
   }
 
-  getThemeLabel(theme: Theme): string {
+  getThemeLabelKey(theme: Theme): string {
     const labels: Record<Theme, string> = {
-      light: 'Claro',
-      dark: 'Escuro',
-      neon: 'Neon',
-      forest: 'Floresta'
+      light: 'theme.light',
+      dark: 'theme.dark',
+      neon: 'theme.neon',
+      forest: 'theme.forest'
     };
-    return labels[theme];
+    return labels[theme] ?? 'theme.light';
   }
 }

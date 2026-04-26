@@ -18,7 +18,7 @@
             </div>
 
             @if (showWeather && weatherData()) {
-              <div class="temp-inline" aria-label="Temperatura atual">
+              <div class="temp-inline" [attr.aria-label]="'weather.aria.currentTemp' | translate">
                 <div class="weather-icon">
                   <i [class]="weatherIcon()"></i>
                 </div>
@@ -31,9 +31,9 @@
           </div>
 
           @if (showWeather && weatherData()) {
-            <div class="location-inline" aria-label="Localização">
+            <div class="location-inline" [attr.aria-label]="'weather.aria.location' | translate">
               <i class="fas fa-map-marker-alt"></i>
-              <span>{{ weatherData()!.location }}</span>
+              <span>{{ weatherData()!.location | translate }}</span>
             </div>
           }
         </div>
@@ -45,7 +45,7 @@
           @if (isLoading()) {
             <div class="weather-loading">
               <i class="fas fa-spinner fa-spin"></i>
-              <span>Carregando...</span>
+              <span>{{ 'weather.loading' | translate }}</span>
             </div>
           } @else if (error()) {
             <div class="weather-error">
@@ -66,7 +66,7 @@
                   </div>
                   <div class="stat-item">
                     <i class="fas fa-wind"></i>
-                    <span>{{ weatherData()!.windSpeed }} km/h</span>
+                    <span>{{ 'weather.wind' | translate:{ speed: weatherData()!.windSpeed } }}</span>
                   </div>
                 </div>
               </div>
@@ -116,7 +116,7 @@
 
   <!-- Refresh Button -->
   @if (showWeather && !isLoading()) {
-    <button class="refresh-weather" (click)="refreshWeather()" title="Atualizar clima">
+    <button class="refresh-weather" (click)="refreshWeather()" [title]="'weather.actions.refresh' | translate">
       <i class="fas fa-sync-alt"></i>
     </button>
   }

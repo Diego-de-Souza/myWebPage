@@ -2,6 +2,7 @@ import { Component, computed, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
 import { ThemeService } from '../../service/theme.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface EducationItem {
   id: string;
@@ -19,7 +20,7 @@ interface EducationItem {
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule, IntersectionObserverDirective],
+  imports: [CommonModule, IntersectionObserverDirective, TranslateModule],
   templateUrl: './education.component.html',
   styleUrls: ['./education.component.scss']
 })
@@ -38,10 +39,10 @@ export class EducationComponent implements OnInit {
   educationData: EducationItem[] = [
     {
       id: 'eng-comp',
-      title: 'Engenharia da Computação',
-      institution: 'FESA - Faculdade Engenheiro Salvador Arena',
-      period: 'Agosto 2022 - Atual',
-      description: 'Curso voltado para projetar, desenvolver e implementar equipamentos e dispositivos computacionais, automatizar máquinas com sistemas baseados em IA, criar sistemas de processamento de dados e automatizar equipamentos no setor da robótica.',
+      title: 'education.items.engComp.title',
+      institution: 'education.items.engComp.institution',
+      period: 'education.items.engComp.period',
+      description: 'education.items.engComp.description',
       type: 'degree',
       status: 'current',
       level: 'higher',
@@ -49,10 +50,10 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'tec-mecatronica',
-      title: 'Tecnólogo em Mecatrônica Industrial',
-      institution: 'FESA - Faculdade Engenheiro Salvador Arena',
-      period: 'Agosto 2014 - Junho 2017',
-      description: 'Foco em gestão de desenvolvimento, implementação e manutenção de sistemas mecatrônicos de produção industrial, com laboratórios de robótica, automação, IoT, microcontroladores e usinagem CNC.',
+      title: 'education.items.mechatronics.title',
+      institution: 'education.items.mechatronics.institution',
+      period: 'education.items.mechatronics.period',
+      description: 'education.items.mechatronics.description',
       type: 'degree',
       status: 'completed',
       level: 'higher',
@@ -60,10 +61,10 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'tec-eletromecanica',
-      title: 'Técnico em Eletromecânica Industrial',  
-      institution: 'SENAI - Manuel Garcia Filho',
-      period: 'Janeiro 2012 - Dezembro 2013',
-      description: 'Habilitação para montagem e manutenção de sistemas, máquinas e equipamentos elétricos/mecânicos, planejamento de manutenção e análise de desenhos técnicos.',
+      title: 'education.items.electromechanics.title',
+      institution: 'education.items.electromechanics.institution',
+      period: 'education.items.electromechanics.period',
+      description: 'education.items.electromechanics.description',
       type: 'degree',
       status: 'completed',
       level: 'technical',
@@ -71,20 +72,20 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'ensino-medio',
-      title: 'Ensino Médio Regular',
-      institution: 'E.E.P.G. Prof. Francisco Cristiano de Freitas',
-      period: 'Concluído - Dezembro 2011',
-      description: 'Formação básica do ensino médio com currículo da rede estadual, contribuindo para a melhoria da qualidade das aprendizagens.',
+      title: 'education.items.highSchool.title',
+      institution: 'education.items.highSchool.institution',
+      period: 'education.items.highSchool.period',
+      description: 'education.items.highSchool.description',
       type: 'degree',
       status: 'completed',
       level: 'high-school'
     },
     {
       id: 'android-dev',
-      title: 'Desenvolvimento de APPS para Android',
-      institution: 'SENAI SP - Anchieta',
-      period: 'Abril 2022 - Junho 2022',
-      description: '68h de aprendizado em desenvolvimento Android com Android Studio, Kotlin e XML.',
+      title: 'education.items.android.title',
+      institution: 'education.items.android.institution',
+      period: 'education.items.android.period',
+      description: 'education.items.android.description',
       type: 'specialization',
       status: 'completed',
       level: 'specialization',
@@ -93,10 +94,10 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'office',
-      title: 'Informática - Pacote Office',
-      institution: 'Compuway - Ensino Interativo',
-      period: 'Abril 2022 - Novembro 2022',
-      description: '92h de aprendizado em informática básica, Windows, Word, Excel, PowerPoint e Internet.',
+      title: 'education.items.office.title',
+      institution: 'education.items.office.institution',
+      period: 'education.items.office.period',
+      description: 'education.items.office.description',
       type: 'specialization',
       status: 'completed',
       level: 'specialization',
@@ -105,10 +106,10 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'comandos-eletricos',
-      title: 'Montador e Reparador de Comandos Elétricos',
-      institution: 'SENAI - Manuel Garcia Filho',
-      period: 'Junho 2006 - Dezembro 2009',
-      description: '180h no desenvolvimento de criação e manutenção de comandos elétricos industriais.',
+      title: 'education.items.electricalCommands.title',
+      institution: 'education.items.electricalCommands.institution',
+      period: 'education.items.electricalCommands.period',
+      description: 'education.items.electricalCommands.description',
       type: 'specialization',
       status: 'completed',
       level: 'specialization',
@@ -117,10 +118,10 @@ export class EducationComponent implements OnInit {
     },
     {
       id: 'eletricista',
-      title: 'Eletricista Geral',
-      institution: 'SENAI - Manuel Garcia Filho',
-      period: 'Janeiro 2009 - Abril 2009',
-      description: '120h em instalação e manutenção de redes elétricas industriais e residenciais.',
+      title: 'education.items.electrician.title',
+      institution: 'education.items.electrician.institution',
+      period: 'education.items.electrician.period',
+      description: 'education.items.electrician.description',
       type: 'specialization',
       status: 'completed',
       level: 'specialization',
@@ -143,9 +144,9 @@ export class EducationComponent implements OnInit {
 
   // Categories for filtering
   categories: { id: 'all' | 'degrees' | 'specializations', label: string, count: () => number }[] = [
-    { id: 'all', label: 'Todos', count: () => this.educationData.length },
-    { id: 'degrees', label: 'Formação', count: () => this.degrees().length },
-    { id: 'specializations', label: 'Especializações', count: () => this.specializations().length }
+    { id: 'all', label: 'education.filters.all', count: () => this.educationData.length },
+    { id: 'degrees', label: 'education.filters.degrees', count: () => this.degrees().length },
+    { id: 'specializations', label: 'education.filters.specializations', count: () => this.specializations().length }
   ];
 
   ngOnInit(): void {

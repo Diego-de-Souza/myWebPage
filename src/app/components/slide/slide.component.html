@@ -3,7 +3,7 @@
     <div class="hero-content">
       <div class="hero-intro">
         <div class="greeting-text">
-          <span class="hello">Ola, eu sou</span>
+          <span class="hello">{{ 'slide.hello' | translate }}</span>
           <h1 class="name">
             <span class="bracket">&lt;</span>
             <span class="scramble">{{ displayName() }}</span>
@@ -21,16 +21,16 @@
         <div class="hero-info">
           <div class="info-item">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{ personalInfo.location }}</span>
+            <span>{{ personalInfo.location | translate }}</span>
           </div>
           <div class="info-item">
             <i class="fas fa-clock"></i>
-            <span>{{ personalInfo.experience }}</span>
+            <span>{{ personalInfo.experience | translate }}</span>
           </div>
         </div>
 
         <p class="hero-description">
-          {{ personalInfo.description }}
+          {{ personalInfo.description | translate }}
         </p>
 
         <div class="skills-preview">
@@ -40,12 +40,12 @@
         </div>
 
         <div class="hero-actions">
-          @for (action of heroActions; track action.label) {
+          @for (action of heroActions; track action.labelKey) {
             <button
               [class]="'action-btn magnetic-btn ' + (action.primary ? 'primary' : 'secondary')"
               (click)="onActionClick(action)">
               <i [class]="action.icon"></i>
-              {{ action.label }}
+              {{ action.labelKey | translate }}
             </button>
           }
         </div>
@@ -53,8 +53,8 @@
 
       <div class="hero-quote glass-effect tilt-card">
         <blockquote>
-          <p>"A unica maneira de fazer algo excelente e amar o que voce faz."</p>
-          <cite>Steve Jobs</cite>
+          <p>{{ 'slide.quote.text' | translate }}</p>
+          <cite>{{ 'slide.quote.author' | translate }}</cite>
         </blockquote>
       </div>
     </div>
@@ -80,6 +80,6 @@
     <div class="scroll-arrow">
       <i class="fas fa-chevron-down"></i>
     </div>
-    <span>Scroll para explorar</span>
+    <span>{{ 'slide.scrollHint' | translate }}</span>
   </div>
 </section>

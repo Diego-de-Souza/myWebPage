@@ -7,6 +7,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogTemplateComponent } from '../../templates/dialog.template/dialog.template.component';
 import { ThemeService } from '../../service/theme.service';
 import { IntersectionObserverDirective } from '../../directive/intersection-observer.directive';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { I18nService } from '../../service/i18n.service';
 
 interface CertificateFilter {
   id: string;
@@ -29,7 +31,8 @@ interface CertificateStats {
     CommonModule,
     MatButtonModule, 
     MatDialogModule,
-    IntersectionObserverDirective
+    IntersectionObserverDirective,
+    TranslateModule
   ],
   templateUrl: './certificates.component.html',
   styleUrls: ['./certificates.component.scss'],
@@ -38,6 +41,8 @@ interface CertificateStats {
 export class CertificatesComponent implements OnInit {
   private themeService = inject(ThemeService);
   private dialog = inject(MatDialog);
+  private translate = inject(TranslateService);
+  private i18n = inject(I18nService);
 
   // Signals
   selectedFilter = signal('all');
@@ -107,12 +112,12 @@ export class CertificatesComponent implements OnInit {
 
   // Filter options
   filterOptions: CertificateFilter[] = [
-    { id: 'all', label: 'Todos', count: 0 },
-    { id: 'development', label: 'Desenvolvimento', count: 0 },
-    { id: 'cloud', label: 'Cloud & AWS', count: 0 },
-    { id: 'education', label: 'Formação', count: 0 },
-    { id: 'data', label: 'Dados', count: 0 },
-    { id: 'mobile', label: 'Mobile', count: 0 }
+    { id: 'all', label: 'certificates.filters.all', count: 0 },
+    { id: 'development', label: 'certificates.filters.development', count: 0 },
+    { id: 'cloud', label: 'certificates.filters.cloud', count: 0 },
+    { id: 'education', label: 'certificates.filters.education', count: 0 },
+    { id: 'data', label: 'certificates.filters.data', count: 0 },
+    { id: 'mobile', label: 'certificates.filters.mobile', count: 0 }
   ];
 
   ngOnInit(): void {
@@ -202,12 +207,12 @@ export class CertificatesComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    if (dateString === 'Cursando') return 'Em Andamento';
+    if (dateString === 'Cursando') return this.translate.instant('certificates.status.ongoing');
     
     try {
       const [day, month, year] = dateString.split('/');
       const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-      return date.toLocaleDateString('pt-BR', { 
+      return date.toLocaleDateString(this.i18n.currentLang(), { 
         year: 'numeric', 
         month: 'short' 
       });
@@ -218,7 +223,7 @@ export class CertificatesComponent implements OnInit {
 
   formatHours(hours: number): string {
     const safe = Number.isFinite(hours) ? hours : 0;
-    const formatted = new Intl.NumberFormat('pt-BR').format(safe);
+    const formatted = new Intl.NumberFormat(this.i18n.currentLang()).format(safe);
     return `${formatted}h`;
   }
 

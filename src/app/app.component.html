@@ -2,7 +2,7 @@
   @if (isLoading()) {
     <div class="app-loader" [class.app-loader--fade]="loadingFadeOut()">
       <div class="app-loader__ring"></div>
-      <p class="app-loader__text">Inicializando portfólio...</p>
+      <p class="app-loader__text">{{ 'app.loader.initializing' | translate }}</p>
     </div>
   }
 

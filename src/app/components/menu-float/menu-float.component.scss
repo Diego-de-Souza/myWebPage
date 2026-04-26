@@ -12,7 +12,9 @@
     opacity: 1;
   }
 
-  > * {
+  // Only the UI controls should be clickable when collapsed.
+  // Otherwise this full-screen container can block page interactions (forms, footer, etc).
+  &.expanded {
     pointer-events: auto;
   }
 }
@@ -23,6 +25,7 @@
   top: 2rem;
   right: 2rem;
   z-index: 10;
+  pointer-events: auto;
 
   .progress-circle {
     position: relative;
@@ -77,6 +80,7 @@
   justify-content: center;
   z-index: 11;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  pointer-events: auto;
 
   &:hover {
     background: var(--accent-color);
@@ -386,6 +390,7 @@
   flex-direction: column;
   gap: 0.75rem;
   transition: all 0.3s ease;
+  pointer-events: auto;
 
   &.hidden {
     opacity: 0;

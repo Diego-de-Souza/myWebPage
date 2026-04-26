@@ -1,7 +1,7 @@
 export const skills = [
     {
         tipo: 'language',
-        titulo: 'Linguagens & Frameworks',
+        titulo: 'skills.categories.languages',
         icon: 'fas fa-code',
         itens: [
             {
@@ -78,7 +78,7 @@ export const skills = [
     },
     {
         tipo: 'software',
-        titulo: 'Ferramentas & Software',
+        titulo: 'skills.categories.tools',
         icon: 'fas fa-tools',
         itens: [
             {
@@ -141,7 +141,7 @@ export const skills = [
     },
     {
         tipo: 'specialization',
-        titulo: 'Especializações',
+        titulo: 'skills.categories.specializations',
         icon: 'fas fa-star',
         itens: [
             {

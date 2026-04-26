@@ -5,10 +5,10 @@
     <div class="section-header">
       <h2 class="section-title">
         <i class="fas fa-graduation-cap"></i>
-        Minha Jornada Educacional
+        {{ 'education.title' | translate }}
       </h2>
       <p class="section-subtitle">
-        Uma trajetória de aprendizado contínuo e evolução profissional
+        {{ 'education.subtitle' | translate }}
       </p>
     </div>
 
@@ -19,7 +19,7 @@
           [class]="'filter-btn ' + (selectedCategory() === category.id ? 'active' : '')"
           (click)="onCategoryChange(category.id)"
         >
-          {{ category.label }}
+          {{ category.label | translate }}
           <span class="count">{{ category.count() }}</span>
         </button>
       }
@@ -54,13 +54,13 @@
               <!-- Card Header -->
               <div class="card-header">
                 <div class="header-left">
-                  <h3 class="education-title">{{ item.title }}</h3>
-                  <h4 class="institution">{{ item.institution }}</h4>
+                  <h3 class="education-title">{{ item.title | translate }}</h3>
+                  <h4 class="institution">{{ item.institution | translate }}</h4>
                 </div>
                 <div class="header-right">
                   <div class="status-badge" [style.background-color]="getStatusColor(item.status)">
                     <i [class]="getStatusIcon(item.status)"></i>
-                    <span>{{ item.status === 'current' ? 'Em Andamento' : 'Concluído' }}</span>
+                    <span>{{ item.status === 'current' ? ('education.status.ongoing' | translate) : ('education.status.completed' | translate) }}</span>
                   </div>
                 </div>
               </div>
@@ -69,17 +69,17 @@
               <div class="card-body">
                 <div class="period">
                   <i class="fas fa-calendar-alt"></i>
-                  <span>{{ item.period }}</span>
+                  <span>{{ item.period | translate }}</span>
                   @if (item.duration) {
                     <span class="duration">• {{ item.duration }}</span>
                   }
                 </div>
                 
-                <p class="description">{{ item.description }}</p>
+                <p class="description">{{ item.description | translate }}</p>
 
                 @if (item.skills) {
                   <div class="skills-tags">
-                    <span class="skills-label">Principais habilidades:</span>
+                    <span class="skills-label">{{ 'education.skillsLabel' | translate }}</span>
                     @for (skill of item.skills; track skill) {
                       <span class="skill-tag">{{ skill }}</span>
                     }
@@ -91,7 +91,7 @@
               <div class="card-footer">
                 <div class="education-type">
                   <i [class]="item.type === 'degree' ? 'fas fa-university' : 'fas fa-certificate'"></i>
-                  <span>{{ item.type === 'degree' ? 'Formação Acadêmica' : 'Especialização' }}</span>
+                  <span>{{ item.type === 'degree' ? ('education.type.degree' | translate) : ('education.type.specialization' | translate) }}</span>
                 </div>
               </div>
 
@@ -106,17 +106,17 @@
     <div class="education-stats">
       <div class="stat-card">
         <div class="stat-number">{{ degrees().length }}</div>
-        <div class="stat-label">Formações</div>
+        <div class="stat-label">{{ 'education.stats.degrees' | translate }}</div>
         <i class="stat-icon fas fa-graduation-cap"></i>
       </div>
       <div class="stat-card">
         <div class="stat-number">{{ specializations().length }}</div>
-        <div class="stat-label">Especializações</div>
+        <div class="stat-label">{{ 'education.stats.specializations' | translate }}</div>
         <i class="stat-icon fas fa-certificate"></i>
       </div>
       <div class="stat-card">
         <div class="stat-number">{{ currentYear() - 2006 }}</div>
-        <div class="stat-label">Anos de Estudo</div>
+        <div class="stat-label">{{ 'education.stats.years' | translate }}</div>
         <i class="stat-icon fas fa-clock"></i>
       </div>
     </div>

@@ -36,7 +36,7 @@
     
     <menu class="navigation-menu">
       <div class="menu-header">
-        <h3>Navegação</h3>
+        <h3>{{ 'menuFloat.title' | translate }}</h3>
         <button class="close-menu" (click)="isExpanded.set(false)">
           <i class="fas fa-times"></i>
         </button>
@@ -55,8 +55,8 @@
               </div>
               
               <div class="menu-text">
-                <span class="menu-label">{{ item.label }}</span>
-                <span class="menu-description">{{ item.description }}</span>
+                <span class="menu-label">{{ item.labelKey | translate }}</span>
+                <span class="menu-description">{{ item.descriptionKey | translate }}</span>
               </div>
               
               <div class="menu-indicator">
@@ -75,11 +75,11 @@
 
       <!-- Quick Actions -->
       <div class="quick-actions">
-        <button class="action-btn scroll-top" (click)="scrollToTop()" title="Voltar ao topo">
+        <button class="action-btn scroll-top" (click)="scrollToTop()" [title]="'menuFloat.backToTop' | translate">
           <i class="fas fa-arrow-up"></i>
         </button>
         
-        <button class="action-btn theme-toggle" (click)="themeService.toggleTheme()" title="Alternar tema">
+        <button class="action-btn theme-toggle" (click)="themeService.toggleTheme()" [title]="'menuFloat.toggleTheme' | translate">
           @if (currentTheme() === 'light') {
             <i class="fas fa-moon"></i>
           } @else {
@@ -98,7 +98,7 @@
         [class.active]="activeSection() === item.sectionId"
         [style.--indicator-color]="item.color"
         (click)="scrollToSection(item.sectionId)"
-        [title]="item.label">
+        [title]="(item.labelKey | translate)">
         <i [class]="item.icon"></i>
       </div>
     }
